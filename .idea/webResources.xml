@@ -6,6 +6,8 @@
         <entryData>
           <resourceRoots>
             <path value="file://$PROJECT_DIR$/media" />
+            <path value="file://$PROJECT_DIR$/PlutoGame/staticfiles" />
+            <path value="file://$PROJECT_DIR$/PlutoGame/static" />
           </resourceRoots>
         </entryData>
       </entry>
