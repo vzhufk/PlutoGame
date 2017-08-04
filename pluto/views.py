@@ -198,7 +198,7 @@ def level(request, level_id=None):
     return render(request, 'level.html')
 
 
-@login_required(login_url='/login')
+#@login_required(login_url='/login')
 def play(request, level_id=None):
     context = {
         'count': {
