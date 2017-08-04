@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+{% block head %}
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width,initial-scale=1" name="viewport">
+    <title>
+        {% block title %}
+            {% if title %}
+                {{ title }}
+            {% else %}
+                Pluto
+            {% endif %}
+        {% endblock %}
+    </title>
+    {% include 'include/bootstrap.html' %}
+    {% include 'include/custom.html' %}
+    {% block extra_include %}
+        <!-- Some extra includes that is situational for each page -->
+    {% endblock %}
+    {% block engine %}
+    {% endblock %}
+</head>
+{%  endblock %}
+<body>
+    {% block navigation %}
+        <nav class="navbar navbar-default">
+        <div class="container-fluid" id="navfluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/"><span class="glyphicon glyphicon-adjust"></span> Pluto</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="/levels">Levels</a></li>
+                    <li><a href="/records">Records</a></li>
+                    <li><a href="/about">About</a></li>
+                </ul>
+        <ul class="nav navbar-nav navbar-right">
+            {% if request.user.is_authenticated %}
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown"
+                       role="button" aria-haspopup="true" aria-expanded="false">
+                        <span class="glyphicon glyphicon-user"></span>
+                        {{ request.user.username }}
+                        <span class="caret"></span>
+                    </a>
+                     <ul class="dropdown-menu">
+                       <li><a href="/profile/{{ request.user.id }}">Profile</a></li>
+                       <li><a href="/mates">Mates</a></li>
+                       <li><a href="/settings">Settings</a></li>
+                     </ul>
+                </li>
+                <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span></a></li>
+            {% else %}
+                <li><a href="/signup"><span class="glyphicon glyphicon-list-alt"></span></a></li>
+                <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span></a></li>
+            {% endif %}
+        </ul>
+
+            </div>
+        </div>
+        </nav>
+    {% endblock %}
+    {% block body %}
+        <div class="container">
+        {% block message %}
+            {% if messages %}
+                {% for i in messages %}
+                <div class="panel panel-{{ i.tags }}">
+                        <div class="panel-heading">{{ i.tags | title }}</div>
+                        <div class="panel-body">{{ i }}</div>
+                </div>
+                {% endfor %}
+            {% endif %}
+        {% endblock %}
+        {% block content %}
+            {% for i in content %}
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <h4><strong>{{ i.title }}</strong></h4>
+                        {{ i.value }}
+                    </div>
+                    <div class="panel-footer">
+                        {{ i.date }} | <a href="/profile/{{ i.by.id }}">{{ i.by.username }}</a>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endblock %}
+        </div>
+    {% endblock %}
+    {% block footer %}
+
+    {% endblock %}
+</body>
+<!-- REFACTOR -->
+<script>
+    navActivate('.nav')
+</script>
+</html>

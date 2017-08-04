@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% block content %}
+    <ul class="nav nav-tabs nav-justified">
+        <li>
+           <a href="#mates" onclick="customTabActivate('.nav', '#mates')" >
+               Mates <span class="badge">{{ mates  | length }}</span>
+           </a>
+        </li>
+        <li>
+            <a href="#mates_in" onclick="customTabActivate('.nav', '#mates_in')" >
+                Income <span class="badge">{{ income | length }}</span>
+            </a>
+        </li>
+        <li>
+            <a href="#mates_out" onclick="customTabActivate('.nav', '#mates_out')" >
+                Outcome <span class="badge">{{ outcome | length  }}</span>
+            </a>
+        </li>
+    </ul>
+        <ul class="list-group">
+            <li id="mates" class="list-group-item row disabled">Mates</li>
+            {% for i in mates %}
+                <li class="list-group-item row">
+                    <div class="col-lg-1">
+                        <a href="/profile/{{ i.id }}" class="thumbnail">
+                            <img src="/media/{{ i.image }}" alt="image">
+                        </a>
+                    </div>
+                    <div class="col-lg-10">
+                        <ul class="list-group">
+                            <li class="list-group-item">Username: {{ i.username }}</li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-1">
+                        <a href="/mate_it/{{ i.id }}">
+                            <button class="btn btn-danger right">Unmate</button>
+                        </a>
+                    </div>
+                </li>
+            {% endfor %}
+
+            <li id="mates_in" class="list-group-item row disabled" >Income</li>
+            {% for i in income %}
+                <li class="list-group-item row">
+                    <div class="col-lg-1">
+                        <a href="/profile/{{ i.id }}" class="thumbnail">
+                            <img src="/media/{{ i.image }}" alt="image">
+                        </a>
+                    </div>
+                    <div class="col-lg-10">
+                        <ul class="list-group">
+                            <li class="list-group-item">Username: {{ i.username }}</li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-1">
+                        <a href="/mate_it/{{ i.id }}">
+                            <button class="btn btn-success right ">Accept</button>
+                        </a>
+                    </div>
+                </li>
+            {% endfor %}
+
+                <li id="mates_out" class="list-group-item row disabled">Outcome</li>
+            {% for i in outcome %}
+                <li class="list-group-item row">
+                    <div class="col-lg-1">
+                        <a href="/profile/{{ i.id }}" class="thumbnail">
+                            <img src="/media/{{ i.image }}" alt="image">
+                        </a>
+                    </div>
+                    <div class="col-lg-10">
+                        <ul class="list-group">
+                            <li class="list-group-item">Username: {{ i.username }}</li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-1">
+                        <a href="/mate_it/{{ i.id }}">
+                            <button class="btn btn-warning">Cancel</button>
+                        </a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+{% endblock %}

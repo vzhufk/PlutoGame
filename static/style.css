@@ -1,0 +1,45 @@
+.input-group-addon {
+    min-width:150px;
+    text-align:right;
+}
+
+/* Override error ot danger */
+.panel-info{
+    border-color: #337ab7;
+}
+
+.panel-info>.panel-heading{
+    color: #337ab7;
+    background-color: #337ab7;
+    border-color: #337ab7;
+}
+
+.panel-success{
+    border-color: #3c763d;
+}
+
+.panel-success>.panel-heading {
+    color: #3c763d;
+    background-color: #3c763d;
+    border-color: #3c763d;
+}
+
+.panel-warning{
+    border-color: #8a6d3b;
+}
+
+.panel-warning>.panel-heading {
+    color: #8a6d3b;
+    background-color: #8a6d3b;
+    border-color: #8a6d3b;
+}
+
+.panel-error {
+    border-color: #a94442;
+}
+
+.panel-error>.panel-heading {
+    color: #fff;
+    background-color: #a94442;
+    border-color: #a94442;
+}

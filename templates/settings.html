@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+    <form method="POST">
+        {% csrf_token %}
+        {{ info_form }}
+        <button class="btn btn-primary btn-group-justified" name="info_btn">Update</button>
+    </form>
+        <hr>
+    <form method="POST" enctype="multipart/form-data">
+        <div class="col-lg-12">
+            <a class="thumbnail">
+                <img src="/media/{{ request.user.image }}">
+            </a>
+        </div>
+        {% csrf_token %}
+        {{ image_form }}
+        <button class="btn btn-primary btn-group-justified" name="image_btn">Upload</button>
+    </form>
+        <hr>
+    <form method="POST">
+        {% csrf_token %}
+        {{ password_form }}
+        <button class="btn btn-primary btn-group-justified" name="password_btn">Update</button>
+    </form>
+{% endblock %}

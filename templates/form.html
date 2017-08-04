@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% block form %}
+            {% if form %}
+                <form method="post">
+                {%  csrf_token %}
+                    {% for j in form %}
+                        <div class="input-group ">
+                            <span class="input-group-addon">{{ j.label }}</span>
+                            {{ j }}
+                        </div>
+                    {% endfor %}
+                <button type="submit" class="btn btn-primary btn-group-justified">Submit</button>
+                </form>
+            {% endif     %}
+        {% endblock %}
+{% endblock %}

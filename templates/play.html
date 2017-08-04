@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% include 'include/phaser.html' %}
+
+    {% load staticfiles %}
+</head>
+<body>
+    <script type="text/javascript">
+    var width = document.body.offsetWidth;
+    var height = document.body.offsetHeight;
+    var div = {
+        width: 50,
+        height: 50
+    };
+    if (height > width){
+        alert("For better experience - turn device!");
+    }
+
+    var game = new Phaser.Game(width, height, Phaser.AUTO, 'Pluto', {preload: preload, create: create, update: update});
+    var command;
+    var program;
+    var scene;
+
+    var commands = {};
+    var programs = [];
+    var tiles = [];
+    var hero = {};
+
+    var program_scroll;
+
+    var defaultFont = {font: "25px Arial", fill: "black", align: "center"};
+
+    function preload() {
+        game.load.image("forward", "{% static "asserts/forward.png" %}");
+        game.load.image("backward", "{% static "asserts/backward.png" %}");
+        game.load.image("left", "{% static "asserts/left.png" %}");
+        game.load.image("right", "{% static "asserts/right.png" %}");
+        game.load.image("lo", "{% static "asserts/lo.png" %}");
+        game.load.image("op", "{% static "asserts/op.png" %}");
+
+        game.load.image("pluto", "{% static "asserts/prop/pluto.png" %}");
+
+        game.load.image("tile_default", "{% static "asserts/tiles/default.png" %}");
+        game.load.image("tile_finish", "{% static "asserts/tiles/finish.png" %}");
+    }
+
+    function create() {
+        createProgramPanel();
+        createCommandPanel();
+        createScenePanel();
+    }
+
+    function createProgramPanel(){
+        //Program
+        program = game.add.group();
+        // Need to be tested
+        program.fixedToCamera = true;
+        program.inputEnableChildren = true;
+        program.x = 0;
+        program.y = 0;
+        program.w = width;
+        program.h = div.height * 1.5;
+        var program_holder = game.add.graphics(0, 0);
+        program_holder.beginFill(0xc1c1c1, 0.85);
+        program_holder.drawRect(0, 0, program.w, program.h);
+        program_holder.endFill();
+        program.addChild(program_holder);
+
+
+        var tmp_scroll = game.add.graphics(0, 0);
+        tmp_scroll.beginFill(0xc1c1c1, 1);
+        tmp_scroll.drawRect(0, 0, program.w/4, div.height/4);
+        tmp_scroll.endFill();
+        program_scroll = game.add.sprite(0, program.h - div.height/4);
+        program_scroll.inputEnabled = true;
+        program_scroll.input.enableDrag();
+        program_scroll.input.allowVerticalDrag = false;
+        program_scroll.events.onDragStart.add(programScrollOnDragStart, this);
+        program_scroll.events.onDragStop.add(programScrollOnDragStop, this);
+        program_scroll.addChild(tmp_scroll);
+    }
+
+    function createCommandPanel(){
+         //Commands
+        command = game.add.group();
+        // Need to be tested
+        //command.fixedToCamera = true;
+        command.inputEnableChildren = true;
+        command.x = (width - 9.5 * div.width)/2;
+        command.y = height - div.height * 1.5;
+        command.w = 9.5 * div.width;
+        command.h = div.height * 1.5;
+        var command_holder = game.add.graphics(0, 0);
+        command_holder.beginFill(0xc1c1c1, 0.85);
+        command_holder.drawRect(0, 0, command.w, command.h);
+        command_holder.endFill();
+        command.addChild(command_holder);
+
+
+        var command_names = ['forward', 'backward', 'left', 'right', 'lo', 'op'];
+        var x = div.width/2;
+        for (var i in command_names){
+            commands[command_names[i]] = command.create(x, div.height/4, command_names[i]);
+            x += 3 * div.width/2;
+        }
+        {% for key, value in count.items %}
+            commands.{{ key }}.count = {'value': {{ value }} };
+        {% endfor %}
+
+        for (var key in commands){
+            var object = commands[key];
+            //Draggable
+            object.inputEnabled = true;
+            object.input.enableDrag();
+            object.events.onDragStart.add(commandOnDragStart, this);
+            object.events.onDragStop.add(commandOnDragStop, this);
+            // Counters
+            var text = object.count.value
+            object.count.text = game.add.text(object.x + div.width/2, object.y + div.height + 5, text, defaultFont, command);
+            object.count.text.anchor.setTo(0.5, 0.5);
+        }
+        // End Commands
+    }
+
+    function createScenePanel(){
+        scene = game.add.group();
+        scene.x = program.x;
+        scene.y = program.y + program.height;
+
+        // Remove it ->
+        var x, y, current;
+        {% for i in tiles %}
+            x = {{ i.x }}*div.width;
+            y = {{ i.y }}*div.height;
+            current = scene.create(x, y, "{{ i.type }}");
+            tiles.push(current);
+        {% endfor %}
+
+        x = {{ hero.x }}*div.width;
+        y = {{ hero.y }}*div.height;
+        hero = scene.create(x, y, "{{ hero.type }}");
+    }
+
+    function update() {
+    }
+
+    function deltaCommandCount(key, delta){
+        commands[key].count.value += delta;
+        commands[key].count.text.setText(commands[key].count.value);
+    }
+
+    function programAddCommand(command, pointer){
+        var index = programs.length;
+        if (pointer.y < program.y + program.h){
+            index = Math.floor(pointer.x/div.width);
+            if (index > programs.length){
+                index = programs.length;
+            }
+        }
+        var current = program.create(0, div.height/4, command.key);
+        current.inputEnabled = true;
+        current.input.enableDrag();
+        current.events.onDragStart.add(programOnDragStart, this);
+        current.events.onDragStop.add(programOnDragStop, this);
+        current.input.allowVerticalDrag = false;
+
+        programs.splice(index, 0, current);
+
+        programAlignCommands();
+    }
+
+    function programAlignCommands(){
+        if (programs.length == 0){
+            return;
+        }
+        if (programs[0].x > 0){
+            programs[0].x = 0;
+        }
+        for (var i = 1; i < programs.length; ++i){
+            programs[i].alignTo(programs[i-1], Phaser.RIGHT_CENTER);
+        }
+    }
+
+
+    //Events
+    function commandOnDragStart(sprite, pointer) {
+        sprite.originalPosition = sprite.position.clone();
+    }
+
+    function commandOnDragStop(sprite, pointer) {
+        if (sprite.count.value > 0){
+            programAddCommand(sprite, pointer);
+            deltaCommandCount(sprite.key, -1);
+        }
+        sprite.position = sprite.originalPosition;
+    }
+
+    function programOnDragStart(sprite, pointer) {
+        sprite.originalPosition = sprite.position.clone();
+    }
+
+    function programOnDragStop(sprite, pointer) {
+        var index = programs.indexOf(sprite);
+        programs.splice(index, 1);
+        if (Math.abs(sprite.x - sprite.originalPosition.x) > sprite.width/2){
+            programAddCommand(sprite, pointer);
+        }else{
+           deltaCommandCount(sprite.key, 1);
+        }
+        sprite.destroy();
+        programAlignCommands();
+    }
+    
+    function programScrollOnDragStart(sprite, pointer) {
+        sprite.originalPosition = sprite.position.clone();
+    }
+
+    function programScrollOnDragStop(sprite, pointer) {
+        // TODO Resize scroll only if enough content in program
+        if (sprite.position.x < 0){
+            sprite.position.x = 0;
+        }else if (sprite.position.x + sprite.width > width){
+            sprite.position.x = width - sprite.width;
+        }
+
+        var deltaX = sprite.originalPosition.x - sprite.position.x;
+        if (programs.length > 0) {
+            programs[0].x += deltaX;
+            programAlignCommands();
+        }
+
+    }
+
+
+</script>
+
+</body>
+</html>
