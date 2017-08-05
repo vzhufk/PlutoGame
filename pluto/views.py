@@ -202,12 +202,12 @@ def level(request, level_id=None):
 def play(request, level_id=None):
     context = {
         'count': {
-            'forward': 3,
+            'forward': 5,
             'backward': 1,
-            'left': 2,
-            'right': 2,
-            'lo': 2,
-            'op': 2
+            'left': 1,
+            'right': 1,
+            'lo': 0,
+            'op': 0
         },
         'tiles': [
             {'x': 1,
@@ -225,13 +225,14 @@ def play(request, level_id=None):
             {'x': 5,
              'y': 1,
              'type': 'tile_default'},
-            {'x': 6,
-             'y': 1,
+            {'x': 5,
+             'y': 0,
              'type': 'tile_finish'}
         ],
         'hero': {
             'x': 1,
             'y': 1,
+            'direction': 1,
             'type': 'pluto'
         }
     }

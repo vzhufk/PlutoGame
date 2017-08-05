@@ -5,19 +5,26 @@
 
     {% load staticfiles %}
     <meta name="viewport" content="minimal-ui, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
 </head>
 <body>
     <script type="text/javascript">
-
-
+    //TODO  MOVE
+    //TODO Compile program of commands
+    //TODO JSON level like a human plz
+    var FPS = 60;
     var width = document.body.offsetWidth;
     var height = document.body.offsetHeight;
     var div = {
         width: 50,
         height: 50
     };
+    var run_speed = (div.width+div.height)/(2*FPS);
+    var turn_speed = 90/FPS;
+    var current_command = 0;
     if (height > width){
         alert("For better experience - turn device!");
+        document.location.reload();
     }
 
     var game = new Phaser.Game(width, height, Phaser.AUTO, 'Pluto', {preload: preload, create: create, update: update});
@@ -140,12 +147,85 @@
             tiles.push(current);
         {% endfor %}
 
-        x = {{ hero.x }}*div.width;
-        y = {{ hero.y }}*div.height;
+        x = {{ hero.x }}*div.width + div.width/2;
+        y = {{ hero.y }}*div.height + div.height/2;
         hero = scene.create(x, y, "{{ hero.type }}");
+        hero.anchor.setTo(0.5, 0.5);
+        hero.direction  = {{ hero.direction }};
+        hero.angle = {{ hero.direction }} * 90;
+        hero.inputEnabled = true;
+        hero.events.onInputDown.add(heroOnInputDown, this);
+        hero.originalPosition = hero.position.clone();
+        hero.originalDirection = hero.direction;
     }
 
     function update() {
+        if (game.inStart && ! game.inRun){
+            game.inRun = true;
+            program.compiled = programCompile();
+        }
+
+        if (game.inRun && game.inStart){
+            if (program.compiled[current_command].time > 0){
+                program.compiled[current_command].time--;
+
+                if (program.compiled[current_command].value == 'left' || program.compiled[current_command].value == 'right'){
+                    var direction = (program.compiled[current_command].value == 'right')?(1):(-1);
+                    hero.angle += direction * turn_speed;
+                }else{
+                    var move = (program.compiled[current_command].value == 'forward')?(1):(-1);
+                    switch (hero.direction ) {
+                        case 0:
+                            hero.y -= move * run_speed;
+                            break;
+                        case 3:
+                            hero.x -=move * run_speed;
+                            break;
+                        case 2:
+                            hero.y += move * run_speed;
+                            break;
+                        case 1:
+                            hero.x +=move * run_speed;
+                            break;
+                    }
+                }
+
+            }else{
+                if (program.compiled[current_command].value == 'left' || program.compiled[current_command].value == 'right') {
+                    hero.direction += (program.compiled[current_command].value == 'right') ? (1) : (-1);
+                    hero.direction += 4;
+                    hero.direction %= 4;
+                }
+                current_command++;
+            }
+
+            if (current_command >= program.compiled.length){
+                current_command = 0;
+                game.inRun = false;
+                game.inStart = false;
+                // Try better
+                var win = false;
+                for (var i in tiles){
+                    if (tiles[i].key == "tile_finish"){
+                        win = true;
+                    }
+                }
+                if (win) {
+                    alert("Gratz.");
+                }else{
+                    alert("Nice try.");
+                    heroReset();
+                }
+            }
+
+            if (!sceneCheck()){
+                alert(":'(");
+                heroReset();
+                current_command = 0;
+                game.inRun = false;
+                game.inStart = false;
+            }
+        }
     }
 
     function deltaCommandCount(key, delta){
@@ -185,8 +265,39 @@
         }
     }
 
+    function programCompile(){
+        var pure = [];
+        for (var i in programs){
+            var current = {
+                'value': programs[i].key,
+                'time': FPS
+            }
+            pure.push(current);
+        }
+        //TODO Handel LO and OP later on
+        return pure;
+    }
 
+    function sceneCheck(){
+        for (var i in tiles){
+            var x = tiles[i].x;
+            var y = tiles[i].y;
+            var h = tiles[i].height;
+            var w = tiles[i].width;
+            if (hero.x >= x && hero.x <= x + w && hero.y >= y && hero.y <= y + h){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    function heroReset() {
+        hero.position = hero.originalPosition;
+        hero.direction = hero.originalDirection;
+    }
+    ///////////////////////////////////////////////////////
     //Events
+    //////////////////////////////////////////////////////
     function commandOnDragStart(sprite, pointer) {
         sprite.originalPosition = sprite.position.clone();
     }
@@ -235,6 +346,10 @@
 
     }
 
+    function heroOnInputDown(sprite, pointer) {
+        game.inStart = true;
+        game.inRun = false;
+    }
 
 </script>
 
