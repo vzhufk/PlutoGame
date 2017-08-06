@@ -9,19 +9,17 @@
 </head>
 <body>
     <script type="text/javascript">
-    //TODO  MOVE
+    //TODO Drag scene
+    //TODO some debug animation maybe?
     //TODO Compile program of commands
     //TODO JSON level like a human plz
-    var FPS = 60;
     var width = document.body.offsetWidth;
     var height = document.body.offsetHeight;
     var div = {
         width: 50,
         height: 50
     };
-    var run_speed = (div.width+div.height)/(2*FPS);
-    var turn_speed = 90/FPS;
-    var current_command = 0;
+    var speed = 1000;
     if (height > width){
         alert("For better experience - turn device!");
         document.location.reload();
@@ -134,6 +132,7 @@
     }
 
     function createScenePanel(){
+        game.physics.startSystem(Phaser.Physics.ARCADE);
         scene = game.add.group();
         scene.x = program.x;
         scene.y = program.y + program.height;
@@ -159,72 +158,37 @@
         hero.originalDirection = hero.direction;
     }
 
+    var tween;
     function update() {
-        if (game.inStart && ! game.inRun){
-            game.inRun = true;
-            program.compiled = programCompile();
+        if (sceneCheck().length < 1){
+            gameSuccess(false);
+        }
+    }
+
+    function gameCheckSucceed() {
+            var tiles = sceneCheck();
+            var success = false;
+            for (var i in tiles){
+                if (tiles[i].key == "tile_finish"){
+                    success = true;
+                }
+            }
+            gameSuccess(success);
         }
 
-        if (game.inRun && game.inStart){
-            if (program.compiled[current_command].time > 0){
-                program.compiled[current_command].time--;
+    function gameStart(){
+        tween = createTween(programCompile());
+        tween[0].start();
+        tween[tween.length-1].onComplete.add(gameCheckSucceed, this);
+    }
 
-                if (program.compiled[current_command].value == 'left' || program.compiled[current_command].value == 'right'){
-                    var direction = (program.compiled[current_command].value == 'right')?(1):(-1);
-                    hero.angle += direction * turn_speed;
-                }else{
-                    var move = (program.compiled[current_command].value == 'forward')?(1):(-1);
-                    switch (hero.direction ) {
-                        case 0:
-                            hero.y -= move * run_speed;
-                            break;
-                        case 3:
-                            hero.x -=move * run_speed;
-                            break;
-                        case 2:
-                            hero.y += move * run_speed;
-                            break;
-                        case 1:
-                            hero.x +=move * run_speed;
-                            break;
-                    }
-                }
-
-            }else{
-                if (program.compiled[current_command].value == 'left' || program.compiled[current_command].value == 'right') {
-                    hero.direction += (program.compiled[current_command].value == 'right') ? (1) : (-1);
-                    hero.direction += 4;
-                    hero.direction %= 4;
-                }
-                current_command++;
-            }
-
-            if (current_command >= program.compiled.length){
-                current_command = 0;
-                game.inRun = false;
-                game.inStart = false;
-                // Try better
-                var win = false;
-                for (var i in tiles){
-                    if (tiles[i].key == "tile_finish"){
-                        win = true;
-                    }
-                }
-                if (win) {
-                    alert("Gratz.");
-                }else{
-                    alert("Nice try.");
-                    heroReset();
-                }
-            }
-
-            if (!sceneCheck()){
-                alert(":'(");
-                heroReset();
-                current_command = 0;
-                game.inRun = false;
-                game.inStart = false;
-            }
+    function gameSuccess(success) {
+        if (success){
+            alert("w0w");
+        }else{
+            game.camera.shake(0.05, 500);
+            game.tweens.removeAll();
+            heroReset();
         }
     }
 
@@ -254,6 +218,7 @@
     }
 
     function programAlignCommands(){
+        // TODO Maybe animation
         if (programs.length == 0){
             return;
         }
@@ -268,30 +233,88 @@
     function programCompile(){
         var pure = [];
         for (var i in programs){
-            var current = {
-                'value': programs[i].key,
-                'time': FPS
-            }
+            var current =  programs[i].key;
             pure.push(current);
         }
         //TODO Handel LO and OP later on
         return pure;
     }
 
+    function createTween(commands){
+        var result = [];
+        var len = div.height;
+        var direction = hero.direction;
+        var x = hero.x;
+        var y = hero.y;
+
+        for (var i in commands){
+            var tmp;
+
+
+            if (commands[i] == 'forward') {
+                switch (direction){
+                case 0:
+                    y -= len;
+                    break;
+                case 1:
+                    x += len;
+                    break;
+                case 2:
+                    y += len;
+                    break;
+                case 3:
+                    x -= len;
+                    break;
+                }
+                tmp = game.add.tween(hero).to({x: x, y: y}, speed, "Quart.easeOut");
+            }else if(commands[i] == 'backward'){
+                switch (direction){
+                case 0:
+                    y += len;
+                    break;
+                case 1:
+                    x -= len;
+                    break;
+                case 2:
+                    y -= len;
+                    break;
+                case 3:
+                    x += len;
+                    break;
+                }
+                tmp = game.add.tween(hero).to({x: x, y: y}, speed, "Quart.easeOut");
+            }else if(commands[i] == 'left'){
+                tmp = game.add.tween(hero).to({angle: (direction-1)*90}, speed, "Quart.easeOut");
+                direction -= 1;
+            }else if(commands[i] == 'right'){
+                tmp = game.add.tween(hero).to({angle: (direction+1)*90}, speed, "Quart.easeOut");
+                direction += 1;
+            }
+
+            result.push(tmp);
+            if (result.length > 1){
+                result[result.length - 2].chain(tmp);
+            }
+        }
+        return result;
+    }
+
     function sceneCheck(){
+        var result = [];
         for (var i in tiles){
             var x = tiles[i].x;
             var y = tiles[i].y;
             var h = tiles[i].height;
             var w = tiles[i].width;
             if (hero.x >= x && hero.x <= x + w && hero.y >= y && hero.y <= y + h){
-                return true;
+                result.push(tiles[i]);
             }
         }
-        return false;
+        return result;
     }
 
     function heroReset() {
+        // TODO Sometimes it's doesnt resets
         hero.position = hero.originalPosition;
         hero.direction = hero.originalDirection;
         hero.angle = hero.direction * 90;
@@ -341,6 +364,9 @@
 
         var deltaX = sprite.originalPosition.x - sprite.position.x;
         if (programs.length > 0) {
+            // TODO This
+            // var animation = game.add.tween(programs[0]).to({x: programs[0] + deltaX}, speed, "Quart.easeOut");
+            // animation.start();
             programs[0].x += deltaX;
             programAlignCommands();
         }
@@ -348,8 +374,7 @@
     }
 
     function heroOnInputDown(sprite, pointer) {
-        game.inStart = true;
-        game.inRun = false;
+        gameStart();
     }
 
 </script>
