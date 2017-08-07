@@ -57,13 +57,12 @@
         createProgramPanel();
         createCommandPanel();
         createScenePanel();
+        game.camera.x += 100;
     }
 
     function createProgramPanel(){
         //Program
         program = game.add.group();
-        // Need to be tested
-        program.fixedToCamera = true;
         program.inputEnableChildren = true;
         program.x = 0;
         program.y = 0;
@@ -92,13 +91,13 @@
     function createCommandPanel(){
          //Commands
         command = game.add.group();
-        // Need to be tested
-        //command.fixedToCamera = true;
+        command.fixedToCamera = true;
         command.inputEnableChildren = true;
         command.x = (width - 9.5 * div.width)/2;
         command.y = height - div.height * 1.5;
         command.w = 9.5 * div.width;
         command.h = div.height * 1.5;
+        command.cameraOffset = command.position;
         var command_holder = game.add.graphics(0, 0);
         command_holder.beginFill(0xc1c1c1, 0.85);
         command_holder.drawRect(0, 0, command.w, command.h);
@@ -127,16 +126,17 @@
             var text = object.count.value
             object.count.text = game.add.text(object.x + div.width/2, object.y + div.height + 5, text, defaultFont, command);
             object.count.text.anchor.setTo(0.5, 0.5);
+
         }
         // End Commands
     }
 
     function createScenePanel(){
-        game.physics.startSystem(Phaser.Physics.ARCADE);
         scene = game.add.group();
         scene.x = program.x;
         scene.y = program.y + program.height;
-
+        scene.w = width;
+        scene.h = height - program.height - command.height;
         // Remove it ->
         var x, y, current;
         {% for i in tiles %}
@@ -144,6 +144,7 @@
             y = {{ i.y }}*div.height;
             current = scene.create(x, y, "{{ i.type }}");
             tiles.push(current);
+
         {% endfor %}
 
         x = {{ hero.x }}*div.width + div.width/2;
@@ -161,6 +162,7 @@
     var tween;
     function update() {
         if (sceneCheck().length < 1){
+            game.camera.shake(0.01,  500);
             gameSuccess(false);
         }
     }
@@ -177,6 +179,7 @@
         }
 
     function gameStart(){
+        hero.input.enabled = false;
         tween = createTween(programCompile());
         tween[0].start();
         tween[tween.length-1].onComplete.add(gameCheckSucceed, this);
@@ -186,7 +189,6 @@
         if (success){
             alert("w0w");
         }else{
-            game.camera.shake(0.05, 500);
             game.tweens.removeAll();
             heroReset();
         }
@@ -249,7 +251,6 @@
 
         for (var i in commands){
             var tmp;
-
 
             if (commands[i] == 'forward') {
                 switch (direction){
@@ -315,9 +316,10 @@
 
     function heroReset() {
         // TODO Sometimes it's doesnt resets
-        hero.position = hero.originalPosition;
+        hero.position = hero.originalPosition.clone();
         hero.direction = hero.originalDirection;
         hero.angle = hero.direction * 90;
+        hero.input.enabled = true;
     }
     ///////////////////////////////////////////////////////
     //Events
