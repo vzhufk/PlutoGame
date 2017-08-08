@@ -2,7 +2,6 @@
 <html>
 <head>
     {% include 'include/phaser.html' %}
-
     {% load staticfiles %}
     <meta name="viewport" content="minimal-ui, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="mobile-web-app-capable" content="yes">
@@ -13,19 +12,23 @@
     //TODO some debug animation maybe?
     //TODO Compile program of commands
     //TODO JSON level like a human plz
-    var width = document.body.offsetWidth;
-    var height = document.body.offsetHeight;
-    var div = {
+    var WIDTH = document.body.offsetWidth;
+    var HEIGHT = document.body.offsetHeight;
+    var DIV = {
         width: 50,
         height: 50
     };
-    var speed = 1000;
-    if (height > width){
+    var MAX_WIDTH = DIV.width * 10;
+    var MAX_HEIGHT = DIV.height * 10;
+    var SPEED = 1000;
+    
+    if (HEIGHT > WIDTH){
         alert("For better experience - turn device!");
         document.location.reload();
     }
 
-    var game = new Phaser.Game(width, height, Phaser.AUTO, 'Pluto', {preload: preload, create: create, update: update});
+
+    var game = new Phaser.Game(WIDTH, HEIGHT, Phaser.AUTO, 'Pluto', {preload: preload, create: create, update: update});
     var command;
     var program;
     var scene;
@@ -36,10 +39,13 @@
     var hero = {};
 
     var program_scroll;
+    var background;
 
     var defaultFont = {font: "25px Arial", fill: "black", align: "center"};
 
     function preload() {
+        game.stage.backgroundColor = '#007236';
+
         game.load.image("forward", "{% static "asserts/forward.png" %}");
         game.load.image("backward", "{% static "asserts/backward.png" %}");
         game.load.image("left", "{% static "asserts/left.png" %}");
@@ -54,110 +60,129 @@
     }
 
     function create() {
+        function createProgramPanel(){
+            //Program
+            program = game.add.group();
+            program.fixedToCamera = true;
+            program.inputEnableChildren = true;
+            program.x = 0;
+            program.y = 0;
+            program.w = WIDTH;
+            program.h = DIV.height * 1.5;
+            program.cameraOffset = program.position.clone();
+            var program_holder = game.add.graphics(0, 0);
+            program_holder.beginFill(0xc1c1c1, 0.85);
+            program_holder.drawRect(0, 0, program.w, program.h);
+            program_holder.endFill();
+            program.addChild(program_holder);
+
+
+            var tmp_scroll = game.add.graphics(0, 0);
+            tmp_scroll.beginFill(0xc1c1c1, 1);
+            tmp_scroll.drawRect(0, 0, program.w/4, DIV.height/4);
+            tmp_scroll.endFill();
+            program_scroll = game.add.sprite(0, program.h - DIV.height/4);
+            program_scroll.fixedToCamera = true;
+            program_scroll.inputEnabled = true;
+            program_scroll.input.enableDrag();
+            program_scroll.input.allowVerticalDrag = false;
+            program_scroll.cameraOffset = program_scroll.position.clone();
+            program_scroll.events.onDragStart.add(programScrollOnDragStart, this);
+            program_scroll.events.onDragStop.add(programScrollOnDragStop, this);
+            program_scroll.addChild(tmp_scroll);
+        }
+
+        function createCommandPanel(){
+             //Commands
+            command = game.add.group();
+            command.fixedToCamera = true;
+            command.inputEnableChildren = true;
+            command.x = (WIDTH - 9.5 * DIV.width)/2;
+            command.y = HEIGHT - DIV.height * 1.5;
+            command.w = 9.5 * DIV.width;
+            command.h = DIV.height * 1.5;
+            command.cameraOffset = command.position.clone();
+            var command_holder = game.add.graphics(0, 0);
+            command_holder.beginFill(0xc1c1c1, 0.85);
+            command_holder.drawRect(0, 0, command.w, command.h);
+            command_holder.endFill();
+            command.addChild(command_holder);
+
+
+            var command_names = ['forward', 'backward', 'left', 'right', 'lo', 'op'];
+            var x = DIV.width/2;
+            for (var i in command_names){
+                commands[command_names[i]] = command.create(x, DIV.height/4, command_names[i]);
+                x += 3 * DIV.width/2;
+            }
+            {% for key, value in count.items %}
+                commands.{{ key }}.count = {'value': {{ value }} };
+            {% endfor %}
+
+            for (var key in commands){
+                var object = commands[key];
+                //Draggable
+                object.inputEnabled = true;
+                object.input.enableDrag();
+                object.events.onDragStart.add(commandOnDragStart, this);
+                object.events.onDragStop.add(commandOnDragStop, this);
+                // Counters
+                var text = object.count.value
+                object.count.text = game.add.text(object.x + DIV.width/2, object.y + DIV.height + 5, text, defaultFont, command);
+                object.count.text.anchor.setTo(0.5, 0.5);
+
+            }
+            // End Commands
+        }
+
+
+        function createScenePanel(){
+            scene = game.add.group();
+            scene.x = 0;
+            scene.y = DIV.height * 1.5;
+            scene.w = WIDTH;
+            scene.h = HEIGHT - DIV.height * 1.5 - DIV.height * 1.5;
+
+            background = game.add.sprite(scene.x, scene.y);
+            background.fixedToCamera = true;
+            background.inputEnabled = true;
+            background.width = scene.w;
+            background.height = scene.h;
+            background.input.enableDrag();
+            background.events.onDragUpdate.add(backgroundOnDragUpdate, this);            
+            background.events.onDragStop.add(backgroundOnDragStop, this);
+            background.input.priorityID = 0;
+            background.originalPosition = background.position.clone();
+
+            var x, y, current;
+            {% for i in tiles %}
+                x = {{ i.x }}*DIV.width;
+                y = {{ i.y }}*DIV.height;
+                current = scene.create(x, y, "{{ i.type }}");
+                tiles.push(current);
+            {% endfor %}
+
+            x = {{ hero.x }}*DIV.width + DIV.width/2;
+            y = {{ hero.y }}*DIV.height + DIV.height/2;
+            hero = scene.create(x, y, "{{ hero.type }}");
+            hero.anchor.setTo(0.5, 0.5);
+            hero.direction  = {{ hero.direction }};
+            hero.angle = {{ hero.direction }} * 90;
+            hero.inputEnabled = true;
+            hero.events.onInputDown.add(heroOnInputDown, this);
+            hero.originalPosition = hero.position.clone();
+            hero.originalDirection = hero.direction;
+            hero.input.priorityID = 1;
+        }
+
+        game.world.resize(MAX_WIDTH, MAX_HEIGHT);
+
+        createScenePanel();
         createProgramPanel();
         createCommandPanel();
-        createScenePanel();
-        game.camera.x += 100;
     }
 
-    function createProgramPanel(){
-        //Program
-        program = game.add.group();
-        program.inputEnableChildren = true;
-        program.x = 0;
-        program.y = 0;
-        program.w = width;
-        program.h = div.height * 1.5;
-        var program_holder = game.add.graphics(0, 0);
-        program_holder.beginFill(0xc1c1c1, 0.85);
-        program_holder.drawRect(0, 0, program.w, program.h);
-        program_holder.endFill();
-        program.addChild(program_holder);
 
-
-        var tmp_scroll = game.add.graphics(0, 0);
-        tmp_scroll.beginFill(0xc1c1c1, 1);
-        tmp_scroll.drawRect(0, 0, program.w/4, div.height/4);
-        tmp_scroll.endFill();
-        program_scroll = game.add.sprite(0, program.h - div.height/4);
-        program_scroll.inputEnabled = true;
-        program_scroll.input.enableDrag();
-        program_scroll.input.allowVerticalDrag = false;
-        program_scroll.events.onDragStart.add(programScrollOnDragStart, this);
-        program_scroll.events.onDragStop.add(programScrollOnDragStop, this);
-        program_scroll.addChild(tmp_scroll);
-    }
-
-    function createCommandPanel(){
-         //Commands
-        command = game.add.group();
-        command.fixedToCamera = true;
-        command.inputEnableChildren = true;
-        command.x = (width - 9.5 * div.width)/2;
-        command.y = height - div.height * 1.5;
-        command.w = 9.5 * div.width;
-        command.h = div.height * 1.5;
-        command.cameraOffset = command.position;
-        var command_holder = game.add.graphics(0, 0);
-        command_holder.beginFill(0xc1c1c1, 0.85);
-        command_holder.drawRect(0, 0, command.w, command.h);
-        command_holder.endFill();
-        command.addChild(command_holder);
-
-
-        var command_names = ['forward', 'backward', 'left', 'right', 'lo', 'op'];
-        var x = div.width/2;
-        for (var i in command_names){
-            commands[command_names[i]] = command.create(x, div.height/4, command_names[i]);
-            x += 3 * div.width/2;
-        }
-        {% for key, value in count.items %}
-            commands.{{ key }}.count = {'value': {{ value }} };
-        {% endfor %}
-
-        for (var key in commands){
-            var object = commands[key];
-            //Draggable
-            object.inputEnabled = true;
-            object.input.enableDrag();
-            object.events.onDragStart.add(commandOnDragStart, this);
-            object.events.onDragStop.add(commandOnDragStop, this);
-            // Counters
-            var text = object.count.value
-            object.count.text = game.add.text(object.x + div.width/2, object.y + div.height + 5, text, defaultFont, command);
-            object.count.text.anchor.setTo(0.5, 0.5);
-
-        }
-        // End Commands
-    }
-
-    function createScenePanel(){
-        scene = game.add.group();
-        scene.x = program.x;
-        scene.y = program.y + program.height;
-        scene.w = width;
-        scene.h = height - program.height - command.height;
-        // Remove it ->
-        var x, y, current;
-        {% for i in tiles %}
-            x = {{ i.x }}*div.width;
-            y = {{ i.y }}*div.height;
-            current = scene.create(x, y, "{{ i.type }}");
-            tiles.push(current);
-
-        {% endfor %}
-
-        x = {{ hero.x }}*div.width + div.width/2;
-        y = {{ hero.y }}*div.height + div.height/2;
-        hero = scene.create(x, y, "{{ hero.type }}");
-        hero.anchor.setTo(0.5, 0.5);
-        hero.direction  = {{ hero.direction }};
-        hero.angle = {{ hero.direction }} * 90;
-        hero.inputEnabled = true;
-        hero.events.onInputDown.add(heroOnInputDown, this);
-        hero.originalPosition = hero.position.clone();
-        hero.originalDirection = hero.direction;
-    }
 
     var tween;
     function update() {
@@ -165,6 +190,7 @@
             game.camera.shake(0.01,  500);
             gameSuccess(false);
         }
+        //game.debug.cameraInfo(this.game.camera, 0, 200);
     }
 
     function gameCheckSucceed() {
@@ -181,8 +207,10 @@
     function gameStart(){
         hero.input.enabled = false;
         tween = createTween(programCompile());
-        tween[0].start();
-        tween[tween.length-1].onComplete.add(gameCheckSucceed, this);
+        if (tween.length > 0) {
+            tween[0].start();
+            tween[tween.length-1].onComplete.add(gameCheckSucceed, this);
+        }
     }
 
     function gameSuccess(success) {
@@ -202,12 +230,12 @@
     function programAddCommand(command, pointer){
         var index = programs.length;
         if (pointer.y < program.y + program.h){
-            index = Math.floor(pointer.x/div.width);
+            index = Math.floor(pointer.x/DIV.width);
             if (index > programs.length){
                 index = programs.length;
             }
         }
-        var current = program.create(0, div.height/4, command.key);
+        var current = program.create(0, DIV.height/4, command.key);
         current.inputEnabled = true;
         current.input.enableDrag();
         current.events.onDragStart.add(programOnDragStart, this);
@@ -242,16 +270,16 @@
         return pure;
     }
 
+
     function createTween(commands){
         var result = [];
-        var len = div.height;
+        var len = DIV.height;
         var direction = hero.direction;
         var x = hero.x;
         var y = hero.y;
 
         for (var i in commands){
             var tmp;
-
             if (commands[i] == 'forward') {
                 switch (direction){
                 case 0:
@@ -267,7 +295,7 @@
                     x -= len;
                     break;
                 }
-                tmp = game.add.tween(hero).to({x: x, y: y}, speed, "Quart.easeOut");
+                tmp = game.add.tween(hero).to({x: x, y: y}, SPEED, "Quart.easeOut");
             }else if(commands[i] == 'backward'){
                 switch (direction){
                 case 0:
@@ -283,12 +311,12 @@
                     x += len;
                     break;
                 }
-                tmp = game.add.tween(hero).to({x: x, y: y}, speed, "Quart.easeOut");
+                tmp = game.add.tween(hero).to({x: x, y: y}, SPEED, "Quart.easeOut");
             }else if(commands[i] == 'left'){
-                tmp = game.add.tween(hero).to({angle: (direction-1)*90}, speed, "Quart.easeOut");
+                tmp = game.add.tween(hero).to({angle: (direction-1)*90}, SPEED, "Quart.easeOut");
                 direction -= 1;
             }else if(commands[i] == 'right'){
-                tmp = game.add.tween(hero).to({angle: (direction+1)*90}, speed, "Quart.easeOut");
+                tmp = game.add.tween(hero).to({angle: (direction+1)*90}, SPEED, "Quart.easeOut");
                 direction += 1;
             }
 
@@ -326,10 +354,12 @@
     //////////////////////////////////////////////////////
     function commandOnDragStart(sprite, pointer) {
         sprite.originalPosition = sprite.position.clone();
+        sprite.position = pointer;
     }
 
     function commandOnDragStop(sprite, pointer) {
         if (sprite.count.value > 0){
+            //TODO Fix problem miss place
             programAddCommand(sprite, pointer);
             deltaCommandCount(sprite.key, -1);
         }
@@ -338,6 +368,7 @@
 
     function programOnDragStart(sprite, pointer) {
         sprite.originalPosition = sprite.position.clone();
+        //sprite.position = pointer;
     }
 
     function programOnDragStop(sprite, pointer) {
@@ -351,7 +382,7 @@
         sprite.destroy();
         programAlignCommands();
     }
-    
+
     function programScrollOnDragStart(sprite, pointer) {
         sprite.originalPosition = sprite.position.clone();
     }
@@ -360,20 +391,37 @@
         // TODO Resize scroll only if enough content in program
         if (sprite.position.x < 0){
             sprite.position.x = 0;
-        }else if (sprite.position.x + sprite.width > width){
-            sprite.position.x = width - sprite.width;
+        }else if (sprite.position.x + sprite.width > WIDTH){
+            sprite.position.x = WIDTH - sprite.width;
         }
 
         var deltaX = sprite.originalPosition.x - sprite.position.x;
         if (programs.length > 0) {
             // TODO This
-            // var animation = game.add.tween(programs[0]).to({x: programs[0] + deltaX}, speed, "Quart.easeOut");
+            // var animation = game.add.tween(programs[0]).to({x: programs[0] + deltaX}, SPEED, "Quart.easeOut");
             // animation.start();
             programs[0].x += deltaX;
             programAlignCommands();
         }
 
     }
+
+
+    function backgroundOnDragUpdate(sprite, pointer){
+            if (Math.abs(sprite.position.x - sprite.originalPosition.x) > DIV.width/10){
+                    game.camera.x -= sprite.position.x - sprite.originalPosition.x;
+                }
+            if (Math.abs(sprite.position.y - sprite.originalPosition.y) > DIV.height/10){
+                    game.camera.y -= sprite.position.y - sprite.originalPosition.y;
+            }
+    }
+
+    function backgroundOnDragStop(sprite, pointer){
+
+        //sprite.position = sprite.originalPosition.clone();
+        sprite.cameraOffset = sprite.originalPosition.clone();
+    }
+
 
     function heroOnInputDown(sprite, pointer) {
         gameStart();
