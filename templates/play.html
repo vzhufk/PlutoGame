@@ -86,6 +86,7 @@
             program_scroll.inputEnabled = true;
             program_scroll.input.enableDrag();
             program_scroll.input.allowVerticalDrag = false;
+            program_scroll.input.priorityID = 1;
             program_scroll.cameraOffset = program_scroll.position.clone();
             program_scroll.events.onDragStart.add(programScrollOnDragStart, this);
             program_scroll.events.onDragStop.add(programScrollOnDragStop, this);
@@ -229,6 +230,7 @@
 
     function programAddCommand(command, pointer){
         var index = programs.length;
+        pointer.x += DIV.width/2;
         if (pointer.y < program.y + program.h){
             index = Math.floor(pointer.x/DIV.width);
             if (index > programs.length){
@@ -360,7 +362,10 @@
     function commandOnDragStop(sprite, pointer) {
         if (sprite.count.value > 0){
             //TODO Fix problem miss place
-            programAddCommand(sprite, pointer);
+            // Camera offset correction
+            var ptr = pointer;
+            ptr.y += command.y;
+            programAddCommand(sprite, ptr);
             deltaCommandCount(sprite.key, -1);
         }
         sprite.position = sprite.originalPosition;
@@ -389,10 +394,10 @@
 
     function programScrollOnDragStop(sprite, pointer) {
         // TODO Resize scroll only if enough content in program
-        if (sprite.position.x < 0){
-            sprite.position.x = 0;
-        }else if (sprite.position.x + sprite.width > WIDTH){
-            sprite.position.x = WIDTH - sprite.width;
+        if (sprite.cameraOffset.x < 0){
+            sprite.cameraOffset.x = 0;
+        }else if (sprite.cameraOffset.x + sprite.width > WIDTH){
+            sprite.cameraOffset.x = WIDTH - sprite.width;
         }
 
         var deltaX = sprite.originalPosition.x - sprite.position.x;
@@ -417,7 +422,6 @@
     }
 
     function backgroundOnDragStop(sprite, pointer){
-
         //sprite.position = sprite.originalPosition.clone();
         sprite.cameraOffset = sprite.originalPosition.clone();
     }
@@ -428,6 +432,5 @@
     }
 
 </script>
-
 </body>
 </html>
