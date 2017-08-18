@@ -8,7 +8,6 @@
 </head>
 <body>
     <script type="text/javascript">
-    //TODO Drag scene
     //TODO some debug animation maybe?
     //TODO Compile program of commands
     //TODO JSON level like a human plz
@@ -234,7 +233,9 @@
     function programAddCommand(command, pointer){
         var index = programs.length;
         pointer.x += DIV.width/2;
-        if (pointer.y < program.y + program.h){
+        if (pointer.y < HEIGHT/2){
+            //TODO this need to be rewritten
+            //in case of scroll
             index = Math.floor(pointer.x/DIV.width);
             if (index > programs.length){
                 index = programs.length;
@@ -271,6 +272,52 @@
             var current =  programs[i].key;
             pure.push(current);
         }
+
+        // LOOP handl
+        var pair = 0;
+        for (var i = 0; i < pure.length; ++i){
+            if (pure[i] == "lo"){
+                --pair;
+            }else if (pure[i] == "op"){
+                ++pair;
+            }
+        }
+
+        while (pair > 0){
+            pure.splice(0, 0, "lo");
+            --pair;
+        }
+
+        while(pair < 0){
+            pure.push("op");
+            ++pair;
+        }
+
+        for (var i = 0; i < pure.length; ++i){
+            if (pure[i] == "lo"){
+                pair -= 1;
+                var j = i + 1;
+                do{
+                    if (pure[j] == "lo"){
+                        pair -= 1;
+                    }
+                    if (pure[j] == "op"){
+                        pair += 1;
+                    }
+                    ++j;
+                }while (pair != 0 && j < pure.length);
+
+                if (pair == 0){
+                    var double = pure.slice(i+1, j-1);
+                    pure.splice(j-1, 1);
+                    pure.splice.apply(pure, [i, 1].concat(double));
+                }else{
+                    return [];
+                }
+                --i;
+            }
+        }
+
         //TODO Handel LO and OP later on
         return pure;
     }
@@ -285,44 +332,37 @@
 
         for (var i in commands){
             var tmp;
-            if (commands[i] == 'forward') {
-                switch (direction){
+            //TODO Refactor this
+            var dx = 0, dy = 0;
+            switch (direction){
                 case 0:
-                    y -= len;
+                    dy = -len;
                     break;
                 case 1:
-                    x += len;
+                    dx = len;
                     break;
                 case 2:
-                    y += len;
+                    dy = len;
                     break;
                 case 3:
-                    x -= len;
+                    dx = -len;
                     break;
-                }
+            }
+
+            if (commands[i] == 'forward') {
+                x += dx;
+                y += dy;
                 tmp = game.add.tween(hero).to({x: x, y: y}, SPEED, "Quart.easeOut");
             }else if(commands[i] == 'backward'){
-                switch (direction){
-                case 0:
-                    y += len;
-                    break;
-                case 1:
-                    x -= len;
-                    break;
-                case 2:
-                    y -= len;
-                    break;
-                case 3:
-                    x += len;
-                    break;
-                }
+                x -= dx;
+                y -= dy;
                 tmp = game.add.tween(hero).to({x: x, y: y}, SPEED, "Quart.easeOut");
             }else if(commands[i] == 'left'){
-                tmp = game.add.tween(hero).to({angle: (direction-1)*90}, SPEED, "Quart.easeOut");
-                direction -= 1;
+                tmp = game.add.tween(hero).to({angle: '-90'}, SPEED, "Quart.easeOut");
+                direction = (direction + 3) % 4;
             }else if(commands[i] == 'right'){
-                tmp = game.add.tween(hero).to({angle: (direction+1)*90}, SPEED, "Quart.easeOut");
-                direction += 1;
+                tmp = game.add.tween(hero).to({angle: '+90'}, SPEED, "Quart.easeOut");
+                direction = (direction + 5) % 4;;
             }
 
             result.push(tmp);

@@ -57,6 +57,8 @@ class Level(models.Model):
     by = models.ForeignKey(User, on_delete=models.CASCADE, blank=False, null=False)
     file = models.FileField(upload_to=user_directory_level_path)
 
+    json = models.TextField(max_length=512)
+
 
 class Article(models.Model):
     title = models.CharField(max_length=128, blank=True)

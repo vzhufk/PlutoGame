@@ -6,3 +6,5 @@ import pluto.models as pluto
 admin.site.register(pluto.Article)
 admin.site.register(pluto.User)
 admin.site.register(pluto.Mate)
+
+admin.site.register(pluto.Level)

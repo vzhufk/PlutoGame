@@ -198,16 +198,17 @@ def level(request, level_id=None):
     return render(request, 'level.html')
 
 
-#@login_required(login_url='/login')
+# @login_required(login_url='/login')
 def play(request, level_id=None):
+    # TODO Json serve
     context = {
         'count': {
-            'forward': 5,
+            'forward': 1,
             'backward': 1,
-            'left': 1,
+            'left': 0,
             'right': 1,
-            'lo': 0,
-            'op': 0
+            'lo': 2,
+            'op': 2
         },
         'tiles': [
             {'x': 1,
