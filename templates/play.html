@@ -96,7 +96,7 @@
         function createCommandPanel(){
              //Commands
             command = game.add.group();
-            command.fixedToCamera = true;
+            command.fixedToCamera = true;.
             command.inputEnableChildren = true;
             command.x = (WIDTH - 9.5 * DIV.width)/2;
             command.y = HEIGHT - DIV.height * 1.5;
@@ -154,6 +154,7 @@
             background.events.onDragStop.add(backgroundOnDragStop, this);
             background.input.priorityID = 0;
             background.originalPosition = background.position.clone();
+            background.prevPosition = background.position.clone();
 
             var x, y, current;
             {% for i in tiles %}
@@ -176,7 +177,9 @@
             hero.input.priorityID = 1;
         }
 
-        game.world.resize(MAX_WIDTH, MAX_HEIGHT);
+        game.world.setBounds(0, 0, 1920, 1920);
+        game.camera.setBoundsToWorld();
+        //game.world.resize(MAX_WIDTH, MAX_HEIGHT);
 
         createScenePanel();
         createProgramPanel();
@@ -345,7 +348,6 @@
     }
 
     function heroReset() {
-        // TODO Sometimes it's doesnt resets
         hero.position = hero.originalPosition.clone();
         hero.direction = hero.originalDirection;
         hero.angle = hero.direction * 90;
@@ -361,7 +363,6 @@
 
     function commandOnDragStop(sprite, pointer) {
         if (sprite.count.value > 0){
-            //TODO Fix problem miss place
             // Camera offset correction
             var ptr = pointer;
             ptr.y += command.y;
@@ -414,11 +415,12 @@
 
     function backgroundOnDragUpdate(sprite, pointer){
             if (Math.abs(sprite.position.x - sprite.originalPosition.x) > DIV.width/10){
-                    game.camera.x -= sprite.position.x - sprite.originalPosition.x;
+                    game.camera.x -= sprite.position.x - sprite.prevPosition.x;
                 }
             if (Math.abs(sprite.position.y - sprite.originalPosition.y) > DIV.height/10){
-                    game.camera.y -= sprite.position.y - sprite.originalPosition.y;
+                    game.camera.y -= sprite.position.y - sprite.prevPosition.y;
             }
+            sprite.prevPosition = sprite.position.clone();
     }
 
     function backgroundOnDragStop(sprite, pointer){
