@@ -55,10 +55,11 @@ class Level(models.Model):
     date = models.DateTimeField(default=timezone.datetime.now, blank=False)
 
     by = models.ForeignKey(User, on_delete=models.CASCADE, blank=False, null=False)
-    file = models.FileField(upload_to=user_directory_level_path)
 
-    json = models.TextField(max_length=512)
+    json = models.TextField(max_length=1024)
 
+    def __str__(self):
+        return self.name
 
 class Article(models.Model):
     title = models.CharField(max_length=128, blank=True)

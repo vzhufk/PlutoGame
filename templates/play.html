@@ -275,17 +275,18 @@
 
         // LOOP handl
         var pair = 0;
+        var pre_lo = 0;
         for (var i = 0; i < pure.length; ++i){
             if (pure[i] == "lo"){
                 --pair;
             }else if (pure[i] == "op"){
-                ++pair;
+                if (pair == 0){
+                    pure.splice(0, 0, "lo");
+                    ++i;
+                }else{
+                    ++pair;
+                }
             }
-        }
-
-        while (pair > 0){
-            pure.splice(0, 0, "lo");
-            --pair;
         }
 
         while(pair < 0){

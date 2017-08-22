@@ -1,7 +1,9 @@
 import django.contrib.auth as auth
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core import serializers
 from django.core.exceptions import ObjectDoesNotExist
+import json
 from django.db.models import Q
 from django.shortcuts import render
 
@@ -191,7 +193,8 @@ def settings(request):
 
 
 def levels(request):
-    return render(request, 'levels.html')
+    context = {'levels': models.Level.objects.all().order_by('-date')}
+    return render(request, 'levels.html', context)
 
 
 def level(request, level_id=None):
@@ -201,42 +204,46 @@ def level(request, level_id=None):
 # @login_required(login_url='/login')
 def play(request, level_id=None):
     # TODO Json serve
-    context = {
-        'count': {
-            'forward': 1,
-            'backward': 1,
-            'left': 0,
-            'right': 1,
-            'lo': 2,
-            'op': 2
-        },
-        'tiles': [
-            {'x': 1,
-             'y': 1,
-             'type': 'tile_default'},
-            {'x': 2,
-             'y': 1,
-             'type': 'tile_default'},
-            {'x': 3,
-             'y': 1,
-             'type': 'tile_default'},
-            {'x': 4,
-             'y': 1,
-             'type': 'tile_default'},
-            {'x': 5,
-             'y': 1,
-             'type': 'tile_default'},
-            {'x': 5,
-             'y': 0,
-             'type': 'tile_finish'}
-        ],
-        'hero': {
-            'x': 1,
-            'y': 1,
-            'direction': 1,
-            'type': 'pluto'
+    if level_id:
+        context = json.loads(models.Level.objects.get(id=level_id).json)
+    else:
+        context = {
+            'count': {
+                'forward': 1,
+                'backward': 1,
+                'left': 0,
+                'right': 1,
+                'lo': 2,
+                'op': 2
+            },
+            'tiles': [
+                {'x': 1,
+                 'y': 1,
+                 'type': 'tile_default'},
+                {'x': 2,
+                 'y': 1,
+                 'type': 'tile_default'},
+                {'x': 3,
+                 'y': 1,
+                 'type': 'tile_default'},
+                {'x': 4,
+                 'y': 1,
+                 'type': 'tile_default'},
+                {'x': 5,
+                 'y': 1,
+                 'type': 'tile_default'},
+                {'x': 5,
+                 'y': 0,
+                 'type': 'tile_finish'}
+            ],
+            'hero': {
+                'x': 1,
+                'y': 1,
+                'direction': 1,
+                'type': 'pluto'
+            }
         }
-    }
+        context = json.loads(json.dumps(context))
 
     # TODO pass pluto skin ;0
     return render(request, 'play.html', context)
