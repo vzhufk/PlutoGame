@@ -1,0 +1,29 @@
+{% extends 'form.html' %}
+
+{% block footer %}
+        <div class="container">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Hint
+                </div>
+                <pre>
+                    {
+                    &#9;"hero":
+                    &#9;&#9;{"type": "pluto", "direction": 1, "x": 1, "y": 1},
+                    &#9;"tiles":
+                    &#9;&#9;[
+                    &#9;&#9;{"type": "tile_default", "x": 1, "y": 1},
+                    &#9;&#9;{"type": "tile_finish", "x": 2, "y": 1}
+                    &#9;&#9;],
+                    &#9;"count":
+                    &#9;&#9;{"right": 0, "forward": 1, "op": 0, "backward": 0, "left": 0, "lo": 0}
+                    }
+                </pre>
+                <ul class="list-group">
+                    <li class="list-group-item">Hero have direction and placement.</li>
+                    <li class="list-group-item">Tiles have placement and type.</li>
+                    <li class="list-group-item">Count is available commands.</li>
+                </ul>
+            </div>
+        </div>
+{% endblock %}

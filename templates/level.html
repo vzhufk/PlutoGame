@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-7">
+             <a href="#" class="thumbnail">
+                <iframe src="/level/{{ level.id }}/play"  height="320" width="640"></iframe>
+             </a>
+        </div>
+        <div class="col-lg-5">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{ level.name }}
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item">By: <a href="/profile/{{ level.by.id }}">{{ level.by.username }}</a></li>
+                    <li class="list-group-item">Date: {{ level.date }}</li>
+                    <li class="list-group-item">Rating: {{ level.rating }}</li>
+                    <li class="list-group-item">
+                        <a href="/level/{{ level.id }}/play"><span class="glyphicon glyphicon-play"></span></a>
+                    </li>
+                    {% if request.user.id == level.by.id %}
+                    <li class="list-group-item">
+                        <a href="/creator/{{ level.id }}"><span class="glyphicon glyphicon-pencil"></span></a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Comments
+                </div>
+                    <li class="list-group-item">Nothing here for now</li>
+            </div>
+        </div>
+    </div>
+{% endblock %}

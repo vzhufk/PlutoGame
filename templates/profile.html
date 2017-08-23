@@ -3,7 +3,7 @@
     {% if profile %}
     <div class="row">
         <div class="col-lg-3">
-                <a href="#" class="thumbnail">
+            <a href="#" class="thumbnail">
             <img src="/media/{{ profile.image }}" alt="image">
             </a>
         </div>
@@ -37,5 +37,27 @@
             {% endif %}
         </div>
     </div>
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading"> Creations </div>
+                    <table class="table">
+                        {% for i in levels %}
+                        <tr>
+                            <td>
+                                <a href="/level/{{ i.id }}"> {{ i.name }}</a>
+                                {% if profile.id == request.user.id %}
+                                <a href="/creator/{{ i.id }}">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </a>
+                                {% endif %}
+                            </td>
+                            <td> {{ i.date }}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
     {% endif %}
 {% endblock %}

@@ -82,3 +82,10 @@ class SignUpForm(forms.Form):
             raise forms.ValidationError(
                 "Password and Confirm Password does not match."
             )
+
+
+class LevelCreationForm(forms.Form):
+    name = forms.CharField(label='Name')
+    name.widget = forms.TextInput(attrs={'class': 'form-control'})
+    json = forms.CharField(label='Level code')
+    json.widget = forms.Textarea(attrs={'class': 'form-control'})

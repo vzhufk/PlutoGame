@@ -4,7 +4,6 @@
     <div class="table-responsive">
     <table class="table">
         <tr>
-            <th> ID </th>
             <th> Name </th>
             <th> Date </th>
             <th> By </th>
@@ -12,11 +11,15 @@
         </tr>
         {% for i in levels %}
             <tr>
-                <td> {{ i.id }}</td>
-                <td> {{ i.name }}</td>
+                <td>
+                    <a href="/level/{{ i.id }}">{{ i.name }}</a>
+                    {% if request.user.id == i.by.id %}
+                    <a href="/creator/{{ i.id }}"><span class="glyphicon glyphicon-pencil"></span></a>
+                    {% endif %}
+                </td>
                 <td> {{ i.date }}</td>
                 <td> <a href="/profile/{{ i.by.id }}"> {{ i.by.username }} </a></td>
-                <td> <a href="/level/{{ i.id }}/play"> <button class="button btn-default-"> <span class="glyphicon glyphicon-play"></span> </button> </a></td>
+                <td> <a href="/level/{{ i.id }}/play"> <button class="button btn-default"> <span class="glyphicon glyphicon-play"></span> </button> </a></td>
             </tr>
         {% endfor %}
     </table>

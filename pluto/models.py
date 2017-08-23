@@ -61,6 +61,32 @@ class Level(models.Model):
     def __str__(self):
         return self.name
 
+
+class Comment(models.Model):
+    to = models.ForeignKey(Level, on_delete=models.CASCADE, blank=False, null=False)
+    by = models.ForeignKey(User, related_name='comment_by', on_delete=models.CASCADE, blank=False, null=False)
+
+    forward = models.ForeignKey(User, related_name='comment_forward', on_delete=models.CASCADE, blank=True, null=True)
+
+    value = models.TextField(max_length=256)
+
+
+class Rate(models.Model):
+    to = models.ForeignKey(Level, on_delete=models.CASCADE, blank=False, null=False)
+    by = models.ForeignKey(User, related_name='rate_by', on_delete=models.CASCADE, blank=False, null=False)
+
+    value = models.IntegerField()
+
+
+class Result(models.Model):
+    to = models.ForeignKey(Level, on_delete=models.CASCADE, blank=False, null=False)
+    by = models.ForeignKey(User, related_name='result_by', on_delete=models.CASCADE, blank=False, null=False)
+
+    program = models.TextField(max_length=512)
+
+    points = models.IntegerField()
+
+
 class Article(models.Model):
     title = models.CharField(max_length=128, blank=True)
     value = models.TextField(max_length=512, blank=False)

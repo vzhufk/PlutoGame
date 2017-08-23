@@ -1,15 +1,15 @@
+import json
+
 import django.contrib.auth as auth
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.core import serializers
 from django.core.exceptions import ObjectDoesNotExist
-import json
 from django.db.models import Q
 from django.shortcuts import render
 
 # Create your views here.
 from pluto import models
-from pluto.forms import SignUpForm, LogInForm, PasswordForm, PersonalInfoForm, PersonalImageForm
+from pluto.forms import SignUpForm, LogInForm, PasswordForm, PersonalInfoForm, PersonalImageForm, LevelCreationForm
 from pluto.models import mate_change
 
 
@@ -77,6 +77,7 @@ def profile(request, profile_id=None):
         profile_id = request.user.id
     try:
         context['profile'] = models.User.objects.get(id=profile_id)
+        context['levels'] = models.Level.objects.filter(by=profile_id)
         try:
             mate = models.Mate.objects.filter(Q(a=request.user.id, b=profile_id) | Q(a=profile_id, b=request.user.id))[
                 0]
@@ -198,7 +199,8 @@ def levels(request):
 
 
 def level(request, level_id=None):
-    return render(request, 'level.html')
+    context = {'level': models.Level.objects.get(id=level_id)}
+    return render(request, 'level.html', context)
 
 
 # @login_required(login_url='/login')
@@ -247,3 +249,43 @@ def play(request, level_id=None):
 
     # TODO pass pluto skin ;0
     return render(request, 'play.html', context)
+
+
+@login_required(login_url='/login')
+def creator(request, level_id=None):
+    creation = LevelCreationForm()
+
+    if level_id:
+        try:
+            current = models.Level.objects.get(id=level_id)
+        except ObjectDoesNotExist:
+            messages.error(request, "No such level in database.")
+            return levels(request)
+
+        if current.by.id != request.user.id:
+            messages.error(request, "You have no permission to edit this.")
+            return levels(request)
+
+        creation.fields['name'].initial = current.name
+        creation.fields['json'].initial = current.json
+
+    if request.method == 'POST':
+        creation = LevelCreationForm(request.POST)
+        if not creation.is_valid():
+            [messages.error(request, str(x)) for y in list(creation.errors.values()) for x in y]
+        else:
+            created_level = models.Level()
+            if level_id:
+                created_level = models.Level.objects.get(id=level_id)
+
+            created_level.name = creation.cleaned_data['name']
+            created_level.json = creation.cleaned_data['json']
+            created_level.by = request.user
+            created_level.save()
+            if level_id:
+                messages.success(request, 'Success. Level has been edited.')
+            else:
+                messages.success(request, 'Success. Level has been created.')
+
+    context = {'form': creation}
+    return render(request, 'creator.html', context)
