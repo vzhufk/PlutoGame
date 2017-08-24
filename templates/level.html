@@ -17,11 +17,16 @@
                     <li class="list-group-item">Date: {{ level.date }}</li>
                     <li class="list-group-item">Rating: {{ level.rating }}</li>
                     <li class="list-group-item">
-                        <a href="/level/{{ level.id }}/play"><span class="glyphicon glyphicon-play"></span></a>
+                        <a href="/level/{{ level.id }}/play">
+                            <button class="btn btn-block"><span class="glyphicon glyphicon-play"></span></button>
+                        </a>
                     </li>
                     {% if request.user.id == level.by.id %}
                     <li class="list-group-item">
-                        <a href="/creator/{{ level.id }}"><span class="glyphicon glyphicon-pencil"></span></a>
+                        <a href="/creator/{{ level.id }}">
+                            <button class="btn btn-block"><span class="glyphicon glyphicon-pencil"></span>
+                            </button>
+                        </a>
                     </li>
                     {% endif %}
                 </ul>

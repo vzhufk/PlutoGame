@@ -207,46 +207,13 @@ def level(request, level_id=None):
 def play(request, level_id=None):
     # TODO Json serve
     if level_id:
-        context = json.loads(models.Level.objects.get(id=level_id).json)
+        current_level = models.Level.objects.get(id=level_id)
+        context = json.loads(current_level.json)
+        context['name'] = current_level.name
+        context['by'] = current_level.by.username
     else:
-        context = {
-            'count': {
-                'forward': 1,
-                'backward': 1,
-                'left': 0,
-                'right': 1,
-                'lo': 2,
-                'op': 2
-            },
-            'tiles': [
-                {'x': 1,
-                 'y': 1,
-                 'type': 'tile_default'},
-                {'x': 2,
-                 'y': 1,
-                 'type': 'tile_default'},
-                {'x': 3,
-                 'y': 1,
-                 'type': 'tile_default'},
-                {'x': 4,
-                 'y': 1,
-                 'type': 'tile_default'},
-                {'x': 5,
-                 'y': 1,
-                 'type': 'tile_default'},
-                {'x': 5,
-                 'y': 0,
-                 'type': 'tile_finish'}
-            ],
-            'hero': {
-                'x': 1,
-                'y': 1,
-                'direction': 1,
-                'type': 'pluto'
-            }
-        }
-        context = json.loads(json.dumps(context))
-
+        messages.error(request, "Hm. Something went wrong. Try not to do this again.")
+        return levels(request);
     # TODO pass pluto skin ;0
     return render(request, 'play.html', context)
 

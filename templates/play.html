@@ -3,6 +3,7 @@
 <head>
     {% include 'include/phaser.html' %}
     {% load staticfiles %}
+    <title> {{ name }} by {{ by }}</title>
     <meta name="viewport" content="minimal-ui, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="mobile-web-app-capable" content="yes">
 </head>
@@ -142,17 +143,19 @@
             scene.w = WIDTH;
             scene.h = HEIGHT - DIV.height * 1.5 - DIV.height * 1.5;
 
-            background = game.add.sprite(scene.x, scene.y);
+            background = game.add.sprite();
             background.fixedToCamera = true;
+            background.cameraOffset.x = scene.x;
+            background.cameraOffset.y = scene.y;
             background.inputEnabled = true;
             background.width = scene.w;
             background.height = scene.h;
             background.input.enableDrag();
-            background.events.onDragUpdate.add(backgroundOnDragUpdate, this);            
+            background.events.onDragStart.add(backgroundOnDragStart, this);
+            //background.events.onDragUpdate.add(backgroundOnDragUpdate, this);
             background.events.onDragStop.add(backgroundOnDragStop, this);
             background.input.priorityID = 0;
-            background.originalPosition = background.position.clone();
-            background.prevPosition = background.position.clone();
+            background.originalPosition = background.cameraOffset.clone();
 
             var x, y, current;
             {% for i in tiles %}
@@ -193,6 +196,8 @@
             gameSuccess(false);
         }
         //game.debug.cameraInfo(this.game.camera, 0, 200);
+        //game.debug.spriteInfo(background, 32, 32);
+        //game.debug.spriteBounds(background);
     }
 
     function gameCheckSucceed() {
@@ -452,20 +457,23 @@
 
     }
 
-
-    function backgroundOnDragUpdate(sprite, pointer){
-            if (Math.abs(sprite.position.x - sprite.originalPosition.x) > DIV.width/10){
-                    game.camera.x -= sprite.position.x - sprite.prevPosition.x;
-                }
-            if (Math.abs(sprite.position.y - sprite.originalPosition.y) > DIV.height/10){
-                    game.camera.y -= sprite.position.y - sprite.prevPosition.y;
-            }
-            sprite.prevPosition = sprite.position.clone();
+    function backgroundOnDragStart(sprite, pointer){
+        sprite.originalPosition = sprite.cameraOffset.clone();
     }
 
     function backgroundOnDragStop(sprite, pointer){
-        //sprite.position = sprite.originalPosition.clone();
-        sprite.cameraOffset = sprite.originalPosition.clone();
+        var x = sprite.originalPosition.x - sprite.cameraOffset.x;
+        var y = sprite.originalPosition.y - sprite.cameraOffset.y;
+        x += game.camera.x;
+        y += game.camera.y;
+
+        var animation = game.add.tween(game.camera).to({x: x, y: y}, SPEED, "Quart.easeOut");
+        animation.start();
+
+        sprite.fixedToCamera = true;
+        //IDK But it works
+        sprite.cameraOffset.x = scene.x;
+        sprite.cameraOffset.y = scene.y;
     }
 
 

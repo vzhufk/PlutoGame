@@ -3,11 +3,6 @@
 {% block content %}
     <div class="table-responsive">
     <table class="table">
-       <tr>
-           <td>
-               <a href="/creator">Add</a>
-           </td>
-       </tr>
         <tr>
             <th> Name </th>
             <th> Date </th>
@@ -18,15 +13,30 @@
             <tr>
                 <td>
                     <a href="/level/{{ i.id }}">{{ i.name }}</a>
-                    {% if request.user.id == i.by.id %}
-                    <a href="/creator/{{ i.id }}"><span class="glyphicon glyphicon-pencil"></span></a>
-                    {% endif %}
                 </td>
                 <td> {{ i.date }}</td>
                 <td> <a href="/profile/{{ i.by.id }}"> {{ i.by.username }} </a></td>
-                <td> <a href="/level/{{ i.id }}/play"> <button class="button btn-default"> <span class="glyphicon glyphicon-play"></span> </button> </a></td>
+                <td>
+                    <a href="/level/{{ i.id }}/play">
+                        <button class="btn btn-default">
+                            <span class="glyphicon glyphicon-play"></span>
+                        </button>
+                    </a>
+                    {% if request.user.id == i.by.id %}
+                    <a href="/creator/{{ i.id }}">
+                        <button class="btn btn-default">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </button>
+                    </a>
+                    {% endif %}
+                </td>
             </tr>
         {% endfor %}
+        <tr>
+           <td colspan="4">
+               <a href="/creator"><button class="btn btn-block">Add</button></a>
+           </td>
+        </tr>
     </table>
     </div>
 {% endblock %}

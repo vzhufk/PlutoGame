@@ -18,6 +18,10 @@
     {% block extra_include %}
         <!-- Some extra includes that is situational for each page -->
     {% endblock %}
+    {% block favicon %}
+        {% load staticfiles %}
+        <link rel="shortcut icon" href="{%  static 'favicon.ico' %}">
+    {% endblock %}
     {% block engine %}
     {% endblock %}
 </head>
@@ -38,7 +42,6 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li><a href="/levels">Levels</a></li>
-                    <li><a href="/demo">Demo</a></li>
                 </ul>
         <ul class="nav navbar-nav navbar-right">
             {% if request.user.is_authenticated %}
