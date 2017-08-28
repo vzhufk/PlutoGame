@@ -70,7 +70,7 @@
             program.h = DIV.height * 1.5;
             program.cameraOffset = program.position.clone();
             var program_holder = game.add.graphics(0, 0);
-            program_holder.beginFill(0xc1c1c1, 0.85);
+            program_holder.beginFill(0xc1c1c1, 0.75);
             program_holder.drawRect(0, 0, program.w, program.h);
             program_holder.endFill();
             program.addChild(program_holder);
@@ -103,16 +103,17 @@
             command.h = DIV.height * 1.5;
             command.cameraOffset = command.position.clone();
             var command_holder = game.add.graphics(0, 0);
-            command_holder.beginFill(0xc1c1c1, 0.85);
+            command_holder.beginFill(0xc1c1c1, 0.75);
             command_holder.drawRect(0, 0, command.w, command.h);
             command_holder.endFill();
             command.addChild(command_holder);
 
 
             var command_names = ['forward', 'backward', 'left', 'right', 'lo', 'op'];
-            var x = DIV.width/2;
+            var x;
+            x = DIV.width;
             for (var i in command_names){
-                commands[command_names[i]] = command.create(x, DIV.height/4, command_names[i]);
+                commands[command_names[i]] = command.create(x, 3*DIV.height/4, command_names[i]);
                 x += 3 * DIV.width/2;
             }
             {% for key, value in count.items %}
@@ -121,14 +122,15 @@
 
             for (var key in commands){
                 var object = commands[key];
+                object.anchor.setTo(0.5, 0.5);
                 //Draggable
                 object.inputEnabled = true;
                 object.input.enableDrag();
                 object.events.onDragStart.add(commandOnDragStart, this);
                 object.events.onDragStop.add(commandOnDragStop, this);
                 // Counters
-                var text = object.count.value
-                object.count.text = game.add.text(object.x + DIV.width/2, object.y + DIV.height + 5, text, defaultFont, command);
+                var text = object.count.value;
+                object.count.text = game.add.text(object.x, object.y  + DIV.height/2 + 5, text, defaultFont, command);
                 object.count.text.anchor.setTo(0.5, 0.5);
 
             }
@@ -142,6 +144,7 @@
             scene.y = DIV.height * 1.5;
             scene.w = WIDTH;
             scene.h = HEIGHT - DIV.height * 1.5 - DIV.height * 1.5;
+            scene.direction = 0;
 
             background = game.add.sprite();
             background.fixedToCamera = true;
@@ -152,7 +155,6 @@
             background.height = scene.h;
             background.input.enableDrag();
             background.events.onDragStart.add(backgroundOnDragStart, this);
-            //background.events.onDragUpdate.add(backgroundOnDragUpdate, this);
             background.events.onDragStop.add(backgroundOnDragStop, this);
             background.input.priorityID = 0;
             background.originalPosition = background.cameraOffset.clone();
@@ -185,6 +187,7 @@
         createScenePanel();
         createProgramPanel();
         createCommandPanel();
+        commandsTurn();
     }
 
 
@@ -204,7 +207,7 @@
             var tiles = sceneCheck();
             var success = false;
             for (var i in tiles){
-                if (tiles[i].key == "tile_finish"){
+                if (tiles[i].key === "tile_finish"){
                     success = true;
                 }
             }
@@ -222,7 +225,7 @@
 
     function gameSuccess(success) {
         if (success){
-            alert("w0w");
+            alert("Good job!");
         }else{
             game.tweens.removeAll();
             heroReset();
@@ -237,15 +240,16 @@
     function programAddCommand(command, pointer){
         var index = programs.length;
         pointer.x += DIV.width/2;
-        if (pointer.y < HEIGHT/2){
-            //TODO this need to be rewritten
-            //in case of scroll
-            index = Math.floor(pointer.x/DIV.width);
-            if (index > programs.length){
-                index = programs.length;
+        if (pointer.y < program.y + program.h){
+            for (var i = 0; i < programs.length; ++i){
+                if (Phaser.Rectangle.intersects(programs[i].getBounds(), command.getBounds())){
+                    index = i;
+                }
             }
         }
-        var current = program.create(0, DIV.height/4, command.key);
+        var current = program.create(DIV.width/2, 3*DIV.height/4, command.key);
+        current.anchor.setTo(0.5, 0.5);
+        current.angle = command.angle;
         current.inputEnabled = true;
         current.input.enableDrag();
         current.events.onDragStart.add(programOnDragStart, this);
@@ -255,6 +259,15 @@
         programs.splice(index, 0, current);
 
         programAlignCommands();
+
+        //Commands turning
+        if (index < programs.length){
+            programsTurn(index);
+            commandsTurn();
+        }else if (command.key === 'left' || command.key === 'right') {
+            commandsTurn();
+        }
+
     }
 
     function programAlignCommands(){
@@ -263,28 +276,28 @@
             return;
         }
         if (programs[0].x > 0){
-            programs[0].x = 0;
+            programs[0].x = DIV.width/2;
         }
         for (var i = 1; i < programs.length; ++i){
             programs[i].alignTo(programs[i-1], Phaser.RIGHT_CENTER);
         }
     }
 
-    function programCompile(){
+    function programCompile(to){
+        to = (typeof to === 'undefined') ? programs.length : to;
         var pure = [];
-        for (var i in programs){
+        for (var i = 0; i < to; ++i){
             var current =  programs[i].key;
             pure.push(current);
         }
 
         // LOOP handl
         var pair = 0;
-        var pre_lo = 0;
-        for (var i = 0; i < pure.length; ++i){
-            if (pure[i] == "lo"){
+        for (i = 0; i < pure.length; ++i){
+            if (pure[i] === "lo"){
                 --pair;
-            }else if (pure[i] == "op"){
-                if (pair == 0){
+            }else if (pure[i] === "op"){
+                if (pair === 0){
                     pure.splice(0, 0, "lo");
                     ++i;
                 }else{
@@ -298,21 +311,21 @@
             ++pair;
         }
 
-        for (var i = 0; i < pure.length; ++i){
-            if (pure[i] == "lo"){
+        for (i = 0; i < pure.length; ++i){
+            if (pure[i] === "lo"){
                 pair -= 1;
                 var j = i + 1;
                 do{
-                    if (pure[j] == "lo"){
+                    if (pure[j] === "lo"){
                         pair -= 1;
                     }
-                    if (pure[j] == "op"){
+                    if (pure[j] === "op"){
                         pair += 1;
                     }
                     ++j;
-                }while (pair != 0 && j < pure.length);
+                }while (pair !== 0 && j < pure.length);
 
-                if (pair == 0){
+                if (pair === 0){
                     var double = pure.slice(i+1, j-1);
                     pure.splice(j-1, 1);
                     pure.splice.apply(pure, [i, 1].concat(double));
@@ -327,6 +340,56 @@
         return pure;
     }
 
+    function getDirection(pure, starting){
+        var direction = (typeof starting === 'undefined') ? 0 : starting;
+
+        for (var i = 0; i < pure.length; ++i){
+            if (pure[i] === 'left'){
+                --direction;
+            }
+            if (pure[i] === 'right'){
+                ++direction;
+            }
+        }
+
+        while(direction < 0){
+            direction += 4;
+        }
+        direction %= 4;
+
+        return direction;
+    }
+
+    function commandsTurn() {
+        var direction = getDirection(programCompile(), hero.direction);
+
+        var dir = (direction > scene.direction)?("+"):("-");
+        var angle = dir + (Math.abs(direction - scene.direction)*90).toString();
+
+        game.add.tween(commands.forward).to({angle: angle}, SPEED, "Quart.easeOut").start();
+        game.add.tween(commands.backward).to({angle: angle}, SPEED, "Quart.easeOut").start();
+        game.add.tween(commands.left).to({angle: angle}, SPEED, "Quart.easeOut").start();
+        game.add.tween(commands.right).to({angle: angle}, SPEED, "Quart.easeOut").start();
+
+        scene.direction = direction;
+    }
+
+    function programsTurn(position) {
+        position = position || 0;
+
+        for (var i = position; i < programs.length; ++i){
+            if (programs[i].key !== 'lo' && programs[i].key !== 'op'){
+                var current = programs[i];
+                var direction = getDirection(programCompile(i), hero.direction);
+                if (direction !== current.angle/90){
+                    var dir = (direction > current.angle/90)?("+"):("-");
+                    var angle = dir + (Math.abs(direction - current.angle/90)*90).toString();
+
+                    game.add.tween(programs[i]).to({angle: angle}, SPEED, "Quart.easeOut").start();
+                }
+            }
+        }
+    }
 
     function createTween(commands){
         var result = [];
@@ -354,18 +417,18 @@
                     break;
             }
 
-            if (commands[i] == 'forward') {
+            if (commands[i] === 'forward') {
                 x += dx;
                 y += dy;
                 tmp = game.add.tween(hero).to({x: x, y: y}, SPEED, "Quart.easeOut");
-            }else if(commands[i] == 'backward'){
+            }else if(commands[i] === 'backward'){
                 x -= dx;
                 y -= dy;
                 tmp = game.add.tween(hero).to({x: x, y: y}, SPEED, "Quart.easeOut");
-            }else if(commands[i] == 'left'){
+            }else if(commands[i] === 'left'){
                 tmp = game.add.tween(hero).to({angle: '-90'}, SPEED, "Quart.easeOut");
                 direction = (direction + 3) % 4;
-            }else if(commands[i] == 'right'){
+            }else if(commands[i] === 'right'){
                 tmp = game.add.tween(hero).to({angle: '+90'}, SPEED, "Quart.easeOut");
                 direction = (direction + 5) % 4;;
             }
@@ -429,6 +492,11 @@
             programAddCommand(sprite, pointer);
         }else{
            deltaCommandCount(sprite.key, 1);
+           //TODO I dont like it here ;|
+           if (sprite.key !== 'forward' && sprite.key !== 'backward') {
+            commandsTurn();
+            programsTurn();
+        }
         }
         sprite.destroy();
         programAlignCommands();
