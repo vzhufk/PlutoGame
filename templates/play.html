@@ -389,12 +389,11 @@
                     dir += 4;
                 }
                 current.angle %= 4;
-                if (direction !== dir){
-                    var dir = (direction > dir)?("+"):("-");
-                    var angle = dir + (Math.abs(direction - dir)*90).toString();
+                var dir = (direction > dir)?("+"):("-");
+                var angle = dir + (Math.abs(direction - dir)*90).toString();
 
-                    game.add.tween(programs[i]).to({angle: angle}, SPEED, "Quart.easeOut").start();
-                }
+                game.add.tween(programs[i]).to({angle: angle}, SPEED, "Quart.easeOut").start();
+                
             }
         }
     }
