@@ -299,7 +299,7 @@
             programPanelCommandsTurn(index);
             commandPanelCommandsTurn();
         }else{
-            if (command.key === 'left' || command.key === 'right') {
+            if (command.key !== 'forward' && command.key !== 'backward') {
                 commandPanelCommandsTurn();
                 programPanelCommandsTurn();
             }
