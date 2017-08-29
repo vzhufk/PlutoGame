@@ -384,13 +384,13 @@
             if (programs[i].key !== 'lo' && programs[i].key !== 'op'){
                 var current = programs[i];
                 var direction = getDirection(programCompile(i), hero.direction);
-                var dir = current.angle / 90;
-                while (dir < 0){
-                    dir += 4;
+                var current_dir = current.angle / 90;
+                while (current_dir < 0){
+                    current_dir += 4;
                 }
-                current.angle %= 4;
-                var dir = (direction > dir)?("+"):("-");
-                var angle = dir + (Math.abs(direction - dir)*90).toString();
+                current_dir %= 4;
+                var dir = (direction > current_dir)?("+"):("-");
+                var angle = dir + (Math.abs(direction - current_dir)*90).toString();
 
                 game.add.tween(programs[i]).to({angle: angle}, SPEED, "Quart.easeOut").start();
                 
