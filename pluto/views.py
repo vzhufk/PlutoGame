@@ -203,9 +203,7 @@ def level(request, level_id=None):
     return render(request, 'level.html', context)
 
 
-# @login_required(login_url='/login')
 def play(request, level_id=None):
-    # TODO Json serve
     if level_id:
         current_level = models.Level.objects.get(id=level_id)
         context = json.loads(current_level.json)
@@ -213,7 +211,7 @@ def play(request, level_id=None):
         context['by'] = current_level.by.username
     else:
         messages.error(request, "Hm. Something went wrong. Try not to do this again.")
-        return levels(request);
+        return levels(request)
     # TODO pass pluto skin ;0
     return render(request, 'play.html', context)
 
@@ -256,3 +254,13 @@ def creator(request, level_id=None):
 
     context = {'form': creation}
     return render(request, 'creator.html', context)
+
+
+@login_required(login_url='/login')
+def result(request, level_id):
+    if request.method == 'POST':
+        current = models.Result()
+        current.by = request.user
+        current.to = models.Level.objects.get(id=level_id)
+        current.attempts = request.POST['attempts']
+        current.program = request.POST['program']

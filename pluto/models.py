@@ -82,6 +82,7 @@ class Result(models.Model):
     to = models.ForeignKey(Level, on_delete=models.CASCADE, blank=False, null=False)
     by = models.ForeignKey(User, related_name='result_by', on_delete=models.CASCADE, blank=False, null=False)
 
+    attempts = models.IntegerField(blank=False)
     program = models.TextField(max_length=512)
 
     points = models.IntegerField()
