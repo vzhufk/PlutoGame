@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8467f64f-f497-4195-9163-6a0b0232c0d0" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pluto/models.py" afterPath="$PROJECT_DIR$/pluto/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pluto/views.py" afterPath="$PROJECT_DIR$/pluto/views.py" />
+    <list default="true" id="8467f64f-f497-4195-9163-6a0b0232c0d0" name="Default" comment="Changes:&#10;-Result Model&#10;-Level Model">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pluto/migrations/0008_auto_20170831_1146.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pluto/migrations/0009_auto_20170831_1153.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/result.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -21,8 +22,8 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pluto/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="263" column="58" lean-forward="false" selection-start-line="263" selection-start-column="58" selection-end-line="263" selection-end-column="58" />
+            <state relative-caret-position="3995">
+              <caret line="302" column="26" lean-forward="false" selection-start-line="302" selection-start-column="26" selection-end-line="302" selection-end-column="26" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
                 <element signature="e#493#734#0" expanded="false" />
@@ -31,14 +32,6 @@
                 <element signature="e#1697#2425#0" expanded="false" />
                 <element signature="e#2453#2561#0" expanded="false" />
                 <element signature="e#2607#3580#0" expanded="false" />
-                <element signature="e#3657#4011#0" expanded="false" />
-                <element signature="e#4074#5257#0" expanded="false" />
-                <element signature="e#4780#4899#0" expanded="false" />
-                <element signature="e#5323#7291#0" expanded="false" />
-                <element signature="e#7319#7436#0" expanded="false" />
-                <element signature="e#7478#7586#0" expanded="false" />
-                <element signature="e#7627#8052#0" expanded="false" />
-                <element signature="e#8132#9515#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -48,7 +41,7 @@
         <entry file="file://$PROJECT_DIR$/templates/form.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="255">
-              <caret line="15" column="22" lean-forward="true" selection-start-line="15" selection-start-column="22" selection-end-line="15" selection-end-column="22" />
+              <caret line="15" column="22" lean-forward="false" selection-start-line="15" selection-start-column="22" selection-end-line="15" selection-end-column="22" />
               <folding />
             </state>
           </provider>
@@ -57,7 +50,7 @@
       <file leaf-file-name="base.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/base.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-103">
+            <state relative-caret-position="187">
               <caret line="11" column="12" lean-forward="false" selection-start-line="11" selection-start-column="12" selection-end-line="11" selection-end-column="12" />
               <folding>
                 <element signature="n#block#5;n#!!top" expanded="false" />
@@ -79,21 +72,22 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pluto/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="82" column="27" lean-forward="false" selection-start-line="82" selection-start-column="27" selection-end-line="82" selection-end-column="27" />
-              <folding>
-                <element signature="e#253#374#0" expanded="false" />
-                <element signature="e#432#556#0" expanded="false" />
-                <element signature="e#589#731#0" expanded="false" />
-                <element signature="e#764#1143#0" expanded="false" />
-                <element signature="e#1175#1703#0" expanded="false" />
-                <element signature="e#1762#2070#0" expanded="false" />
-                <element signature="e#2106#2463#0" expanded="false" />
-                <element signature="e#2496#2719#0" expanded="false" />
-              </folding>
+            <state relative-caret-position="-1219">
+              <caret line="12" column="56" lean-forward="false" selection-start-line="12" selection-start-column="56" selection-end-line="12" selection-end-column="56" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="result.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/templates/result.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="4" column="23" lean-forward="false" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="23" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -102,7 +96,7 @@
         <entry file="file://$PROJECT_DIR$/requirements.txt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="51">
-              <caret line="3" column="8" lean-forward="true" selection-start-line="3" selection-start-column="8" selection-end-line="3" selection-end-column="8" />
+              <caret line="3" column="8" lean-forward="false" selection-start-line="3" selection-start-column="8" selection-end-line="3" selection-end-column="8" />
               <folding />
             </state>
           </provider>
@@ -167,6 +161,7 @@
         <option value="$PROJECT_DIR$/pluto/urls.py" />
         <option value="$PROJECT_DIR$/pluto/views.py" />
         <option value="$PROJECT_DIR$/pluto/models.py" />
+        <option value="$PROJECT_DIR$/templates/result.html" />
       </list>
     </option>
   </component>
@@ -204,7 +199,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
@@ -227,6 +221,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -660,7 +655,14 @@
       <option name="project" value="LOCAL" />
       <updated>1504024709534</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="Changes:&#10;-Result Model&#10;-Level Model">
+      <created>1504174699815</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1504174699815</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TodoView" selected-index="1">
@@ -675,15 +677,16 @@
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2927383" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287037" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287037" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32253087" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287037" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29727685" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="manage.py@PlutoGame" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3271605" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39660493" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -693,7 +696,6 @@
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32872504" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="manage.py@PlutoGame" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3271605" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -740,7 +742,8 @@
     <MESSAGE value="Interface improvements:&#10;-Add level buttons in several places.&#10;-Missing page titles.&#10;-Favicon icons.&#10;-Removed demo page.&#10;Game improvements:&#10;-Scene dragging ow works without bugs.&#10;-Scene dragging now smooth and not so crazy." />
     <MESSAGE value="Fixes:&#10;-Fixed bug when dragged command was misplaced.&#10;-Drag-Drop command algorithm rewritten.&#10;Interface:&#10;-Direction of commands now changing with program creation." />
     <MESSAGE value="Fixes:&#10;-A bit fixed commands rotation wasn't finished in fast clicking situation.&#10;Interface:&#10;-Scroll resize. Scrolling now scale to window.&#10;Code:&#10;-Refactored.&#10;-Add DOCStrings." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixes:&#10;-A bit fixed commands rotation wasn't finished in fast clicking situation.&#10;Interface:&#10;-Scroll resize. Scrolling now scale to window.&#10;Code:&#10;-Refactored.&#10;-Add DOCStrings." />
+    <MESSAGE value="Changes:&#10;-Result Model&#10;-Level Model" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changes:&#10;-Result Model&#10;-Level Model" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -749,13 +752,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/templates/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="33" column="26" lean-forward="false" selection-start-line="33" selection-start-column="26" selection-end-line="33" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Py3.5andDjango/Lib/site-packages/django/utils/autoreload.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="631">
@@ -1009,14 +1005,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1254">
           <caret line="318" column="19" lean-forward="true" selection-start-line="318" selection-start-column="19" selection-end-line="318" selection-end-column="19" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/requirements.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
-          <caret line="3" column="8" lean-forward="true" selection-start-line="3" selection-start-column="8" selection-end-line="3" selection-end-column="8" />
+          <caret line="3" column="8" lean-forward="false" selection-start-line="3" selection-start-column="8" selection-end-line="3" selection-end-column="8" />
           <folding />
         </state>
       </provider>
@@ -1024,14 +1019,14 @@
     <entry file="file://$PROJECT_DIR$/templates/form.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
-          <caret line="15" column="22" lean-forward="true" selection-start-line="15" selection-start-column="22" selection-end-line="15" selection-end-column="22" />
+          <caret line="15" column="22" lean-forward="false" selection-start-line="15" selection-start-column="22" selection-end-line="15" selection-end-column="22" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/base.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-103">
+        <state relative-caret-position="187">
           <caret line="11" column="12" lean-forward="false" selection-start-line="11" selection-start-column="12" selection-end-line="11" selection-end-column="12" />
           <folding>
             <element signature="n#block#5;n#!!top" expanded="false" />
@@ -1052,8 +1047,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pluto/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="263" column="58" lean-forward="false" selection-start-line="263" selection-start-column="58" selection-end-line="263" selection-end-column="58" />
+        <state relative-caret-position="3995">
+          <caret line="302" column="26" lean-forward="false" selection-start-line="302" selection-start-column="26" selection-end-line="302" selection-end-column="26" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
             <element signature="e#493#734#0" expanded="false" />
@@ -1062,32 +1057,23 @@
             <element signature="e#1697#2425#0" expanded="false" />
             <element signature="e#2453#2561#0" expanded="false" />
             <element signature="e#2607#3580#0" expanded="false" />
-            <element signature="e#3657#4011#0" expanded="false" />
-            <element signature="e#4074#5257#0" expanded="false" />
-            <element signature="e#4780#4899#0" expanded="false" />
-            <element signature="e#5323#7291#0" expanded="false" />
-            <element signature="e#7319#7436#0" expanded="false" />
-            <element signature="e#7478#7586#0" expanded="false" />
-            <element signature="e#7627#8052#0" expanded="false" />
-            <element signature="e#8132#9515#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pluto/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="82" column="27" lean-forward="false" selection-start-line="82" selection-start-column="27" selection-end-line="82" selection-end-column="27" />
-          <folding>
-            <element signature="e#253#374#0" expanded="false" />
-            <element signature="e#432#556#0" expanded="false" />
-            <element signature="e#589#731#0" expanded="false" />
-            <element signature="e#764#1143#0" expanded="false" />
-            <element signature="e#1175#1703#0" expanded="false" />
-            <element signature="e#1762#2070#0" expanded="false" />
-            <element signature="e#2106#2463#0" expanded="false" />
-            <element signature="e#2496#2719#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="-1219">
+          <caret line="12" column="56" lean-forward="false" selection-start-line="12" selection-start-column="56" selection-end-line="12" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/result.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="23" lean-forward="false" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="23" />
+          <folding />
         </state>
       </provider>
     </entry>
