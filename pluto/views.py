@@ -7,10 +7,13 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 from django.shortcuts import render
 
+
 # Create your views here.
 from pluto import models
 from pluto.forms import SignUpForm, LogInForm, PasswordForm, PersonalInfoForm, PersonalImageForm, LevelCreationForm
 from pluto.models import mate_change
+
+import datetime
 
 
 def test(request):
@@ -97,9 +100,11 @@ def profile(request, profile_id=None):
         messages.error(request, 'Profile with this ID doesnt exist.')
     return render(request, 'profile.html', context)
 
+
 @login_required(login_url='/login')
 def me(request):
     return profile(request)
+
 
 @login_required(login_url='/login')
 def mate_it(request, profile_id):
@@ -211,7 +216,8 @@ def play(request, level_id=None):
         current_level = models.Level.objects.get(id=level_id)
         context = {}
         context['tiles'] = json.loads(current_level.tilemap)
-        context['hero'] = {'direction': current_level.hero_dir, 'x': current_level.hero_x, 'y': current_level.hero_y, 'type': 'pluto'}
+        context['hero'] = {'direction': current_level.hero_dir, 'x': current_level.hero_x, 'y': current_level.hero_y,
+                           'type': 'pluto'}
         context['count'] = {'forward': current_level.command_forward,
                             'backward': current_level.command_backward,
                             'left': current_level.command_left,
@@ -287,44 +293,89 @@ def creator(request, level_id=None):
 
 
 @login_required(login_url='/login')
-def result(request, level_id, by_id):
-    #Fix all this shit
-    try:
-        level = models.Level.objects.get(id=level_id)
-    except ObjectDoesNotExist:
-        messages.error("No such level.")
-        return levels(request)
-
-    try:
-        current = models.Result.objects.get(by=by_id, to=level_id)
-    except ObjectDoesNotExist:
-        current = models.Result()
-        current.by = request.user
-        current.to = level
-        current.attempts = 0
-
+def result(request, level_id=None, by_id=None):
+    # Fix all this shit
     if request.method == 'POST':
-        # Check program with level commands
+        by_id = request.user.id
 
-        current.attempts += request.POST['attempts']
-        program = request.POST['program']
-        score = 0
-        for i in program:
-            if (i == 'forward' or i == 'backward'):
-                score += models.move_value
-            elif (i == 'left' or i == 'right'):
-                score += models.turn_value
-            elif (i == 'lo' or i == 'op'):
-                score += models.loop_value
+    if level_id and by_id:
+        try:
+            current_level = models.Level.objects.get(id=level_id)
+        except ObjectDoesNotExist:
+            messages.error(request, "No such level.")
+            return levels(request)
 
-        max_score = (level.command_forward + level.command_backward) * models.move_value + (level.command_right + level.command_left) * models.turn_value + (level.command_lo + level.command_op) * models.loop_value
+        if request.method == 'POST':
+            try:
+                current = models.Result.objects.get(by=by_id, to=level_id)
+            except ObjectDoesNotExist:
+                current = models.Result()
+                current.by = request.user
+                current.to = current_level
+                current.attempts = 0
 
-        score = max_score * 2 - score
+            current.attempts += int(request.POST['attempts'])
+            current.date = datetime.datetime.now()
+            program = request.POST['program']
+            score = 0
+            for i in program:
+                if i == 'forward' or i == 'backward':
+                    score += models.move_value
+                elif i == 'left' or i == 'right':
+                    score += models.turn_value
+                elif i == "lo" or i == 'op':
+                    score += models.loop_value
 
-        if (score > current.points):
-            current.points = score
-            current.program = program
+            max_score = (current_level.command_forward + current_level.command_backward) * models.move_value
+            max_score += (current_level.command_right + current_level.command_left) * models.turn_value
+            max_score += (current_level.command_lo + current_level.command_op) * models.loop_value
 
-    current.save()
-    context = current
-    return render(request, 'result.html', current)
+            score = max_score * 2 - score
+
+            if not current.score or score > current.score:
+                current.points = score
+                current.program = program
+            current.save()
+        else:
+            try:
+                current = models.Result.objects.get(to=level_id, by=by_id)
+            except ObjectDoesNotExist:
+                messages.error(request, "No records like this.")
+                return result(request, current_level)
+
+        return render(request, 'result.html', {'result': current})
+    else:
+        context = {}
+        if level_id:
+            try:
+                current_level = models.Level.objects.get(id=level_id)
+            except ObjectDoesNotExist:
+                messages.error(request, "No such level yet.")
+                return result(request)
+
+            try:
+                results = models.Result.objects.all().filter(to=current_level).order_by('score')
+            except ObjectDoesNotExist:
+                messages.warning(request, "None passed this level yet.")
+                return level(request, current_level)
+
+            context['level'] = current_level
+
+        elif by_id:
+            try:
+                current_profile = models.User.objects.get(id=by_id)
+            except ObjectDoesNotExist:
+                messages.error(request, "No such user yet.")
+                return result(request)
+
+            try:
+                results = models.Result.objects.all().filter(by=current_profile).order_by('-date')
+            except ObjectDoesNotExist:
+                messages.warning(request, "This user haven't passes any level yet.")
+                return profile(request, by_id)
+
+            context['profile'] = current_profile
+        else:
+            context['records'] = models.Result.objects.all().order_by('-date')
+
+        return render(request, 'results.html', context)

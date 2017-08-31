@@ -97,12 +97,13 @@ class Result(models.Model):
     to = models.ForeignKey(Level, related_name='result_to', on_delete=models.CASCADE, blank=False, null=False)
     by = models.ForeignKey(User, related_name='result_by', on_delete=models.CASCADE, blank=False, null=False)
 
+    date = models.DateTimeField(default=timezone.now, blank=False)
     attempts = models.IntegerField(blank=False)
     program = models.TextField(max_length=512)
 
     result = models.BooleanField(default=False, blank=False)
 
-    points = models.IntegerField()
+    score = models.IntegerField(default=0, blank=False)
 
 
 class Article(models.Model):

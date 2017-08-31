@@ -6,7 +6,7 @@ function request(path, params, method) {
     var form = document.createElement("form");
     form.setAttribute("method", method);
     form.setAttribute("action", path);
-
+    form.appendChild("{% csrf_token %}");
     for(var key in params) {
         if(params.hasOwnProperty(key)) {
             var hiddenField = document.createElement("input");

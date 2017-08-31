@@ -22,7 +22,9 @@ urlpatterns = [
     url(r'^levels', views.levels),
     url(r'^level/(?P<level_id>[0-9]+)/play', views.play),
     url(r'^level/(?P<level_id>[0-9]+)', views.level),
-
+    url(r'^result/user=(?P<by_id>[0-9]+)', views.result),
+    url(r'^result/level=(?P<level_id>[0-9]+)', views.result),
+    url(r'^result/level=(?P<level_id>[0-9]+)&user=(?P<by_id>[0-9]+)', views.result),
 
     url(r'^creator/(?P<level_id>[0-9]+)', views.creator),
     url(r'^creator/', views.creator)

@@ -4,12 +4,12 @@
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Result of <a href="/level/{{ level.id }}">{{ level.name }}</a> by <a href="/profile/{{ by.id }}"> {{by.username}} </a>
+                    Result of <a href="/level/{{ result.to }}">{{ result.to.name }}</a> by <a href="/profile/{{ result.by.id }}"> {{result.by.username}} </a>
                 </div>
                 <ul class="list-group">
-                    <li class="list-group-item">By: <a href="/profile/{{ level.by.id }}">{{ by.username }}</a></li>
-                    <li class="list-group-item">Attempts: {{ attempts }}</li>
-                    <li class="list-group-item">Points: {{ points }}</li>                    
+                    <li class="list-group-item">By: <a href="/profile/{{ result.by.id }}">{{ result.by.username }}</a></li>
+                    <li class="list-group-item">Attempts: {{ result.attempts }}</li>
+                    <li class="list-group-item">Score: {{ result.score }}</li>
                 </ul>
             </div>
         </div>
