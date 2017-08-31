@@ -3,10 +3,10 @@ from django.contrib.auth.models import AbstractUser
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 
-
 turn_value = 5
 move_value = 10
 loop_value = 15
+
 
 # Create your models here.
 def user_directory_image_path(instance, filename):
