@@ -97,6 +97,9 @@ def profile(request, profile_id=None):
         messages.error(request, 'Profile with this ID doesnt exist.')
     return render(request, 'profile.html', context)
 
+@login_required(login_url='/login')
+def me(request):
+    return profile(request)
 
 @login_required(login_url='/login')
 def mate_it(request, profile_id):
@@ -206,7 +209,16 @@ def level(request, level_id=None):
 def play(request, level_id=None):
     if level_id:
         current_level = models.Level.objects.get(id=level_id)
-        context = json.loads(current_level.json)
+        context = {}
+        context['tiles'] = json.loads(current_level.tilemap)
+        context['hero'] = {'direction': current_level.hero_dir, 'x': current_level.hero_x, 'y': current_level.hero_y, 'type': 'pluto'}
+        context['count'] = {'forward': current_level.command_forward,
+                            'backward': current_level.command_backward,
+                            'left': current_level.command_left,
+                            'right': current_level.command_right,
+                            'lo': current_level.command_lo,
+                            'op': current_level.command_op}
+        context['id'] = current_level.id
         context['name'] = current_level.name
         context['by'] = current_level.by.username
     else:
@@ -232,7 +244,16 @@ def creator(request, level_id=None):
             return levels(request)
 
         creation.fields['name'].initial = current.name
-        creation.fields['json'].initial = current.json
+        creation.fields['tilemap'].initial = current.tilemap
+        creation.fields['command_forward'].initial = current.command_forward
+        creation.fields['command_backward'].initial = current.command_backward
+        creation.fields['command_left'].initial = current.command_left
+        creation.fields['command_right'].initial = current.command_right
+        creation.fields['command_lo'].initial = current.command_lo
+        creation.fields['command_op'].initial = current.command_op
+        creation.fields['hero_x'].initial = current.hero_x
+        creation.fields['hero_y'].initial = current.hero_y
+        creation.fields['hero_dir'].initial = current.hero_dir
 
     if request.method == 'POST':
         creation = LevelCreationForm(request.POST)
@@ -244,7 +265,16 @@ def creator(request, level_id=None):
                 created_level = models.Level.objects.get(id=level_id)
 
             created_level.name = creation.cleaned_data['name']
-            created_level.json = creation.cleaned_data['json']
+            created_level.tilemap = creation.cleaned_data['tilemap']
+            created_level.command_forward = creation.cleaned_data['command_forward']
+            created_level.command_backward = creation.cleaned_data['command_backward']
+            created_level.command_left = creation.cleaned_data['command_left']
+            created_level.command_right = creation.cleaned_data['command_right']
+            created_level.command_lo = creation.cleaned_data['command_lo']
+            created_level.command_op = creation.cleaned_data['command_op']
+            created_level.hero_x = creation.cleaned_data['hero_x']
+            created_level.hero_y = creation.cleaned_data['hero_y']
+            created_level.hero_dir = creation.cleaned_data['hero_dir']
             created_level.by = request.user
             created_level.save()
             if level_id:
@@ -257,10 +287,44 @@ def creator(request, level_id=None):
 
 
 @login_required(login_url='/login')
-def result(request, level_id):
-    if request.method == 'POST':
+def result(request, level_id, by_id):
+    #Fix all this shit
+    try:
+        level = models.Level.objects.get(id=level_id)
+    except ObjectDoesNotExist:
+        messages.error("No such level.")
+        return levels(request)
+
+    try:
+        current = models.Result.objects.get(by=by_id, to=level_id)
+    except ObjectDoesNotExist:
         current = models.Result()
         current.by = request.user
-        current.to = models.Level.objects.get(id=level_id)
-        current.attempts = request.POST['attempts']
-        current.program = request.POST['program']
+        current.to = level
+        current.attempts = 0
+
+    if request.method == 'POST':
+        # Check program with level commands
+
+        current.attempts += request.POST['attempts']
+        program = request.POST['program']
+        score = 0
+        for i in program:
+            if (i == 'forward' or i == 'backward'):
+                score += models.move_value
+            elif (i == 'left' or i == 'right'):
+                score += models.turn_value
+            elif (i == 'lo' or i == 'op'):
+                score += models.loop_value
+
+        max_score = (level.command_forward + level.command_backward) * models.move_value + (level.command_right + level.command_left) * models.turn_value + (level.command_lo + level.command_op) * models.loop_value
+
+        score = max_score * 2 - score
+
+        if (score > current.points):
+            current.points = score
+            current.program = program
+
+    current.save()
+    context = current
+    return render(request, 'result.html', current)

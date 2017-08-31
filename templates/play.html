@@ -6,12 +6,11 @@
     <title> [{{ name }}] by {{ by }}</title>
     <meta name="viewport" content="minimal-ui, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="mobile-web-app-capable" content="yes">
+    <!--<script type="text/javascript" src="{% static 'request.js'%}"></script>-->
 </head>
 <body>
     <script type="text/javascript">
     //TODO some debug animation maybe?
-    //TODO Compile program of commands
-    //TODO JSON level like a human plz
     var WIDTH = document.body.offsetWidth;
     var HEIGHT = document.body.offsetHeight;
     var DIV = {
@@ -19,7 +18,7 @@
         height: 50
     };
     var SPEED = 1000;
-    
+
     if (HEIGHT > WIDTH){
         alert("For better experience - turn device!");
     }
@@ -41,6 +40,9 @@
 
     var command_names = ['forward', 'backward', 'left', 'right', 'lo', 'op'];
 
+    var attempts = 0;
+
+    var id = {{ id }};
     /**
      * Preload images
      */
@@ -54,7 +56,7 @@
         game.load.image("lo", "{% static "asserts/lo.png" %}");
         game.load.image("op", "{% static "asserts/op.png" %}");
 
-        game.load.image("pluto", "{% static "asserts/prop/pluto.png" %}");
+        game.load.image("pluto", "{% static "asserts/pluto.png" %}");
 
         game.load.image("tile_default", "{% static "asserts/tiles/default.png" %}");
         game.load.image("tile_finish", "{% static "asserts/tiles/finish.png" %}");
@@ -180,7 +182,7 @@
 
             x = {{ hero.x }}*DIV.width + DIV.width/2;
             y = {{ hero.y }}*DIV.height + DIV.height/2;
-            hero = scene.create(x, y, "{{ hero.type }}");
+            hero = scene.create(x, y, "pluto");
             hero.anchor.setTo(0.5, 0.5);
             hero.direction  = {{ hero.direction }};
             hero.angle = {{ hero.direction }} * 90;
@@ -212,7 +214,7 @@
     }
 
     var command_tweens = {};
-    //TODO Find any fixes of fst clicking
+    //TODO Find any fixes of fast clicking
     /**
      * Turns commands in command panel based on user program
      */
@@ -326,6 +328,9 @@
         }
     }
 
+    /**
+    * Resizes panel scroller based on program panel content
+    */
     function programPanelScrollResize() {
         var last = programs[programs.length - 1];
         if (last){
@@ -343,6 +348,11 @@
         }
     }
 
+    /**
+    * Moves program panle in case of moving of scroller in some scale
+    * @param sprite of scroller
+    * @param position fake position of scroller (optional)
+    */
     function programPanelScrollMove(sprite, position){
         if (position){
             sprite.cameraOffset.x = position;
@@ -400,8 +410,8 @@
             gameSuccess(false);
         }
         //game.debug.cameraInfo(this.game.camera, 0, 200);
-        //game.debug.spriteInfo(program_scroll, 32, 32);
-        //game.debug.spriteBounds(background);
+        //game.debug.spriteInfo(hero, 32, 32);
+        //game.debug.spriteBounds(hero);
     }
 
     /**
@@ -424,6 +434,7 @@
      */
     function gameStart(){
         hero.input.enabled = false;
+        ++attempts;
         tween = createExecution(programPanelCompile());
         if (tween.length > 0) {
             tween[0].start();
@@ -437,7 +448,11 @@
      */
     function gameSuccess(success) {
         if (success){
-            alert("Good job!");
+            var pure = [];
+            for (var i = 0; i < programs.length; ++i){
+                pure.push(programs[i].key);
+            }
+            request("/result/"+id.toString(), {attempts: attempts, program: pure});
         }else{
             game.tweens.removeAll();
             sceneHeroReset();
@@ -502,8 +517,6 @@
                 --i;
             }
         }
-
-        //TODO Handel LO and OP later on
         return pure;
     }
 
@@ -631,7 +644,6 @@
     }
 
     function programPanelScrollOnDragStop(sprite, pointer) {
-        // TODO Resize scroll only if enough content in program
         programPanelScrollMove(sprite);
     }
 

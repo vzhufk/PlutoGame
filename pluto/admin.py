@@ -8,3 +8,4 @@ admin.site.register(pluto.User)
 admin.site.register(pluto.Mate)
 
 admin.site.register(pluto.Level)
+admin.site.register(pluto.Result)

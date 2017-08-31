@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'^signup', views.signup),
     url(r'^login', views.login),
     url(r'^logout', views.logout),
+    url(r'^me', views.me),
     url(r'^profile/(?P<profile_id>[0-9]+)', views.profile),
     url(r'^mate_it/(?P<profile_id>[0-9]+)', views.mate_it),
     url(r'^mates', views.mates),

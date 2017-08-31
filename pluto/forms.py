@@ -87,5 +87,31 @@ class SignUpForm(forms.Form):
 class LevelCreationForm(forms.Form):
     name = forms.CharField(label='Name')
     name.widget = forms.TextInput(attrs={'class': 'form-control'})
-    json = forms.CharField(label='Level code')
-    json.widget = forms.Textarea(attrs={'class': 'form-control'})
+    tilemap = forms.CharField(label='Tilemap')
+    tilemap.widget = forms.Textarea(attrs={'class': 'form-control'})
+
+    command_forward = forms.IntegerField(label='Forward')
+    command_forward.widget = forms.NumberInput(attrs={'class': 'form-control', 'min': '0'})
+
+    command_backward = forms.IntegerField(label='Backward')
+    command_backward.widget = forms.NumberInput(attrs={'class': 'form-control', 'min': '0'})
+
+    command_left = forms.IntegerField(label='Left')
+    command_left.widget = forms.NumberInput(attrs={'class': 'form-control', 'min': '0'})
+
+    command_right = forms.IntegerField(label='Right')
+    command_right.widget = forms.NumberInput(attrs={'class': 'form-control', 'min': '0'})
+
+    command_lo = forms.IntegerField(label='LO')
+    command_lo.widget = forms.NumberInput(attrs={'class': 'form-control', 'min': '0'})
+
+    command_op = forms.IntegerField(label='OP')
+    command_op.widget = forms.NumberInput(attrs={'class': 'form-control', 'min': '0'})
+
+
+    hero_x = forms.IntegerField(label='Hero X')
+    hero_y = forms.IntegerField(label='Hero Y')
+    hero_dir = forms.IntegerField(label='Hero Direction')
+    hero_x.widget = forms.NumberInput(attrs={'class': 'form-control', 'min': '0'})
+    hero_y.widget = forms.NumberInput(attrs={'class': 'form-control', 'min': '0'})
+    hero_dir.widget = forms.NumberInput(attrs={'class': 'form-control', 'min': '0', 'max': '3'})

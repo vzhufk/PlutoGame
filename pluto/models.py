@@ -4,6 +4,10 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 
 
+turn_value = 5
+move_value = 10
+loop_value = 15
+
 # Create your models here.
 def user_directory_image_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
@@ -56,7 +60,18 @@ class Level(models.Model):
 
     by = models.ForeignKey(User, on_delete=models.CASCADE, blank=False, null=False)
 
-    json = models.TextField(max_length=1024)
+    tilemap = models.TextField(max_length=1024)
+
+    command_forward = models.IntegerField(blank=True)
+    command_backward = models.IntegerField(blank=True)
+    command_left = models.IntegerField(blank=True)
+    command_right = models.IntegerField(blank=True)
+    command_lo = models.IntegerField(blank=True)
+    command_op = models.IntegerField(blank=True)
+
+    hero_x = models.IntegerField(blank=False)
+    hero_y = models.IntegerField(blank=False)
+    hero_dir = models.IntegerField(blank=False)
 
     def __str__(self):
         return self.name
@@ -79,11 +94,13 @@ class Rate(models.Model):
 
 
 class Result(models.Model):
-    to = models.ForeignKey(Level, on_delete=models.CASCADE, blank=False, null=False)
+    to = models.ForeignKey(Level, related_name='result_to', on_delete=models.CASCADE, blank=False, null=False)
     by = models.ForeignKey(User, related_name='result_by', on_delete=models.CASCADE, blank=False, null=False)
 
     attempts = models.IntegerField(blank=False)
     program = models.TextField(max_length=512)
+
+    result = models.BooleanField(default=False, blank=False)
 
     points = models.IntegerField()
 
