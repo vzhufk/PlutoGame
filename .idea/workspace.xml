@@ -1,20 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8467f64f-f497-4195-9163-6a0b0232c0d0" name="Default" comment="Records and Bug Fixes&#10;&#10;Now after each level &#10;-Result Model&#10;-Level Model">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pluto/migrations/0012_auto_20170902_1205.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
+    <list default="true" id="8467f64f-f497-4195-9163-6a0b0232c0d0" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pluto/admin.py" afterPath="$PROJECT_DIR$/pluto/admin.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pluto/models.py" afterPath="$PROJECT_DIR$/pluto/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pluto/urls.py" afterPath="$PROJECT_DIR$/pluto/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pluto/views.py" afterPath="$PROJECT_DIR$/pluto/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/base.html" afterPath="$PROJECT_DIR$/templates/base.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/level.html" afterPath="$PROJECT_DIR$/templates/level.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/levels.html" afterPath="$PROJECT_DIR$/templates/levels.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/play.html" afterPath="$PROJECT_DIR$/templates/play.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/profile.html" afterPath="$PROJECT_DIR$/templates/profile.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/results.html" afterPath="$PROJECT_DIR$/templates/results.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -28,11 +17,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pluto/views.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="255">
-              <caret line="342" column="16" lean-forward="true" selection-start-line="342" selection-start-column="16" selection-end-line="342" selection-end-column="16" />
+              <caret line="342" column="16" lean-forward="false" selection-start-line="342" selection-start-column="16" selection-end-line="342" selection-end-column="16" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
                 <element signature="e#610#851#0" expanded="false" />
@@ -52,11 +41,21 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="levels.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/templates/levels.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="292">
+              <caret line="32" column="43" lean-forward="false" selection-start-line="32" selection-start-column="43" selection-end-line="32" selection-end-column="43" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pluto/models.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="255">
-              <caret line="111" column="0" lean-forward="true" selection-start-line="111" selection-start-column="0" selection-end-line="111" selection-end-column="0" />
+              <caret line="111" column="0" lean-forward="false" selection-start-line="111" selection-start-column="0" selection-end-line="111" selection-end-column="0" />
               <folding>
                 <element signature="e#0#34#0" expanded="true" />
               </folding>
@@ -68,7 +67,7 @@
         <entry file="file://$PROJECT_DIR$/templates/play.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="634">
-              <caret line="680" column="41" lean-forward="true" selection-start-line="680" selection-start-column="41" selection-end-line="680" selection-end-column="41" />
+              <caret line="680" column="41" lean-forward="false" selection-start-line="680" selection-start-column="41" selection-end-line="680" selection-end-column="41" />
               <folding />
             </state>
           </provider>
@@ -130,7 +129,6 @@
         <option value="$PROJECT_DIR$/PlutoGame/static/request.js" />
         <option value="$PROJECT_DIR$/templates/result.html" />
         <option value="$PROJECT_DIR$/templates/base.html" />
-        <option value="$PROJECT_DIR$/templates/levels.html" />
         <option value="$PROJECT_DIR$/pluto/admin.py" />
         <option value="$PROJECT_DIR$/pluto/urls.py" />
         <option value="$PROJECT_DIR$/templates/results.html" />
@@ -139,6 +137,7 @@
         <option value="$PROJECT_DIR$/templates/play.html" />
         <option value="$PROJECT_DIR$/pluto/models.py" />
         <option value="$PROJECT_DIR$/pluto/views.py" />
+        <option value="$PROJECT_DIR$/templates/levels.html" />
       </list>
     </option>
   </component>
@@ -184,11 +183,6 @@
             <path>
               <item name="PlutoGame" type="b2602c69:ProjectViewProjectNode" />
               <item name="PlutoGame" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="PlutoGame" type="b2602c69:ProjectViewProjectNode" />
-              <item name="PlutoGame" type="462c0819:PsiDirectoryNode" />
-              <item name="pluto" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="PlutoGame" type="b2602c69:ProjectViewProjectNode" />
@@ -660,7 +654,14 @@
       <option name="project" value="LOCAL" />
       <updated>1504191685413</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="Records and Bug Fixes&#10;&#10;-Levels records now available. Competitive mode - ON. Now you can challenge your friends.&#10;-Reworked some urls.&#10;&#10;-Fixed input disabled hero bug.&#10;-Fixed wrong tile intersection which cause hero flow over blocked areas.">
+      <created>1504349762319</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1504349762320</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TodoView" selected-index="1">
@@ -682,11 +683,11 @@
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287037" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32253087" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287037" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30635402" sideWeight="0.49202734" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30635402" sideWeight="0.71753985" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32872504" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="manage.py@PlutoGame" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3271605" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30635402" sideWeight="0.50797266" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30635402" sideWeight="0.28246012" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39660493" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -742,7 +743,8 @@
     <MESSAGE value="Fixes:&#10;-Fixed bug when dragged command was misplaced.&#10;-Drag-Drop command algorithm rewritten.&#10;Interface:&#10;-Direction of commands now changing with program creation." />
     <MESSAGE value="Fixes:&#10;-A bit fixed commands rotation wasn't finished in fast clicking situation.&#10;Interface:&#10;-Scroll resize. Scrolling now scale to window.&#10;Code:&#10;-Refactored.&#10;-Add DOCStrings." />
     <MESSAGE value="Changes:&#10;-Result Model&#10;-Level Model" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changes:&#10;-Result Model&#10;-Level Model" />
+    <MESSAGE value="Records and Bug Fixes&#10;&#10;-Levels records now available. Competitive mode - ON. Now you can challenge your friends.&#10;-Reworked some urls.&#10;&#10;-Fixed input disabled hero bug.&#10;-Fixed wrong tile intersection which cause hero flow over blocked areas." />
+    <option name="LAST_COMMIT_MESSAGE" value="Records and Bug Fixes&#10;&#10;-Levels records now available. Competitive mode - ON. Now you can challenge your friends.&#10;-Reworked some urls.&#10;&#10;-Fixed input disabled hero bug.&#10;-Fixed wrong tile intersection which cause hero flow over blocked areas." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1020,14 +1022,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/levels.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="19" column="45" lean-forward="true" selection-start-line="19" selection-start-column="45" selection-end-line="19" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/profile.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="241">
@@ -1075,7 +1069,7 @@
     <entry file="file://$PROJECT_DIR$/templates/play.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="634">
-          <caret line="680" column="41" lean-forward="true" selection-start-line="680" selection-start-column="41" selection-end-line="680" selection-end-column="41" />
+          <caret line="680" column="41" lean-forward="false" selection-start-line="680" selection-start-column="41" selection-end-line="680" selection-end-column="41" />
           <folding />
         </state>
       </provider>
@@ -1083,7 +1077,7 @@
     <entry file="file://$PROJECT_DIR$/pluto/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
-          <caret line="111" column="0" lean-forward="true" selection-start-line="111" selection-start-column="0" selection-end-line="111" selection-end-column="0" />
+          <caret line="111" column="0" lean-forward="false" selection-start-line="111" selection-start-column="0" selection-end-line="111" selection-end-column="0" />
           <folding>
             <element signature="e#0#34#0" expanded="true" />
           </folding>
@@ -1093,7 +1087,7 @@
     <entry file="file://$PROJECT_DIR$/pluto/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
-          <caret line="342" column="16" lean-forward="true" selection-start-line="342" selection-start-column="16" selection-end-line="342" selection-end-column="16" />
+          <caret line="342" column="16" lean-forward="false" selection-start-line="342" selection-start-column="16" selection-end-line="342" selection-end-column="16" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
             <element signature="e#610#851#0" expanded="false" />
@@ -1109,6 +1103,14 @@
             <element signature="e#9177#11874#0" expanded="false" />
             <element signature="e#12204#12280#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/levels.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="292">
+          <caret line="32" column="43" lean-forward="false" selection-start-line="32" selection-start-column="43" selection-end-line="32" selection-end-column="43" />
+          <folding />
         </state>
       </provider>
     </entry>
