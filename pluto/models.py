@@ -1,3 +1,4 @@
+from django.db.models import Count
 from django.utils import timezone
 from django.contrib.auth.models import AbstractUser
 from django.core.exceptions import ObjectDoesNotExist
@@ -93,7 +94,7 @@ class Rate(models.Model):
     value = models.IntegerField()
 
 
-class Result(models.Model):
+class Record(models.Model):
     to = models.ForeignKey(Level, related_name='result_to', on_delete=models.CASCADE, blank=False, null=False)
     by = models.ForeignKey(User, related_name='result_by', on_delete=models.CASCADE, blank=False, null=False)
 
@@ -104,6 +105,13 @@ class Result(models.Model):
     result = models.BooleanField(default=False, blank=False)
 
     score = models.IntegerField(default=0, blank=False)
+
+    def ranking(self):
+        aggregate = Record.objects.filter(score__gt=self.score, to=self.to).aggregate(ranking=Count('score'))
+        return aggregate['ranking'] + 1
+
+    def __str__(self):
+        return self.to.name + " by " + self.by.username
 
 
 class Article(models.Model):

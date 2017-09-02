@@ -18,13 +18,17 @@ urlpatterns = [
     url(r'^mates', views.mates),
     url(r'^settings', views.settings),
 
+    url(r'^level/(?P<level_id>[0-9]+)/play', views.play),
 
     url(r'^levels', views.levels),
-    url(r'^level/(?P<level_id>[0-9]+)/play', views.play),
     url(r'^level/(?P<level_id>[0-9]+)', views.level),
-    url(r'^result/user=(?P<by_id>[0-9]+)', views.result),
-    url(r'^result/level=(?P<level_id>[0-9]+)', views.result),
-    url(r'^result/level=(?P<level_id>[0-9]+)&user=(?P<by_id>[0-9]+)', views.result),
+
+    url(r'^play/(?P<level_id>[0-9]+)', views.play),
+
+    url(r'^records', views.record),
+    url(r'^record/level=(?P<level_id>[0-9]+)&user=(?P<by_id>[0-9]+)', views.record),
+    url(r'^record/level=(?P<level_id>[0-9]+)', views.record),
+    url(r'^record/user=(?P<by_id>[0-9]+)', views.record),
 
     url(r'^creator/(?P<level_id>[0-9]+)', views.creator),
     url(r'^creator/', views.creator)

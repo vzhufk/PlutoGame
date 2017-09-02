@@ -3,10 +3,11 @@ import json
 import django.contrib.auth as auth
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.humanize.templatetags.humanize import ordinal
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 from django.shortcuts import render
-
+from django.utils import timezone
 
 # Create your views here.
 from pluto import models
@@ -81,6 +82,7 @@ def profile(request, profile_id=None):
     try:
         context['profile'] = models.User.objects.get(id=profile_id)
         context['levels'] = models.Level.objects.filter(by=profile_id)
+        context['records'] = models.Record.objects.filter(by=profile_id)
         try:
             mate = models.Mate.objects.filter(Q(a=request.user.id, b=profile_id) | Q(a=profile_id, b=request.user.id))[
                 0]
@@ -207,26 +209,23 @@ def levels(request):
 
 
 def level(request, level_id=None):
-    context = {'level': models.Level.objects.get(id=level_id)}
+    context = {'level': models.Level.objects.get(id=level_id),
+               'records': models.Record.objects.filter(to=level_id)}
     return render(request, 'level.html', context)
 
 
 def play(request, level_id=None):
     if level_id:
         current_level = models.Level.objects.get(id=level_id)
-        context = {}
-        context['tiles'] = json.loads(current_level.tilemap)
-        context['hero'] = {'direction': current_level.hero_dir, 'x': current_level.hero_x, 'y': current_level.hero_y,
-                           'type': 'pluto'}
-        context['count'] = {'forward': current_level.command_forward,
-                            'backward': current_level.command_backward,
-                            'left': current_level.command_left,
-                            'right': current_level.command_right,
-                            'lo': current_level.command_lo,
-                            'op': current_level.command_op}
-        context['id'] = current_level.id
-        context['name'] = current_level.name
-        context['by'] = current_level.by.username
+        context = {'tiles': json.loads(current_level.tilemap),
+                   'hero': {'direction': current_level.hero_dir, 'x': current_level.hero_x, 'y': current_level.hero_y,
+                            'type': 'pluto'}, 'count': {'forward': current_level.command_forward,
+                                                        'backward': current_level.command_backward,
+                                                        'left': current_level.command_left,
+                                                        'right': current_level.command_right,
+                                                        'lo': current_level.command_lo,
+                                                        'op': current_level.command_op}, 'id': current_level.id,
+                   'name': current_level.name, 'by': current_level.by.username}
     else:
         messages.error(request, "Hm. Something went wrong. Try not to do this again.")
         return levels(request)
@@ -293,7 +292,7 @@ def creator(request, level_id=None):
 
 
 @login_required(login_url='/login')
-def result(request, level_id=None, by_id=None):
+def record(request, level_id=None, by_id=None):
     # Fix all this shit
     if request.method == 'POST':
         by_id = request.user.id
@@ -307,23 +306,23 @@ def result(request, level_id=None, by_id=None):
 
         if request.method == 'POST':
             try:
-                current = models.Result.objects.get(by=by_id, to=level_id)
+                current = models.Record.objects.get(by=by_id, to=level_id)
             except ObjectDoesNotExist:
-                current = models.Result()
+                current = models.Record()
                 current.by = request.user
                 current.to = current_level
                 current.attempts = 0
 
             current.attempts += int(request.POST['attempts'])
-            current.date = datetime.datetime.now()
-            program = request.POST['program']
+            current.date = timezone.localtime(timezone.now())
+            program = json.loads(request.POST['program'])
             score = 0
             for i in program:
                 if i == 'forward' or i == 'backward':
                     score += models.move_value
                 elif i == 'left' or i == 'right':
                     score += models.turn_value
-                elif i == "lo" or i == 'op':
+                elif i == 'lo' or i == 'op':
                     score += models.loop_value
 
             max_score = (current_level.command_forward + current_level.command_backward) * models.move_value
@@ -333,15 +332,19 @@ def result(request, level_id=None, by_id=None):
             score = max_score * 2 - score
 
             if not current.score or score > current.score:
-                current.points = score
+                current.score = score
                 current.program = program
+                # TODO Maybe check if level wasn't hacked
             current.save()
+
+            messages.success(request, "Good job! Now you are " + ordinal(
+                current.ranking()) + " in " + current_level.name + " level rating.")
         else:
             try:
-                current = models.Result.objects.get(to=level_id, by=by_id)
+                current = models.Record.objects.get(to=level_id, by=by_id)
             except ObjectDoesNotExist:
                 messages.error(request, "No records like this.")
-                return result(request, current_level)
+                return record(request, current_level)
 
         return render(request, 'result.html', {'result': current})
     else:
@@ -351,31 +354,31 @@ def result(request, level_id=None, by_id=None):
                 current_level = models.Level.objects.get(id=level_id)
             except ObjectDoesNotExist:
                 messages.error(request, "No such level yet.")
-                return result(request)
+                return record(request)
 
             try:
-                results = models.Result.objects.all().filter(to=current_level).order_by('score')
+                results = models.Record.objects.filter(to=current_level).order_by('score')
             except ObjectDoesNotExist:
                 messages.warning(request, "None passed this level yet.")
                 return level(request, current_level)
 
             context['level'] = current_level
-
         elif by_id:
             try:
                 current_profile = models.User.objects.get(id=by_id)
             except ObjectDoesNotExist:
                 messages.error(request, "No such user yet.")
-                return result(request)
+                return record(request)
 
             try:
-                results = models.Result.objects.all().filter(by=current_profile).order_by('-date')
+                results = models.Record.objects.filter(by=current_profile).order_by('-date')
             except ObjectDoesNotExist:
                 messages.warning(request, "This user haven't passes any level yet.")
                 return profile(request, by_id)
 
             context['profile'] = current_profile
         else:
-            context['records'] = models.Result.objects.all().order_by('-date')
+            results = models.Record.objects.all().order_by('-date')
 
+        context['records'] = results
         return render(request, 'results.html', context)

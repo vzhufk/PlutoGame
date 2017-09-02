@@ -433,12 +433,14 @@
      * Creates tweens and runs first
      */
     function gameStart(){
-        hero.input.enabled = false;
-        ++attempts;
-        tween = createExecution(programPanelCompile());
-        if (tween.length > 0) {
-            tween[0].start();
-            tween[tween.length-1].onComplete.add(gameCheckSucceed, this);
+        if (programs.length > 0) {
+            hero.input.enabled = false;
+            ++attempts;
+            tween = createExecution(programPanelCompile());
+            if (tween.length > 0) {
+                tween[0].start();
+                tween[tween.length - 1].onComplete.add(gameCheckSucceed, this);
+            }
         }
     }
 
@@ -453,8 +455,8 @@
                 pure.push(programs[i].key);
             }
             document.getElementsByName("attempts")[0].value = attempts;
-            document.getElementsByName("program")[0].value = pure;
-            document.forms['result'].submit();
+            document.getElementsByName("program")[0].value = JSON.stringify(pure);
+            document.forms['record'].submit();
         }else{
             game.tweens.removeAll();
             sceneHeroReset();
@@ -583,7 +585,8 @@
     function sceneCheckHeroAndTilesIntersection(){
         var result = [];
         for (var i in tiles){
-            if (Phaser.Rectangle.intersects(tiles[i].getBounds(), hero.getBounds())){
+            var point = new Phaser.Point(hero.getBounds().centerX, hero.getBounds().centerY);
+            if (Phaser.Rectangle.containsPoint(tiles[i].getBounds(), point)){
                 result.push(tiles[i]);
             }
         }
@@ -673,7 +676,7 @@
         gameStart();
     }
 </script>
-<form hidden method="post" action="/result/level={{ id }}" id="result">
+<form hidden method="post" action="/record/level={{ id }}" id="record">
     {% csrf_token %}
     <input type="number" name="attempts">
     <textarea name="program"></textarea>

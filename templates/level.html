@@ -17,7 +17,7 @@
                     <li class="list-group-item">Date: {{ level.date }}</li>
                     <li class="list-group-item">Rating: {{ level.rating }}</li>
                     <li class="list-group-item">
-                        <a href="/level/{{ level.id }}/play">
+                        <a href="/play/{{ level.id }}">
                             <button class="btn btn-block"><span class="glyphicon glyphicon-play"></span></button>
                         </a>
                     </li>
@@ -33,14 +33,31 @@
             </div>
         </div>
     </div>
+    {% if records %}
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Comments
+                    Records
                 </div>
-                    <li class="list-group-item">Nothing here for now</li>
+                    <table class="table">
+                        <tr>
+                            <th>User</th>
+                            <th>Date</th>
+                            <th>Score</th>
+                            <th>Attempts</th>
+                        </tr>
+                        {% for i in records %}
+                        <tr>
+                            <td><a href="/profile/{{ i.by.id }}">{{ i.by.username }}</a></td>
+                            <td><a href="/record/level={{ level.id }}&user={{ i.by.id }}">{{ i.date }}</a></td>
+                            <td><a href="/record/level={{ level.id }}&user={{ i.by.id }}">{{ i.score }}</a></td>
+                            <td><a href="/record/level={{ level.id }}&user={{ i.by.id }}">{{ i.attempts }}</a></td>
+                        </tr>
+                        {% endfor %}
+                    </table>
             </div>
         </div>
     </div>
+    {% endif %}
 {% endblock %}

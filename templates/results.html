@@ -16,16 +16,16 @@
                 <th>Level</th>
                 <th>Passed by</th>
                 <th>Date</th>
-                <th>Attempts</th>
                 <th>Score</th>
+                <th>Attempts</th>
             </tr>
             {% for i in records %}
             <tr>
                 <td><a href="/level/{{ i.to.id }}">{{ i.to.name }}</a></td>
                 <td><a href="/profile/{{ i.by.id }}">{{ i.by.username }}</a></td>
-                <td>{{ i.date }}</td>
-                <td>{{ i.attempts }}</td>
-                <td>{{ i.score }}</td>
+                <td><a href="/record/level={{ i.to.id }}&user={{ i.by.id }}">{{ i.date }}</a></td>
+                <td><a href="/record/level={{ i.to.id }}&user={{ i.by.id }}">{{ i.score }}</a></td>
+                <td><a href="/record/level={{ i.to.id }}&user={{ i.by.id }}">{{ i.attempts }}</a></td>
             </tr>
             {% endfor %}
         </table>
