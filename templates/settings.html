@@ -19,6 +19,12 @@
         <hr>
     <form method="POST">
         {% csrf_token %}
+        {{ skin_form }}
+        <button class="btn btn-primary btn-group-justified" name="skin_btn">Try</button>
+    </form>
+        <hr>
+    <form method="POST">
+        {% csrf_token %}
         {{ password_form }}
         <button class="btn btn-primary btn-group-justified" name="password_btn">Update</button>
     </form>

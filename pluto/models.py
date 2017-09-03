@@ -24,6 +24,8 @@ class User(AbstractUser):
     image = models.ImageField(default='no_image.png', upload_to=user_directory_image_path)
     points = models.FloatField(default=10, blank=False)
 
+    skin = models.CharField(default='polo', blank=False, max_length=32)
+
 
 class Mate(models.Model):
     a = models.ForeignKey(User, on_delete=models.CASCADE, related_name='a', blank=False)

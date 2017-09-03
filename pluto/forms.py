@@ -4,7 +4,11 @@
 # 02.07.2017
 from django import forms
 from django.core.exceptions import ObjectDoesNotExist
+from os import listdir
 
+from os.path import isfile, join
+
+from PlutoGame.settings import PROJECT_ROOT
 from pluto import models
 
 
@@ -26,6 +30,21 @@ class PersonalImageForm(forms.Form):
     image = forms.ImageField(label='Personal image')
     image.widget = forms.FileInput(attrs={'class': 'form-control'})
 
+
+class HeroSkinForm(forms.Form):
+    skin = forms.CharField(label='Enter skin name')
+    skin.widget = forms.TextInput(attrs={'class': 'form-control'})
+
+    def clean(self):
+        cleaned_data = super(HeroSkinForm, self).clean()
+        mypath = join(PROJECT_ROOT, "static/asserts/hero")
+        skin = cleaned_data.get("skin")
+        onlyfiles = [f for f in listdir(mypath) if isfile(join(mypath, f))]
+        match = [i for i in onlyfiles if (i.split(".")[0] == skin)]
+        if len(match) == 0:
+            raise forms.ValidationError(
+                "No such skin. Sorry."
+            )
 
 class PasswordForm(forms.Form):
     password = forms.CharField(label='Password')
@@ -107,7 +126,6 @@ class LevelCreationForm(forms.Form):
 
     command_op = forms.IntegerField(label='OP')
     command_op.widget = forms.NumberInput(attrs={'class': 'form-control', 'min': '0'})
-
 
     hero_x = forms.IntegerField(label='Hero X')
     hero_y = forms.IntegerField(label='Hero Y')

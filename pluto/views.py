@@ -11,10 +11,9 @@ from django.utils import timezone
 
 # Create your views here.
 from pluto import models
-from pluto.forms import SignUpForm, LogInForm, PasswordForm, PersonalInfoForm, PersonalImageForm, LevelCreationForm
+from pluto.forms import SignUpForm, LogInForm, PasswordForm, PersonalInfoForm, PersonalImageForm, LevelCreationForm, \
+    HeroSkinForm
 from pluto.models import mate_change
-
-import datetime
 
 
 def test(request):
@@ -169,6 +168,8 @@ def settings(request):
     image.fields['image'].initial = request.user.image
 
     password = PasswordForm()
+
+    skin = HeroSkinForm()
     if request.method == 'POST':
         if 'info_btn' in request.POST:
             info = PersonalInfoForm(request.POST)
@@ -198,8 +199,17 @@ def settings(request):
                 request.user.set_password(password.cleaned_data['password'])
                 request.user.save()
                 messages.success(request, "Password successfully changed.")
+        if 'skin_btn' in request.POST:
+            skin = HeroSkinForm(request.POST)
+            if not skin.is_valid():
+                [messages.error(request, str(x)) for y in list(skin.errors.values()) for x in y]
+                skin = HeroSkinForm()
+            else:
+                request.user.skin = skin.cleaned_data['skin']
+                request.user.save()
+                messages.success(request, "Skin successfully changed. Have Fun.")
 
-    context = {'info_form': info, 'image_form': image, 'password_form': password}
+    context = {'info_form': info, 'image_form': image, 'password_form': password, 'skin_form': skin}
     return render(request, 'settings.html', context)
 
 
@@ -219,12 +229,13 @@ def play(request, level_id=None):
         current_level = models.Level.objects.get(id=level_id)
         context = {'tiles': json.loads(current_level.tilemap),
                    'hero': {'direction': current_level.hero_dir, 'x': current_level.hero_x, 'y': current_level.hero_y,
-                            'type': 'pluto'}, 'count': {'forward': current_level.command_forward,
-                                                        'backward': current_level.command_backward,
-                                                        'left': current_level.command_left,
-                                                        'right': current_level.command_right,
-                                                        'lo': current_level.command_lo,
-                                                        'op': current_level.command_op}, 'id': current_level.id,
+                            'type': request.user.skin if request.user.is_authenticated() else 'polo'},
+                   'count': {'forward': current_level.command_forward,
+                             'backward': current_level.command_backward,
+                             'left': current_level.command_left,
+                             'right': current_level.command_right,
+                             'lo': current_level.command_lo,
+                             'op': current_level.command_op}, 'id': current_level.id,
                    'name': current_level.name, 'by': current_level.by.username}
     else:
         messages.error(request, "Hm. Something went wrong. Try not to do this again.")
