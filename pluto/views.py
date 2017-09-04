@@ -65,7 +65,7 @@ def login(request):
             else:
                 auth.login(request, user)
                 return index(request)
-    return render(request, 'form.html', context)
+    return render(request, 'login.html', context)
 
 
 def logout(request):

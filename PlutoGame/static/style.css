@@ -1,6 +1,7 @@
-.input-group-addon {
-    min-width:150px;
-    text-align:right;
+@import "bootstrap-social-gh-pages/bootstrap-social.css";
+
+.form-group * {
+    min-width:450px;
 }
 
 /* Override error ot danger */

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
+
 {% block content %}
-    {% block form %}
-            {% if form %}
+    {% if form %}
                 <form method="post">
                 {%  csrf_token %}
                     {% for j in form %}
@@ -18,6 +18,9 @@
                     {% endfor %}
                 <button type="submit" class="btn btn-block btn-lg">Submit</button>
                 </form>
-            {% endif     %}
-        {% endblock %}
+            {% endif  %}
+    <a href="accounts/facebook/login"><button class="btn btn-block btn-lg btn-primary">Facebook Login</button></a>
+    <a href="accounts/google/login"><button class="btn btn-block btn-lg btn-danger">Google Login</button></a>
+    <a href="accounts/discord/login"><button class="btn btn-block btn-lg btn-warning">Discord Login</button></a>
+    <a href="accounts/github/login"><button class="btn btn-block btn-lg btn-success">Git Login</button></a>
 {% endblock %}
