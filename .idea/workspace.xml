@@ -2,46 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8467f64f-f497-4195-9163-6a0b0232c0d0" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/login.html" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/PlutoGame/media/user_1/images/14448867_1863661133863708_3341529245705527001_n1.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/PlutoGame/media/user_5/images/Illuminati.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/PlutoGame/media/user_5/images/Illuminati_KKnhYS5.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/PlutoGame/media/user_5/images/Kabuto_Part_I.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/PlutoGame/media/user_6/images/180px-Shevchenko1.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/PlutoGame/static/asserts/Fonts/Ghost/GOSTTypeBU.ttf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/PlutoGame/static/asserts/Fonts/Ghost/T-FLEXTypeB.ttf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/PlutoGame/static/asserts/Fonts/SFOrson/SFOrsonCasualHeavy.ttf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/PlutoGame/static/asserts/Fonts/SFOrson/SFOrsonCasualLight.ttf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/PlutoGame/static/asserts/Fonts/SFOrson/SFOrsonCasualMedium.ttf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/PlutoGame/static/asserts/Fonts/SFOrson/SFOrsonCasualShaded.ttf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/PlutoGame/static/asserts/Fonts/SilverAge/SilverAge.ttf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/PlutoGame/static/asserts/Menu/about.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/PlutoGame/static/asserts/Menu/exit.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/PlutoGame/static/asserts/Menu/lang.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/PlutoGame/static/asserts/Menu/lang_next.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/PlutoGame/static/asserts/Menu/lang_prev.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/PlutoGame/static/asserts/Menu/level.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/PlutoGame/static/asserts/Menu/level_next.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/PlutoGame/static/asserts/Menu/level_prev.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/PlutoGame/static/asserts/Menu/play.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/PlutoGame/static/asserts/Menu/sound-off.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/PlutoGame/static/asserts/Menu/sound-on.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/PlutoGame/static/asserts/next_page.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/PlutoGame/static/asserts/prev_page.png" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PlutoGame/static/bootstrap/fonts/glyphicons-halflings-regular.eot" afterPath="$PROJECT_DIR$/PlutoGame/static/bootstrap/fonts/glyphicons-halflings-regular.eot" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PlutoGame/static/bootstrap/fonts/glyphicons-halflings-regular.ttf" afterPath="$PROJECT_DIR$/PlutoGame/static/bootstrap/fonts/glyphicons-halflings-regular.ttf" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PlutoGame/static/bootstrap/fonts/glyphicons-halflings-regular.woff" afterPath="$PROJECT_DIR$/PlutoGame/static/bootstrap/fonts/glyphicons-halflings-regular.woff" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PlutoGame/static/bootstrap/fonts/glyphicons-halflings-regular.woff2" afterPath="$PROJECT_DIR$/PlutoGame/static/bootstrap/fonts/glyphicons-halflings-regular.woff2" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/PlutoGame.iml" afterPath="$PROJECT_DIR$/.idea/PlutoGame.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dictionaries/zhufy.xml" afterPath="$PROJECT_DIR$/.idea/dictionaries/zhufy.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PlutoGame/settings.py" afterPath="$PROJECT_DIR$/PlutoGame/settings.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PlutoGame/static/style.css" afterPath="$PROJECT_DIR$/PlutoGame/static/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PlutoGame/urls.py" afterPath="$PROJECT_DIR$/PlutoGame/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pluto/views.py" afterPath="$PROJECT_DIR$/pluto/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/requirements.txt" afterPath="$PROJECT_DIR$/requirements.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/form.html" afterPath="$PROJECT_DIR$/templates/form.html" />
     </list>
     <ignored path="PlutoGame/static/bootstrap/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -76,21 +38,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
+      <file leaf-file-name="style.css" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/PlutoGame/static/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="21" column="31" lean-forward="false" selection-start-line="21" selection-start-column="31" selection-end-line="21" selection-end-column="31" />
+            <state relative-caret-position="51">
+              <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="login.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="login.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/login.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="136">
-              <caret line="8" column="45" lean-forward="true" selection-start-line="8" selection-start-column="45" selection-end-line="8" selection-end-column="45" />
+              <caret line="8" column="45" lean-forward="false" selection-start-line="8" selection-start-column="45" selection-end-line="8" selection-end-column="45" />
               <folding />
             </state>
           </provider>
@@ -99,7 +61,7 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pluto/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
+            <state relative-caret-position="373">
               <caret line="67" column="33" lean-forward="false" selection-start-line="67" selection-start-column="33" selection-end-line="67" selection-end-column="33" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
@@ -195,12 +157,12 @@
         <option value="$PROJECT_DIR$/PlutoGame/urls.py" />
         <option value="$PROJECT_DIR$/PlutoGame/settings.py" />
         <option value="$PROJECT_DIR$/pluto/forms.py" />
-        <option value="$PROJECT_DIR$/PlutoGame/static/style.css" />
         <option value="$PROJECT_DIR$/templates/include/bootstrap.html" />
         <option value="$PROJECT_DIR$/templates/include/phaser.html" />
         <option value="$PROJECT_DIR$/pluto/views.py" />
         <option value="$PROJECT_DIR$/templates/form.html" />
         <option value="$PROJECT_DIR$/templates/login.html" />
+        <option value="$PROJECT_DIR$/PlutoGame/static/style.css" />
       </list>
     </option>
   </component>
@@ -255,6 +217,12 @@
               <item name="PlutoGame" type="b2602c69:ProjectViewProjectNode" />
               <item name="PlutoGame" type="462c0819:PsiDirectoryNode" />
               <item name="PlutoGame" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="PlutoGame" type="b2602c69:ProjectViewProjectNode" />
+              <item name="PlutoGame" type="462c0819:PsiDirectoryNode" />
+              <item name="PlutoGame" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="PlutoGame" type="b2602c69:ProjectViewProjectNode" />
@@ -756,7 +724,14 @@
       <option name="project" value="LOCAL" />
       <updated>1504536616654</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="OAuth.&#10;&#10;Starting to adding social auth methods.&#10;Removed trash files.">
+      <created>1504550799193</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1504550799193</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TodoView" selected-index="1">
@@ -841,7 +816,8 @@
     <MESSAGE value="Records and Bug Fixes&#10;&#10;-Levels records now available. Competitive mode - ON. Now you can challenge your friends.&#10;-Reworked some urls.&#10;&#10;-Fixed input disabled hero bug.&#10;-Fixed wrong tile intersection which cause hero flow over blocked areas." />
     <MESSAGE value="Skins and refactor.&#10;&#10;Refactor game code. Separated in two files. &#10;Now users can use skins of hero in game." />
     <MESSAGE value="Game Interface improvements." />
-    <option name="LAST_COMMIT_MESSAGE" value="Game Interface improvements." />
+    <MESSAGE value="OAuth.&#10;&#10;Starting to adding social auth methods.&#10;Removed trash files." />
+    <option name="LAST_COMMIT_MESSAGE" value="OAuth.&#10;&#10;Starting to adding social auth methods.&#10;Removed trash files." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1143,14 +1119,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/PlutoGame/static/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="31" lean-forward="false" selection-start-line="21" selection-start-column="31" selection-end-line="21" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/base.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="799">
@@ -1193,7 +1161,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pluto/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
+        <state relative-caret-position="373">
           <caret line="67" column="33" lean-forward="false" selection-start-line="67" selection-start-column="33" selection-end-line="67" selection-end-column="33" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
@@ -1225,7 +1193,15 @@
     <entry file="file://$PROJECT_DIR$/templates/login.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
-          <caret line="8" column="45" lean-forward="true" selection-start-line="8" selection-start-column="45" selection-end-line="8" selection-end-column="45" />
+          <caret line="8" column="45" lean-forward="false" selection-start-line="8" selection-start-column="45" selection-end-line="8" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PlutoGame/static/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
           <folding />
         </state>
       </provider>
