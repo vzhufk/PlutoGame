@@ -6,6 +6,7 @@
         height: 50
     };
     var SPEED = 1000;
+    var ANIMATION_DEFAULT = "Quart.easeOut";
 
     if (HEIGHT > WIDTH){
         alert("For better experience - turn device!");
@@ -200,6 +201,12 @@
     function commandPanelDeltaCommandCount(key, delta){
         commands[key].count.value += delta;
         commands[key].count.text.setText(commands[key].count.value);
+        if (delta > 0){
+            if (key !== 'forward' && key !== 'backward') {
+                commandPanelCommandsTurn();
+                programPanelCommandsTurn();
+            }
+        }
     }
 
     var command_tweens = {};
@@ -216,7 +223,7 @@
 
             for (var i = 0; i < command_names.length - 2; ++i){
                 var tmp =  game.add.tween(commands[command_names[i]]).to(
-                    {angle: angle}, SPEED, "Quart.easeOut");
+                    {angle: angle}, SPEED, ANIMATION_DEFAULT);
 
                 if (command_tweens[command_names[i]] && command_tweens[command_names[i]].isRunning){
                     command_tweens[command_names[i]].chain(tmp);
@@ -249,7 +256,7 @@
                 var dir = (direction > current_dir)?("+"):("-");
                 var angle = dir + (Math.abs(direction - current_dir)*90).toString();
 
-                game.add.tween(programs[i]).to({angle: angle}, SPEED, "Quart.easeOut").start();
+                game.add.tween(programs[i]).to({angle: angle}, SPEED, ANIMATION_DEFAULT).start();
 
             }
         }
@@ -267,7 +274,11 @@
         if (pointer.y < program.y + program.h){
             for (var i = 0; i < programs.length; ++i){
                 if (Phaser.Rectangle.intersects(programs[i].getBounds(), command.getBounds())){
-                    index = i;
+                    if (programs[i].getBounds().centerX < command.getBounds().centerX){
+                        index = i + 1; //(i == programs.length)?(i):(i+1)
+                    }else {
+                        index = i;
+                    }
                 }
             }
         }
@@ -546,16 +557,16 @@
             if (program[i] === 'forward') {
                 x += dx;
                 y += dy;
-                tmp = game.add.tween(hero).to({x: x, y: y}, SPEED, "Quart.easeOut");
+                tmp = game.add.tween(hero).to({x: x, y: y}, SPEED, ANIMATION_DEFAULT);
             }else if(program[i] === 'backward'){
                 x -= dx;
                 y -= dy;
-                tmp = game.add.tween(hero).to({x: x, y: y}, SPEED, "Quart.easeOut");
+                tmp = game.add.tween(hero).to({x: x, y: y}, SPEED, ANIMATION_DEFAULT);
             }else if(program[i] === 'left'){
-                tmp = game.add.tween(hero).to({angle: '-90'}, SPEED, "Quart.easeOut");
+                tmp = game.add.tween(hero).to({angle: '-90'}, SPEED, ANIMATION_DEFAULT);
                 direction = (direction + 3) % 4;
             }else if(program[i] === 'right'){
-                tmp = game.add.tween(hero).to({angle: '+90'}, SPEED, "Quart.easeOut");
+                tmp = game.add.tween(hero).to({angle: '+90'}, SPEED, ANIMATION_DEFAULT);
                 direction = (direction + 5) % 4;;
             }
 
@@ -613,7 +624,6 @@
 
     function programPanelCommandOnDragStart(sprite, pointer) {
         sprite.originalPosition = sprite.position.clone();
-        //sprite.position = pointer;
     }
 
     function programPanelCommandOnDragStop(sprite, pointer) {
@@ -623,11 +633,6 @@
             programPanelAddCommand(sprite, pointer);
         }else{
            commandPanelDeltaCommandCount(sprite.key, 1);
-           //TODO I dont like it here ;|
-           if (sprite.key !== 'forward' && sprite.key !== 'backward') {
-            commandPanelCommandsTurn();
-            programPanelCommandsTurn();
-        }
         }
         sprite.destroy();
         programPanelAlignCommands();
@@ -651,7 +656,7 @@
         x += game.camera.x;
         y += game.camera.y;
 
-        var animation = game.add.tween(game.camera).to({x: x, y: y}, SPEED, "Quart.easeOut");
+        var animation = game.add.tween(game.camera).to({x: x, y: y}, SPEED, ANIMATION_DEFAULT);
         animation.start();
 
         sprite.fixedToCamera = true;
