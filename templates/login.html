@@ -1,26 +1,41 @@
 {% extends 'base.html' %}
-
+{% block extra_include %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.css">
+{% endblock %}
 {% block content %}
+    <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
     {% if form %}
+        <div class="mdl-card mdl-cell mdl-cell--12-col">
+            <div class="mdl-card__supporting-text mdl-grid">
                 <form method="post">
                 {%  csrf_token %}
                     {% for j in form %}
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <div class="input-group ">
-                                        <label for="{{ j.name }}">{{ j.label }}</label>
-                                        {{ j }}
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
+                            <label class="mdl-textfield__label" for="{{ j.name }}">{{ j.label }}</label>
+                            {{ j }}
                         </div>
                     {% endfor %}
-                <button type="submit" class="btn btn-block btn-lg">Submit</button>
+                <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Submit</button>
+
+                <a href="/signup">
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--secondary">SignUp</button>
+                    </a>
                 </form>
-            {% endif  %}
-    <a href="accounts/facebook/login"><button class="btn btn-block btn-lg btn-primary">Facebook Login</button></a>
-    <a href="accounts/google/login"><button class="btn btn-block btn-lg btn-danger">Google Login</button></a>
-    <a href="accounts/discord/login"><button class="btn btn-block btn-lg btn-warning">Discord Login</button></a>
-    <a href="accounts/github/login"><button class="btn btn-block btn-lg btn-success">Git Login</button></a>
+            </div>
+    {% endif  %}
+            <div class="mdl-card__actions mdl-card--border">
+                <a href="/accounts/facebook/login" class=" mdl-button btn btn-block btn-social btn-facebook">
+                    <i class="fa fa-facebook"></i>Facebook
+                </a>
+                <a href="/accounts/google/login" class="mdl-button btn btn-block btn-social btn-google">
+                    <i class="fa fa-google-plus"></i> Google+
+                </a>
+                <a href=/accounts/discord/login" class="mdl-button btn btn-block btn-social btn-tumblr">
+                    <i class="fa fa-circle fa-fw"></i> Discord
+                </a>
+                <a href="/accounts/github/login" class="mdl-button btn btn-block btn-social btn-github">
+                    <i class="fa fa-github fa-fw"></i> GitHub</a>
+            </div>
+        </div>
+    </section>
 {% endblock %}

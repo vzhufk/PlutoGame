@@ -1,66 +1,17 @@
-.form-group * {
-    min-width:450px;
+.mdl-layout__content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Override error ot danger */
-.panel-info{
-    border-color: #337ab7;
+
+.fullwidth {
+    width: 100%;
+    align-content: center;
 }
 
-.panel-info>.panel-heading{
-    color: #337ab7;
-    background-color: #337ab7;
-    border-color: #337ab7;
-}
-
-.panel-success{
-    border-color: #3c763d;
-}
-
-.panel-success>.panel-heading {
-    color: #3c763d;
-    background-color: #3c763d;
-    border-color: #3c763d;
-}
-
-.panel-warning{
-    border-color: #8a6d3b;
-}
-
-.panel-warning>.panel-heading {
-    color: #8a6d3b;
-    background-color: #8a6d3b;
-    border-color: #8a6d3b;
-}
-
-.panel-error {
-    border-color: #a94442;
-}
-
-.panel-error>.panel-heading {
-    color: #fff;
-    background-color: #a94442;
-    border-color: #a94442;
-}
-
-#wrap {
-    width: 630px;
-    height: 300px;
-    padding: 0;
-    overflow: hidden;
-}
-#frame {
-    -ms-zoom: 0.5;
-    -ms-transform-origin: 0 0;
-    -moz-transform: scale(0.5);
-    -moz-transform-origin: 0px 50px;
-    -o-transform: scale(0.5);
-    -o-transform-origin: 0px 50px;
-    -webkit-transform: scale(0.5);
-    -webkit-transform-origin: 0 0;
-}
-#frame {
-    width: 1230px;
-    height: 530px;
-    overflow: hidden;
+/*SOCIAL*/
+.btn{
+    border-radius: 0px;
+    text-decoration: none;
 }

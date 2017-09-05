@@ -1,23 +1,23 @@
 {% extends 'base.html' %}
 {% block content %}
     {% block form %}
-            {% if form %}
+    <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+    {% if form %}
+        <div class="mdl-card mdl-cell mdl-cell--12-col">
+            <div class="mdl-card__supporting-text mdl-grid">
                 <form method="post">
                 {%  csrf_token %}
                     {% for j in form %}
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <div class="input-group ">
-                                        <label for="{{ j.name }}">{{ j.label }}</label>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
+                                        <label class="mdl-textfield__label" for="{{ j.name }}">{{ j.label }}</label>
                                         {{ j }}
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     {% endfor %}
                 <button type="submit" class="btn btn-block btn-lg">Submit</button>
                 </form>
-            {% endif     %}
+            </div>
+        </div>
+            {% endif %}
+        </section>
         {% endblock %}
 {% endblock %}

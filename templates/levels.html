@@ -1,14 +1,17 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="table-responsive">
-    <table class="table">
+    <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+        <thead>
         <tr>
             <th> Name </th>
             <th> Date </th>
             <th> By </th>
             <th> </th>
         </tr>
+        </thead>
+        <tbody>
         {% for i in levels %}
             <tr>
                 <td>
@@ -18,30 +21,31 @@
                 <td> <a href="/profile/{{ i.by.id }}"> {{ i.by.username }} </a></td>
                 <td>
                     <a href="/play/{{ i.id }}">
-                        <button class="btn btn-default">
-                            <span class="glyphicon glyphicon-play"></span>
+                        <button class="mdl-button mdl-js-button mdl-button--primary">
+                            <i class="material-icons">gamepad</i>
                         </button>
                     </a>
                     {% if request.user.id == i.by.id %}
                     <a href="/creator/{{ i.id }}">
-                        <button class="btn btn-default">
-                            <span class="glyphicon glyphicon-pencil"></span>
+                        <button class="mdl-button mdl-js-button mdl-button--primary">
+                            <i class="material-icons">edit</i>
                         </button>
                     </a>
                     {% endif %}
                     <a href="/record/level={{ i.id }}">
-                        <button class="btn btn-default">
-                            <span class="glyphicon glyphicon glyphicon-equalizer"></span>
+                        <button class="mdl-button mdl-js-button mdl-button--secondary">
+                            <i class="material-icons">assessment</i>
                         </button>
                     </a>
                 </td>
             </tr>
         {% endfor %}
-        <tr>
-           <td colspan="4">
-               <a href="/creator"><button class="btn btn-block">Add</button></a>
-           </td>
-        </tr>
+    </tbody>
     </table>
+    <a href="/creator">
+    <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+        <i class="material-icons">add</i>
+    </button>
+    </a>
     </div>
 {% endblock %}

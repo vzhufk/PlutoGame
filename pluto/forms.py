@@ -14,26 +14,26 @@ from pluto import models
 
 class LogInForm(forms.Form):
     username = forms.CharField(label='Username')
-    username.widget = forms.TextInput(attrs={'class': 'form-control'})
+    username.widget = forms.TextInput(attrs={'class': 'mdl-textfield__input'})
     password = forms.CharField(label='Password')
-    password.widget = forms.PasswordInput(attrs={'class': 'form-control'})
+    password.widget = forms.PasswordInput(attrs={'class': 'mdl-textfield__input'})
 
 
 class PersonalInfoForm(forms.Form):
     first_name = forms.CharField(label='First Name')
-    first_name.widget = forms.TextInput(attrs={'class': 'form-control'})
+    first_name.widget = forms.TextInput(attrs={'class': 'mdl-textfield__input'})
     last_name = forms.CharField(label='Last Name')
-    last_name.widget = forms.TextInput(attrs={'class': 'form-control'})
+    last_name.widget = forms.TextInput(attrs={'class': 'mdl-textfield__input'})
 
 
 class PersonalImageForm(forms.Form):
     image = forms.ImageField(label='Personal image')
-    image.widget = forms.FileInput(attrs={'class': 'form-control'})
+    image.widget = forms.FileInput(attrs={'class': 'mdl-textfield__input'})
 
 
 class HeroSkinForm(forms.Form):
     skin = forms.CharField(label='Enter skin name')
-    skin.widget = forms.TextInput(attrs={'class': 'form-control'})
+    skin.widget = forms.TextInput(attrs={'class': 'mdl-textfield__input'})
 
     def clean(self):
         cleaned_data = super(HeroSkinForm, self).clean()
@@ -48,9 +48,9 @@ class HeroSkinForm(forms.Form):
 
 class PasswordForm(forms.Form):
     password = forms.CharField(label='Password')
-    password.widget = forms.PasswordInput(attrs={'class': 'form-control'})
+    password.widget = forms.PasswordInput(attrs={'class': 'mdl-textfield__input'})
     password_confirm = forms.CharField(label='Password confirm')
-    password_confirm.widget = forms.PasswordInput(attrs={'class': 'form-control'})
+    password_confirm.widget = forms.PasswordInput(attrs={'class': 'mdl-textfield__input'})
 
     def clean(self):
         cleaned_data = super(PasswordForm, self).clean()
@@ -66,13 +66,13 @@ class PasswordForm(forms.Form):
 # TODO Make it DRY
 class SignUpForm(forms.Form):
     email = forms.EmailField(label='Email', max_length=128)
-    email.widget = forms.TextInput(attrs={'class': 'form-control'})
+    email.widget = forms.TextInput(attrs={'class': 'mdl-textfield__input'})
     username = forms.CharField(label='Username')
-    username.widget = forms.TextInput(attrs={'class': 'form-control'})
+    username.widget = forms.TextInput(attrs={'class': 'mdl-textfield__input'})
     password = forms.CharField(label='Password')
-    password.widget = forms.PasswordInput(attrs={'class': 'form-control'})
+    password.widget = forms.PasswordInput(attrs={'class': 'mdl-textfield__input'})
     password_confirm = forms.CharField(label='Password confirm')
-    password_confirm.widget = forms.PasswordInput(attrs={'class': 'form-control'})
+    password_confirm.widget = forms.PasswordInput(attrs={'class': 'mdl-textfield__input'})
 
     def clean(self):
         cleaned_data = super(SignUpForm, self).clean()
@@ -105,31 +105,31 @@ class SignUpForm(forms.Form):
 
 class LevelCreationForm(forms.Form):
     name = forms.CharField(label='Name')
-    name.widget = forms.TextInput(attrs={'class': 'form-control'})
+    name.widget = forms.TextInput(attrs={'class': 'mdl-textfield__input'})
     tilemap = forms.CharField(label='Tilemap')
-    tilemap.widget = forms.Textarea(attrs={'class': 'form-control'})
+    tilemap.widget = forms.Textarea(attrs={'class': 'mdl-textfield__input'})
 
     command_forward = forms.IntegerField(label='Forward')
-    command_forward.widget = forms.NumberInput(attrs={'class': 'form-control', 'min': '0'})
+    command_forward.widget = forms.NumberInput(attrs={'class': 'mdl-textfield__input', 'min': '0'})
 
     command_backward = forms.IntegerField(label='Backward')
-    command_backward.widget = forms.NumberInput(attrs={'class': 'form-control', 'min': '0'})
+    command_backward.widget = forms.NumberInput(attrs={'class': 'mdl-textfield__input', 'min': '0'})
 
     command_left = forms.IntegerField(label='Left')
-    command_left.widget = forms.NumberInput(attrs={'class': 'form-control', 'min': '0'})
+    command_left.widget = forms.NumberInput(attrs={'class': 'mdl-textfield__input', 'min': '0'})
 
     command_right = forms.IntegerField(label='Right')
-    command_right.widget = forms.NumberInput(attrs={'class': 'form-control', 'min': '0'})
+    command_right.widget = forms.NumberInput(attrs={'class': 'mdl-textfield__input', 'min': '0'})
 
     command_lo = forms.IntegerField(label='LO')
-    command_lo.widget = forms.NumberInput(attrs={'class': 'form-control', 'min': '0'})
+    command_lo.widget = forms.NumberInput(attrs={'class': 'mdl-textfield__input', 'min': '0'})
 
     command_op = forms.IntegerField(label='OP')
-    command_op.widget = forms.NumberInput(attrs={'class': 'form-control', 'min': '0'})
+    command_op.widget = forms.NumberInput(attrs={'class': 'mdl-textfield__input', 'min': '0'})
 
     hero_x = forms.IntegerField(label='Hero X')
     hero_y = forms.IntegerField(label='Hero Y')
     hero_dir = forms.IntegerField(label='Hero Direction')
-    hero_x.widget = forms.NumberInput(attrs={'class': 'form-control', 'min': '0'})
-    hero_y.widget = forms.NumberInput(attrs={'class': 'form-control', 'min': '0'})
-    hero_dir.widget = forms.NumberInput(attrs={'class': 'form-control', 'min': '0', 'max': '3'})
+    hero_x.widget = forms.NumberInput(attrs={'class': 'mdl-textfield__input', 'min': '0'})
+    hero_y.widget = forms.NumberInput(attrs={'class': 'mdl-textfield__input', 'min': '0'})
+    hero_dir.widget = forms.NumberInput(attrs={'class': 'mdl-textfield__input', 'min': '0', 'max': '3'})

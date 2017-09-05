@@ -13,7 +13,7 @@
             {% endif %}
         {% endblock %}
     </title>
-    {% include 'include/bootstrap.html' %}
+    {% include 'include/material.html' %}
     {% include 'include/custom.html' %}
     {% block extra_include %}
         <!-- Some extra includes that is situational for each page -->
@@ -26,84 +26,88 @@
     {% endblock %}
 </head>
 {%  endblock %}
-<body>
+<body class="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base">
     {% block navigation %}
-        <nav class="navbar navbar-default">
-        <div class="container-fluid" id="navfluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/"><span class="glyphicon glyphicon-adjust"></span> Pluto</a>
-            </div>
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li><a href="/levels">Levels</a></li>
-                    <li><a href="/records">Records</a></li>
-                </ul>
-        <ul class="nav navbar-nav navbar-right">
-            {% if request.user.is_authenticated %}
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown"
-                       role="button" aria-haspopup="true" aria-expanded="false">
-                        <span class="glyphicon glyphicon-user"></span>
+        <!-- Left aligned menu below button -->
+        <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+              <header class="mdl-layout__header">
+                <div class="mdl-layout__header-row">
+                  <!-- Title -->
+                  <span class="mdl-layout-title">Pluto</span>
+                  <!-- Add spacer, to align navigation to the right -->
+                  <div class="mdl-layout-spacer"></div>
+                  <!-- Navigation. We hide it in small screens. -->
+                  <nav class="mdl-navigation">
+                    <a class="mdl-navigation__link" href="/">Home</a>
+                    <a class="mdl-navigation__link" href="/levels">Levels</a>
+                    <a class="mdl-navigation__link" href="/records">Records</a>
+                  </nav>
+                </div>
+              </header>
+              <div class="mdl-layout__drawer">
+                <span class="mdl-layout-title">
+                    {% if request.user.is_authenticated %}
                         {{ request.user.username }}
-                        <span class="caret"></span>
-                    </a>
-                     <ul class="dropdown-menu">
-                         <li><a href="/profile/{{ request.user.id }}">Profile</a></li>
-                         <li><a href="/mates">Mates</a></li>
-                         <li><a href="/creator">Creator</a></li>
-                         <li><a href="/settings">Settings</a></li>
-                     </ul>
-                </li>
-                <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span></a></li>
-            {% else %}
-                <li><a href="/signup"><span class="glyphicon glyphicon-list-alt"></span></a></li>
-                <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span></a></li>
-            {% endif %}
-        </ul>
+                    {% else %}
+                        Anonymous
+                    {% endif %}
+                </span>
+                <nav class="mdl-navigation">
+                    {% if request.user.is_authenticated %}
+                        <a class="mdl-navigation__link" href="/me"><i class="material-icons">face</i> Profile</a>
+                        <a class="mdl-navigation__link" href="/mates"><i class="material-icons">people</i> Mates</a>
+                        <a class="mdl-navigation__link" href="/creator"><i class="material-icons">brush</i> Creator</a>
+                        <a class="mdl-navigation__link" href="/settings"><i class="material-icons">settings</i> Settings</a>
+                        <a class="mdl-navigation__link" href="/logout"><i class="material-icons">exit_to_app</i> Logout</a>
+                    {% else %}
+                        <a class="mdl-navigation__link" href="/login"><i class="material-icons">account_circle</i> Login</a>
+                        <a class="mdl-navigation__link" href="/signup"><i class="material-icons">assignment</i> SignUp</a>
+                    {% endif %}
 
-            </div>
-        </div>
-        </nav>
+                </nav>
+              </div>
+
     {% endblock %}
     {% block body %}
-        <div class="container">
-        {% block message %}
-            {% if messages %}
-                {% for i in messages %}
-                <div class="panel panel-{{ i.tags }}">
-                        <div class="panel-heading">{{ i.tags | title }}</div>
-                        <div class="panel-body">{{ i }}</div>
-                </div>
-                {% endfor %}
-            {% endif %}
-        {% endblock %}
+        <main class="mdl-layout__content">
         {% block content %}
             {% for i in content %}
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <h4><strong>{{ i.title }}</strong></h4>
-                        {{ i.value }}
+                <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+                    <div class="mdl-card mdl-cell mdl-cell--12-col">
+                        <div class="mdl-card__supporting-text">
+                            <h4>{{ i.title }}</h4>
+                            {{ i.value }}
+                        </div>
+                            <div class="mdl-card__actions">{{ i.date }} | <a href="/profile/{{ i.by.id }}">{{ i.by.username }}</a>
+                        </div>
                     </div>
-                    <div class="panel-footer">
-                        {{ i.date }} | <a href="/profile/{{ i.by.id }}">{{ i.by.username }}</a>
-                    </div>
-                </div>
+                </section>
             {% endfor %}
         {% endblock %}
-        </div>
+        </main>
     {% endblock %}
     {% block footer %}
 
     {% endblock %}
+
+
+    {% block message %}
+         <div aria-live="assertive" aria-atomic="true" aria-relevant="text" class="mdl-snackbar mdl-js-snackbar">
+         <div class="mdl-snackbar__text">{{ i.tag | title }}: {{ i }}</div>
+         <button type="button" class="mdl-snackbar__action"></button>
+         </div>
+    {% endblock %}
+
+
+    </div>
 </body>
 <!-- REFACTOR -->
-<script>
-    navActivate('.nav')
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/popper.js@1.12.5/dist/umd/popper.js" integrity="sha384-KlVcf2tswD0JOTQnzU4uwqXcbAy57PvV48YUiLjqpk/MJ2wExQhg9tuozn5A1iVw" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/bootstrap-material-design@4.0.0-beta.3/dist/js/bootstrap-material-design.js" integrity="sha384-hC7RwS0Uz+TOt6rNG8GX0xYCJ2EydZt1HeElNwQqW+3udRol4XwyBfISrNDgQcGA" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+
 </script>
 </html>
