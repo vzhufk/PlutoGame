@@ -34,17 +34,16 @@
               <header class="mdl-layout__header">
                 <div class="mdl-layout__header-row">
                   <!-- Title -->
-                  <span class="mdl-layout-title">Pluto</span>
+                  <span class="mdl-layout-title"><a href="/">Pluto</a></span>
                   <!-- Add spacer, to align navigation to the right -->
                   <div class="mdl-layout-spacer"></div>
                   <!-- Navigation. We hide it in small screens. -->
                   <nav class="mdl-navigation">
-                    <a class="mdl-navigation__link" href="/">Home</a>
                     <a class="mdl-navigation__link" href="/levels">Levels</a>
                     <a class="mdl-navigation__link" href="/records">Records</a>
                   </nav>
                     {% block header_button %}
-x
+
                     {% endblock %}
                 </div>
               </header>
@@ -80,14 +79,14 @@ x
             {% for i in content %}
                     <div class="mdl-card mdl-cell mdl-cell--4-col">
                         <div class="mdl-card__supporting-text">
-                            <h4>{{ i.title }}</h4>
-                            {{ i.value }}
+                            <h5>{{ i.title }}</h5>
+                            <h7>{{ i.value }}</h7>
+                            <br>
+                            <br>
                             <br>
                             <span class="mdl-chip mdl-chip--contact">
                                 <span class="mdl-chip__text">
-                            {{ i.date }}</span>
-                            </span>
-                            <span class="mdl-chip mdl-chip--contact">
+                                {{ i.date }}</span>
                                 <span class="mdl-chip__contact"><i class="material-icons">account_circle</i> </span>
                                 <span class="mdl-chip__text">{{ i.by.username }}</span>
                             </span>

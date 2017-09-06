@@ -1,11 +1,9 @@
 {% extends "base.html" %}
 {% block header_button %}
-    <a href="/creator">
-        <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect
-        mdl-button--colored mdl-shadow--4dp mdl-color--accent">
+    <a href="/creator"class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect
+        mdl-button--colored mdl-shadow--4dp mdl-color--accent mdl-layout--large-screen-only">
             <i class="material-icons" role="presentation">add</i>
             <span class="visuallyhidden">Add</span>
-          </button>
     </a>
 {% endblock %}
 
@@ -31,22 +29,16 @@
                     <a href="/profile/{{ i.by.id }}"> {{ i.by.username }} </a>
                 </td>
                 <td>
-                    <a href="/level/{{ i.id }}">
-                        <button class="mdl-button mdl-js-button mdl-button--primary">
+                    <a href="/level/{{ i.id }}" class="mdl-button mdl-js-button mdl-button--primary">
                             <i class="material-icons">gamepad</i>
-                        </button>
                     </a>
                     {% if request.user.id == i.by.id %}
-                    <a href="/creator/{{ i.id }}">
-                        <button class="mdl-button mdl-js-button mdl-button--primary">
+                    <a href="/creator/{{ i.id }}" class="mdl-button mdl-js-button mdl-button--primary">
                             <i class="material-icons">edit</i>
-                        </button>
                     </a>
                     {% endif %}
-                    <a href="/record/level={{ i.id }}">
-                        <button class="mdl-button mdl-js-button mdl-button--secondary">
+                    <a href="/record/level={{ i.id }}" class="mdl-button mdl-js-button mdl-button--secondary">
                             <i class="material-icons">assessment</i>
-                        </button>
                     </a>
                 </td>
             </tr>
@@ -54,4 +46,12 @@
     </tbody>
     </table>
     </div>
+{% endblock %}
+
+{% block footer %}
+    <a href="/creator"class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect
+        mdl-button--colored mdl-shadow--4dp mdl-color--accent mdl-layout--small-screen-only">
+            <i class="material-icons" role="presentation">add</i>
+            <span class="visuallyhidden">Add</span>
+    </a>
 {% endblock %}
