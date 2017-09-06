@@ -1,26 +1,37 @@
 {% extends "base.html" %}
+{% block header_button %}
+    <a href="/creator">
+        <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect
+        mdl-button--colored mdl-shadow--4dp mdl-color--accent">
+            <i class="material-icons" role="presentation">add</i>
+            <span class="visuallyhidden">Add</span>
+          </button>
+    </a>
+{% endblock %}
 
 {% block content %}
-    <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
-    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+    <div class="mdl-grid">
+        <table class="mdl-cell mdl-cell--12-col mdl-data-table mdl-js-data-table mdl-shadow--2dp">
         <thead>
         <tr>
-            <th> Name </th>
+            <th class="mdl-data-table__cell--non-numeric"> Name </th>
             <th> Date </th>
-            <th> By </th>
+            <th class="mdl-data-table__cell--non-numeric"> By </th>
             <th> </th>
         </tr>
         </thead>
         <tbody>
         {% for i in levels %}
             <tr>
-                <td>
-                    <a href="/level/{{ i.id }}">{{ i.name }}</a>
+                <td class="mdl-data-table__cell--non-numeric">
+                    {{ i.name }}
                 </td>
                 <td> {{ i.date }}</td>
-                <td> <a href="/profile/{{ i.by.id }}"> {{ i.by.username }} </a></td>
+                <td class="mdl-data-table__cell--non-numeric">
+                    <a href="/profile/{{ i.by.id }}"> {{ i.by.username }} </a>
+                </td>
                 <td>
-                    <a href="/play/{{ i.id }}">
+                    <a href="/level/{{ i.id }}">
                         <button class="mdl-button mdl-js-button mdl-button--primary">
                             <i class="material-icons">gamepad</i>
                         </button>
@@ -42,10 +53,5 @@
         {% endfor %}
     </tbody>
     </table>
-    <a href="/creator">
-    <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
-        <i class="material-icons">add</i>
-    </button>
-    </a>
     </div>
 {% endblock %}
