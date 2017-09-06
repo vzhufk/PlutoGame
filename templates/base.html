@@ -27,9 +27,10 @@
 </head>
 {%  endblock %}
 <body class="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base">
+
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
     {% block navigation %}
         <!-- Left aligned menu below button -->
-        <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
               <header class="mdl-layout__header">
                 <div class="mdl-layout__header-row">
                   <!-- Title -->
@@ -42,6 +43,9 @@
                     <a class="mdl-navigation__link" href="/levels">Levels</a>
                     <a class="mdl-navigation__link" href="/records">Records</a>
                   </nav>
+                    {% block header_button %}
+
+                    {% endblock %}
                 </div>
               </header>
               <div class="mdl-layout__drawer">
@@ -66,23 +70,31 @@
 
                 </nav>
               </div>
-
+        {% block navigation_extra %}
+            {% endblock %}
     {% endblock %}
     {% block body %}
         <main class="mdl-layout__content">
         {% block content %}
+            <div class="mdl-grid">
             {% for i in content %}
-                <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
-                    <div class="mdl-card mdl-cell mdl-cell--12-col">
+                    <div class="mdl-card mdl-cell mdl-cell--4-col">
                         <div class="mdl-card__supporting-text">
                             <h4>{{ i.title }}</h4>
                             {{ i.value }}
-                        </div>
-                            <div class="mdl-card__actions">{{ i.date }} | <a href="/profile/{{ i.by.id }}">{{ i.by.username }}</a>
+                            <br>
+                            <span class="mdl-chip mdl-chip--contact">
+                                <span class="mdl-chip__text">
+                            {{ i.date }}</span>
+                            </span>
+                            <span class="mdl-chip mdl-chip--contact">
+                                <span class="mdl-chip__contact"><i class="material-icons">account_circle</i> </span>
+                                <span class="mdl-chip__text">{{ i.by.username }}</span>
+                            </span>
                         </div>
                     </div>
-                </section>
             {% endfor %}
+            </div>
         {% endblock %}
         </main>
     {% endblock %}
