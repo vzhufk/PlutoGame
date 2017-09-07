@@ -7,8 +7,8 @@
     <div class="mdl-grid">
     {% if form %}
         <div class="mdl-card mdl-cell mdl-cell--4-col">
+        <form method="post">
             <div class="mdl-card__supporting-text mdl-grid">
-                <form method="post">
                 {%  csrf_token %}
                     {% for j in form %}
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
@@ -16,14 +16,14 @@
                             {{ j }}
                         </div>
                     {% endfor %}
-                    <div class="mdl-card__actions">
-                        <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Submit</button>
-                        <a href="/signup">
-                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--secondary">SignUp</button>
-                        </a>
-                    </div>
-                </form>
             </div>
+            <div class="mdl-card__actions mdl-grid">
+                <div class="mdl-layout-spacer"></div>
+                <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Submit</button>
+                <a href="/signup" class="mdl-button mdl-js-button mdl-button--raised mdl-button--secondary">SignUp</a>
+                <div class="mdl-layout-spacer"></div>
+            </div>
+        </form>
         </div>
     {% endif  %}
             <div class="mdl-card mdl-cell mdl-cell--4-col">
