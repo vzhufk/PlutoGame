@@ -3,7 +3,12 @@
   <component name="ChangeListManager">
     <list id="01bd4cf5-3ced-4d80-a565-5da0a051012b" name="Material Redesign Profile, Level, Records, Login redesigned into MDL. (cherry picked from commit 0b61fe3)" comment="Material Redesign&#10;&#10;Profile, Level, Records, Login redesigned into MDL.&#10;&#10;(cherry picked from commit 0b61fe3)" />
     <list default="true" id="8467f64f-f497-4195-9163-6a0b0232c0d0" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/templates/include/bootstrap.html" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/include/material.html" afterPath="$PROJECT_DIR$/templates/include/material.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/levels.html" afterPath="$PROJECT_DIR$/templates/levels.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/results.html" afterPath="$PROJECT_DIR$/templates/results.html" />
     </list>
     <list id="9082eab1-94a5-41f0-b3c4-e561d7875270" name="Interface improvements. Levels page. (cherry picked from commit f391329)" comment="Interface improvements.&#10;&#10;Levels page.&#10;&#10;(cherry picked from commit f391329)" />
     <list id="409c504a-afa5-4f81-bb5f-f30f668ed88e" name="Interface improvements." comment="" />
@@ -23,18 +28,18 @@
       <file leaf-file-name="levels.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/levels.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="102" column="55" lean-forward="false" selection-start-line="102" selection-start-column="55" selection-end-line="102" selection-end-column="55" />
+            <state relative-caret-position="272">
+              <caret line="119" column="91" lean-forward="false" selection-start-line="119" selection-start-column="44" selection-end-line="119" selection-end-column="91" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="workspace.xml" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+      <file leaf-file-name="results.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/templates/results.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="7" column="43" lean-forward="false" selection-start-line="7" selection-start-column="43" selection-end-line="7" selection-end-column="43" />
+            <state relative-caret-position="238">
+              <caret line="30" column="45" lean-forward="false" selection-start-line="30" selection-start-column="45" selection-end-line="30" selection-end-column="45" />
               <folding />
             </state>
           </provider>
@@ -53,7 +58,7 @@
       <file leaf-file-name="play.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/play.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
+            <state relative-caret-position="-442">
               <caret line="11" column="9" lean-forward="false" selection-start-line="11" selection-start-column="9" selection-end-line="11" selection-end-column="9" />
               <folding />
             </state>
@@ -73,18 +78,9 @@
       <file leaf-file-name="base.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/base.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1632">
+            <state relative-caret-position="1717">
               <caret line="107" column="14" lean-forward="false" selection-start-line="107" selection-start-column="10" selection-end-line="107" selection-end-column="14" />
-              <folding>
-                <marker date="1504820195269" expanded="true" signature="4248:4271" ph="{% block content ... %}" />
-                <marker date="1504820195269" expanded="true" signature="4248:4286" ph="..." />
-                <marker date="1504820195269" expanded="true" signature="4248:4306" ph="{% block body ... %}" />
-                <marker date="1504820195269" expanded="true" signature="4248:4682" ph="..." />
-                <marker date="1504820195269" expanded="true" signature="4311:4349" ph="{% block footer ... %}" />
-                <marker date="1504820195269" expanded="true" signature="4356:4670" ph="{% block message ... %}" />
-                <marker date="1504820195269" expanded="true" signature="4488:4650" ph="..." />
-                <marker date="1504820195269" expanded="true" signature="5335:5346" ph="..." />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -184,15 +180,16 @@
         <option value="$PROJECT_DIR$/pluto/forms.py" />
         <option value="$PROJECT_DIR$/PlutoGame/static/style.css" />
         <option value="$PROJECT_DIR$/templates/result.html" />
-        <option value="$PROJECT_DIR$/templates/include/material.html" />
         <option value="$PROJECT_DIR$/PlutoGame/settings.py" />
         <option value="$PROJECT_DIR$/templates/profile.html" />
         <option value="$PROJECT_DIR$/templates/level.html" />
-        <option value="$PROJECT_DIR$/templates/results.html" />
         <option value="$PROJECT_DIR$/PlutoGame/static/game.js" />
         <option value="$PROJECT_DIR$/templates/include/custom.html" />
         <option value="$PROJECT_DIR$/templates/play.html" />
+        <option value="$PROJECT_DIR$/.idea/workspace.xml" />
+        <option value="$PROJECT_DIR$/templates/include/material.html" />
         <option value="$PROJECT_DIR$/templates/levels.html" />
+        <option value="$PROJECT_DIR$/templates/results.html" />
       </list>
     </option>
   </component>
@@ -242,6 +239,12 @@
               <item name="PlutoGame" type="b2602c69:ProjectViewProjectNode" />
               <item name="PlutoGame" type="462c0819:PsiDirectoryNode" />
               <item name="templates" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="PlutoGame" type="b2602c69:ProjectViewProjectNode" />
+              <item name="PlutoGame" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="include" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -809,7 +812,14 @@
       <option name="project" value="LOCAL" />
       <updated>1504820171837</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="Interface improvements.&#10;&#10;Levels page.&#10;Game loading. Bug fixes.">
+      <created>1504820298338</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1504820298338</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="TodoView" selected-index="1">
@@ -829,9 +839,9 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287037" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287037" sideWeight="0.5060514" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3287037" sideWeight="0.49394855" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287037" sideWeight="0.49394855" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287037" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32253087" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32253087" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31089258" sideWeight="0.29612756" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287037" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -1202,14 +1212,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/include/material.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="103" lean-forward="false" selection-start-line="5" selection-start-column="103" selection-end-line="5" selection-end-column="103" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/profile.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="510">
@@ -1236,23 +1238,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1632">
-          <caret line="107" column="14" lean-forward="false" selection-start-line="107" selection-start-column="10" selection-end-line="107" selection-end-column="14" />
-          <folding>
-            <marker date="1504820195269" expanded="true" signature="4248:4271" ph="{% block content ... %}" />
-            <marker date="1504820195269" expanded="true" signature="4248:4286" ph="..." />
-            <marker date="1504820195269" expanded="true" signature="4248:4306" ph="{% block body ... %}" />
-            <marker date="1504820195269" expanded="true" signature="4248:4682" ph="..." />
-            <marker date="1504820195269" expanded="true" signature="4311:4349" ph="{% block footer ... %}" />
-            <marker date="1504820195269" expanded="true" signature="4356:4670" ph="{% block message ... %}" />
-            <marker date="1504820195269" expanded="true" signature="4488:4650" ph="..." />
-            <marker date="1504820195269" expanded="true" signature="5335:5346" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pluto/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="459">
@@ -1270,18 +1255,39 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/include/bootstrap.html" />
-    <entry file="file://$PROJECT_DIR$/templates/results.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="816">
-          <caret line="48" column="28" lean-forward="true" selection-start-line="48" selection-start-column="28" selection-end-line="48" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/PlutoGame/static/game.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="38" column="47" lean-forward="false" selection-start-line="38" selection-start-column="47" selection-end-line="38" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="301" lean-forward="true" selection-start-line="3" selection-start-column="301" selection-end-line="3" selection-end-column="301" />
+          <folding>
+            <marker date="1504820961982" expanded="true" signature="75090:75107" ph="..." />
+            <marker date="1504820961982" expanded="true" signature="75090:75125" ph="..." />
+            <marker date="1504820961982" expanded="true" signature="75090:75138" ph="..." />
+            <marker date="1504820961982" expanded="true" signature="75090:75153" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/play.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-442">
+          <caret line="11" column="9" lean-forward="false" selection-start-line="11" selection-start-column="9" selection-end-line="11" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1717">
+          <caret line="107" column="14" lean-forward="false" selection-start-line="107" selection-start-column="10" selection-end-line="107" selection-end-column="14" />
           <folding />
         </state>
       </provider>
@@ -1294,26 +1300,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/play.html">
+    <entry file="file://$PROJECT_DIR$/templates/include/material.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="9" lean-forward="false" selection-start-line="11" selection-start-column="9" selection-end-line="11" selection-end-column="9" />
+        <state relative-caret-position="34">
+          <caret line="2" column="0" lean-forward="true" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/levels.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="102" column="55" lean-forward="false" selection-start-line="102" selection-start-column="55" selection-end-line="102" selection-end-column="55" />
+        <state relative-caret-position="272">
+          <caret line="119" column="91" lean-forward="false" selection-start-line="119" selection-start-column="44" selection-end-line="119" selection-end-column="91" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+    <entry file="file://$PROJECT_DIR$/templates/results.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="7" column="43" lean-forward="false" selection-start-line="7" selection-start-column="43" selection-end-line="7" selection-end-column="43" />
+        <state relative-caret-position="238">
+          <caret line="30" column="45" lean-forward="false" selection-start-line="30" selection-start-column="45" selection-end-line="30" selection-end-column="45" />
           <folding />
         </state>
       </provider>

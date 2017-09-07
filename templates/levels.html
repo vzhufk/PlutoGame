@@ -81,7 +81,7 @@
         {% endfor %}
     </tbody>
     </table>
-        <div class="mdl-cell mdl-cell--6-col mdl-card mdl-layout--large-screen-only" onload="showPreview({{ levels.0.id }})">
+        <div class="mdl-cell mdl-cell--6-col mdl-card mdl-layout--large-screen-only" >
             <div class="mdl-card__supporting-text">
                 <div class="mdl-grid">
                     <div class="mdl-layout-spacer"></div>
@@ -110,6 +110,9 @@
 
         <div class="mdl-layout-spacer"></div>
     </div>
+
+    <script type="text/javascript">showPreview({{ levels.0.id }});</script>
+
 {% endblock %}
 
 {% block footer %}
