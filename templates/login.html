@@ -3,11 +3,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.css">
 {% endblock %}
 {% block content %}
-    <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+
+    <div class="mdl-grid">
     {% if form %}
-        <div class="mdl-card mdl-cell mdl-cell--12-col">
+        <div class="mdl-card mdl-cell mdl-cell--4-col">
+        <form method="post">
             <div class="mdl-card__supporting-text mdl-grid">
-                <form method="post">
                 {%  csrf_token %}
                     {% for j in form %}
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
@@ -15,18 +16,25 @@
                             {{ j }}
                         </div>
                     {% endfor %}
-                <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Submit</button>
-
-                <a href="/signup">
-                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--secondary">SignUp</button>
-                    </a>
-                </form>
             </div>
+            <div class="mdl-card__actions mdl-grid">
+                <div class="mdl-layout-spacer"></div>
+                <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Submit</button>
+                <a href="/signup" class="mdl-button mdl-js-button mdl-button--raised mdl-button--secondary">SignUp</a>
+                <div class="mdl-layout-spacer"></div>
+            </div>
+        </form>
+        </div>
     {% endif  %}
-            <div class="mdl-card__actions mdl-card--border">
+            <div class="mdl-card mdl-cell mdl-cell--4-col">
                 <a href="/accounts/facebook/login" class=" mdl-button btn btn-block btn-social btn-facebook">
                     <i class="fa fa-facebook"></i>Facebook
                 </a>
+
+
+                <a href="/accounts/vk/login" class="mdl-button btn btn-block btn-social btn-vk">
+                    <i class="fa fa-vk fa-fw"></i> VK</a>
+
                 <a href="/accounts/google/login" class="mdl-button btn btn-block btn-social btn-google">
                     <i class="fa fa-google-plus"></i> Google+
                 </a>
@@ -35,7 +43,11 @@
                 </a>
                 <a href="/accounts/github/login" class="mdl-button btn btn-block btn-social btn-github">
                     <i class="fa fa-github fa-fw"></i> GitHub</a>
+
+                <a href="/accounts/reddit/login" class="mdl-button btn btn-block btn-social btn-reddit">
+                    <i class="fa fa-reddit fa-fw"></i> Reddit</a>
+
             </div>
         </div>
-    </section>
+    </div>
 {% endblock %}

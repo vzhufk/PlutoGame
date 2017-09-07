@@ -1,13 +1,20 @@
-.mdl-layout__content {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+a{
+    text-decoration: none;
 }
 
+.mdl-layout-title a{
+    color: white;
+}
 
 .fullwidth {
     width: 100%;
     align-content: center;
+}
+
+#result_title{
+  color: #fff;
+  height: 176px;
+  background: url('result.jpg') center / cover;
 }
 
 /*SOCIAL*/
