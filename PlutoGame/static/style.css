@@ -11,6 +11,12 @@ a{
     align-content: center;
 }
 
+#result_title{
+  color: #fff;
+  height: 176px;
+  background: url('result.jpg') center / cover;
+}
+
 /*SOCIAL*/
 .btn{
     border-radius: 0px;

@@ -46,6 +46,7 @@ class HeroSkinForm(forms.Form):
                 "No such skin. Sorry."
             )
 
+
 class PasswordForm(forms.Form):
     password = forms.CharField(label='Password')
     password.widget = forms.PasswordInput(attrs={'class': 'mdl-textfield__input'})

@@ -1,31 +1,84 @@
 {% extends 'base.html' %}
 {% block content %}
-    <form method="POST">
-        {% csrf_token %}
-        {{ info_form }}
-        <button class="btn btn-primary btn-group-justified" name="info_btn">Update</button>
-    </form>
-        <hr>
-    <form method="POST" enctype="multipart/form-data">
-        <div class="col-lg-12">
-            <a class="thumbnail">
-                <img src="/media/{{ request.user.image }}">
-            </a>
+    <div class="mdl-grid">
+        <div class="mdl-card mdl-cell--4-col mdl-cell">
+        <form method="POST">
+            <div class="mdl-card__supporting-text mdl-grid">
+                {% csrf_token %}
+                    {% for j in info_form %}
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
+                            <label class="mdl-textfield__label" for="{{ j.name }}">{{ j.label }}</label>
+                            {{ j }}
+                        </div>
+                    {% endfor %}
+            </div>
+            <div class="mdl-card__actions mdl-grid">
+                <div class="mdl-layout-spacer"></div>
+                <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Submit</button>
+                <div class="mdl-layout-spacer"></div>
+            </div>
+        </form>
         </div>
-        {% csrf_token %}
-        {{ image_form }}
-        <button class="btn btn-primary btn-group-justified" name="image_btn">Upload</button>
-    </form>
-        <hr>
-    <form method="POST">
-        {% csrf_token %}
-        {{ skin_form }}
-        <button class="btn btn-primary btn-group-justified" name="skin_btn">Try</button>
-    </form>
-        <hr>
-    <form method="POST">
-        {% csrf_token %}
-        {{ password_form }}
-        <button class="btn btn-primary btn-group-justified" name="password_btn">Update</button>
-    </form>
+
+        <div class="mdl-card mdl-cell--4-col mdl-cell">
+        <form method="POST" enctype="multipart/form-data">
+            <div class="mdl-card__supporting-text mdl-grid">
+                {% csrf_token %}
+                    {% for j in image_form %}
+                        <div class="mdl-textfield mdl-js-textfield mdl-cell mdl-cell--12-col mdl-textfield--expandable">
+                            <label class="mdl-textfield__label" for="{{ j.name }}">
+                                <i class="material-icons">file_upload</i> Upload File
+                            </label>
+                            <div class="mdl-textfield__expandable-holder">
+                            {{ j }}
+                            </div>
+                        </div>
+                    {% endfor %}
+            </div>
+            <div class="mdl-card__actions mdl-grid">
+                <div class="mdl-layout-spacer"></div>
+                <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Submit</button>
+                <div class="mdl-layout-spacer"></div>
+            </div>
+        </form>
+        </div>
+
+        <div class="mdl-card mdl-cell--4-col mdl-cell">
+        <form method="POST" enctype="multipart/form-data">
+            <div class="mdl-card__supporting-text mdl-grid">
+                {% csrf_token %}
+                    {% for j in skin_form %}
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
+                            <label class="mdl-textfield__label" for="{{ j.name }}">{{ j.label }}</label>
+                            {{ j }}
+                        </div>
+                    {% endfor %}
+            </div>
+            <div class="mdl-card__actions mdl-grid">
+                <div class="mdl-layout-spacer"></div>
+                <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Submit</button>
+                <div class="mdl-layout-spacer"></div>
+            </div>
+        </form>
+        </div>
+
+        <div class="mdl-card mdl-cell--4-col mdl-cell">
+        <form method="POST" enctype="multipart/form-data">
+            <div class="mdl-card__supporting-text mdl-grid">
+                {% csrf_token %}
+                    {% for j in password_form %}
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
+                            <label class="mdl-textfield__label" for="{{ j.name }}">{{ j.label }}</label>
+                            {{ j }}
+                        </div>
+                    {% endfor %}
+            </div>
+            <div class="mdl-card__actions mdl-grid">
+                <div class="mdl-layout-spacer"></div>
+                <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Submit</button>
+                <div class="mdl-layout-spacer"></div>
+            </div>
+        </form>
+        </div>
+    </div>
 {% endblock %}
