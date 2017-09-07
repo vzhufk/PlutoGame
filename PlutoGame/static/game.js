@@ -36,6 +36,8 @@
      * Preload images
      */
     function preload() {
+        document.body.lastChild.display = 'none';
+
         game.stage.backgroundColor = '#000000';
 
         game.load.image("turn_device", turn_device_path)
@@ -191,6 +193,7 @@
         createCommandPanel();
         commandPanelCommandsTurn();
 
+        loaded();
     }
 
     /**

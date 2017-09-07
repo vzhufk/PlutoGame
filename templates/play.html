@@ -2,12 +2,24 @@
 <html>
 <head>
     {% include 'include/phaser.html' %}
+    {% include 'include/material.html' %}
     {% load staticfiles %}
     <title> [{{ name }}] by {{ by }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        canvas{
+            display: none;
+        }
+    </style>
 </head>
 <body>
 <script type="text/javascript">
+
+    function loaded() {
+        document.getElementById('spinner').remove();
+        document.body.lastChild.display = 'block';
+    }
+
     var id = {{ id }};
 
     var turn_device_path = "{% static "asserts/turn_device.png" %}";
@@ -31,6 +43,7 @@
     var tiles_data = {{ tiles | safe}}
 
 </script>
+<div id="spinner" class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active"></div>
 <script type="text/javascript" src="{% static 'game.js' %}"></script>
 <form hidden method="post" action="/record/level={{ id }}" id="record">
     {% csrf_token %}

@@ -1,51 +1,121 @@
 {% extends "base.html" %}
+{% block header_button %}
+    <a href="/creator" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect
+        mdl-button--colored mdl-shadow--4dp mdl-color--accent  mdl-layout--large-screen-only">
+            <i class="material-icons" role="presentation">add</i>
+            <span class="visuallyhidden">Add</span>
+    </a>
+{% endblock %}
+
+{% block extra_include %}
+    <script type="text/javascript">
+    function showPreview(id) {
+        if (document.body.offsetWidth > document.body.offsetHeight) {
+            document.getElementById('preview').src = "/play/" + id.toString();
+            document.getElementById('preview_play').href = "/play/" + id.toString();
+            document.getElementById('preview_information').href = "/level/" + id.toString();
+            document.getElementById('preview_record').href = "/record/level=" + id.toString();
+        }
+    }
+</script>
+{% endblock %}
 
 {% block content %}
-    <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
-    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+    <div class="mdl-grid">
+        <div class="mdl-layout-spacer"></div>
+        <table class="mdl-cell mdl-cell--6-col mdl-data-table mdl-js-data-table mdl-shadow--2dp">
         <thead>
-        <tr>
-            <th> Name </th>
-            <th> Date </th>
-            <th> By </th>
-            <th> </th>
-        </tr>
+            <tr>
+                <th class="mdl-data-table__cell--non-numeric"> Name </th>
+                <th class="mdl-layout--large-screen-only"> Date </th>
+                <th class="mdl-data-table__cell--non-numeric"> By </th>
+                <th class="mdl-layout--small-screen-only"> </th>
+                <th> </th>
+            </tr>
         </thead>
         <tbody>
         {% for i in levels %}
             <tr>
-                <td>
-                    <a href="/level/{{ i.id }}">{{ i.name }}</a>
+                <td class="mdl-data-table__cell--non-numeric">
+                    {{ i.name }}
                 </td>
-                <td> {{ i.date }}</td>
-                <td> <a href="/profile/{{ i.by.id }}"> {{ i.by.username }} </a></td>
-                <td>
-                    <a href="/play/{{ i.id }}">
-                        <button class="mdl-button mdl-js-button mdl-button--primary">
-                            <i class="material-icons">gamepad</i>
-                        </button>
+                <td class="mdl-layout--large-screen-only"> {{ i.date }}</td>
+                <td class="mdl-data-table__cell--non-numeric">
+                    <a href="/profile/{{ i.by.id }}">
+                    <span class="mdl-chip mdl-chip">
+                        <span class="mdl-chip__text">
+                            {{ i.by.username }}
+                        </span>
+                    </span>
                     </a>
+                </td>
+                <td class="mdl-layout--small-screen-only">
+                    <a href="/level/{{ i.id }}"
+                       class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--primary">
+                            <i class="material-icons">play_arrow</i>
+                    </a>
+                    <a id="preview_info" href="/level/{{ iid }}"
+                       class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab
+                       mdl-button--accent">
+                            <i class="material-icons">info</i>
+                    </a>
+                    <a href="/record/level={{ i.id }}" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
+                            <i class="material-icons">assessment</i>
+                    </a>
+                </td>
+                <td>
                     {% if request.user.id == i.by.id %}
-                    <a href="/creator/{{ i.id }}">
-                        <button class="mdl-button mdl-js-button mdl-button--primary">
+                    <a href="/creator/{{ i.id }}"
+                       class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab
+                       mdl-button--accent">
                             <i class="material-icons">edit</i>
-                        </button>
                     </a>
                     {% endif %}
-                    <a href="/record/level={{ i.id }}">
-                        <button class="mdl-button mdl-js-button mdl-button--secondary">
-                            <i class="material-icons">assessment</i>
-                        </button>
-                    </a>
+                    <button onclick="showPreview({{ i.id }});"
+                       class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab
+                       mdl-button--accent mdl-layout--large-screen-only">
+                            <i class="material-icons">keyboard_arrow_right</i>
+                    </button>
                 </td>
             </tr>
         {% endfor %}
     </tbody>
     </table>
-    <a href="/creator">
-    <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
-        <i class="material-icons">add</i>
-    </button>
-    </a>
+        <div class="mdl-cell mdl-cell--6-col mdl-card mdl-layout--large-screen-only" onload="showPreview({{ levels.0.id }})">
+            <div class="mdl-card__supporting-text">
+                <div class="mdl-grid">
+                    <div class="mdl-layout-spacer"></div>
+                    <iframe  id="preview" height="320" width="450"></iframe>
+                    <div class="mdl-layout-spacer"></div>
+                </div>
+                <div class="mdl-grid">
+                    <div class="mdl-layout-spacer"></div>
+                    <a id="preview_play"
+                       class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--primary">
+                            <i class="material-icons">play_arrow</i>
+                    </a>
+                    <a id="preview_record"
+                       class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
+                            <i class="material-icons">assessment</i>
+                    </a>
+                    <a id="preview_information"
+                       class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--accent">
+                            <i class="material-icons">info</i>
+                    </a>
+
+                    <div class="mdl-layout-spacer"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mdl-layout-spacer"></div>
     </div>
+{% endblock %}
+
+{% block footer %}
+    <a href="/creator"class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect
+        mdl-button--colored mdl-shadow--4dp mdl-color--accent mdl-layout--small-screen-only">
+            <i class="material-icons" role="presentation">add</i>
+            <span class="visuallyhidden">Add</span>
+    </a>
 {% endblock %}
