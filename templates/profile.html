@@ -3,42 +3,106 @@
     {% if profile %}
     <div class="mdl-grid">
         <div class="mdl-card mdl-cell mdl-cell--4-col">
-            <a href="#" class="thumbnail">
             <img src="{{ profile.image.url }}" alt="image">
-            </a>
-        </div>
-        <div class="mdl-card mdl-cell mdl-cell--8-col">
-            <div  class="mdl-card__supporting-text">
-                <ul class="demo-list-item mdl-list">
-                        <li class="mdl-list__item">Username: {{ profile.username }}</li>
-                        <li class="mdl-list__item">Real name: {{ profile.first_name }} {{ profile.last_name }}</li>
-                        <li class="mdl-list__item">Email: {{ profile.email }}</li>
-                        <li class="mdl-list__item">Joined: {{ profile.date_joined }}</li>
-                    </ul>
-            </div>
+                <div class="mdl-grid">
+                    <div class="mdl-layout-spacer"></div>
+                    <div>
+                        <span class="mdl-list__item-primary-content">
+                            <i class="material-icons">account_circle</i>
+                            <span>{{ profile.username }}</span>
+                            <span class="mdl-list__item-text-body">
+                            </span>
+                        </span>
+                        <br>
+                        <span class="mdl-list__item-primary-content">
+                            <i class="material-icons">accessibility</i>
+                            <span>{{ profile.first_name }} {{ profile.last_name }}</span>
+                            <span class="mdl-list__item-text-body">
+                            </span>
+                        </span>
+                        <br>
+                        <span class="mdl-list__item-primary-content">
+                            <i class="material-icons">email</i>
+                            <span>{{ profile.email }}</span>
+                            <span class="mdl-list__item-text-body">
+                            </span>
+                        </span>
+                        <br>
+                        <span class="mdl-list__item-primary-content">
+                            <i class="material-icons ">date_range</i>
+                            <span>{{ profile.date_joined }}</span>
+                            <span class="mdl-list__item-text-body">
+                            </span>
+                        </span>
+                        </div>
+                        <div class="mdl-layout-spacer"></div>
+                </div>
             {%  if profile.id != request.user.id %}
-                    <a href="/mate_it/{{ profile.id }}"><button class="btn btn-primary btn-group-justified">
-                        {% if mate.me %}
-                            {% if mate.you %}
-                                Unmate
-                            {% else %}
-                                Mate request sent
-                            {% endif %}
+                <a href="/mate_it/{{ profile.id }}">
+                    <button class="btn btn-primary btn-group-justified">
+                    {% if mate.me %}
+                        {% if mate.you %}
+                            Unmate
                         {% else %}
-                            {% if mate.you %}
-                                Accept mate request
-                            {% else %}
-                                Request mate
-                            {% endif %}
+                            Mate request sent
                         {% endif %}
-                            </button>
+                    {% else %}
+                        {% if mate.you %}
+                            Accept mate request
+                        {% else %}
+                            Request mate
+                        {% endif %}
+                    {% endif %}
+                    </button>
                 </a>
             {% endif %}
         </div>
-        <div class="mdl-card mdl-cell mdl-cell--6-col">
+        <div class="mdl-card mdl-cell mdl-cell--8-col">
+                <div class="mdl-card__supporting-text">
+                        Records
+                    <table class="mdl-cell mdl-cell--12-col mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                        <thead>
+                            <tr>
+                                 <th class="mdl-data-table__cell--non-numeric">Level</th>
+                                 <th class="mdl-layout--large-screen-only">Date</th>
+                                 <th>Score</th>
+                                 <th>Attempts</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for i in records %}
+                            <tr>
+                                <td class="mdl-data-table__cell--non-numeric"><a href="/level/{{ i.to.id }}">{{ i.to.name }}</a></td>
+                                <td class="mdl-layout--large-screen-only">
+                                    <a href="/record/level={{ i.to.id }}&user={{ i.by.id }}">
+                                            {{ i.date }}
+                                    </a>
+                                </td>
+                                <td><a href="/record/level={{ i.to.id }}&user={{ i.by.id }}">
+                                    <span class="mdl-chip">
+                                            <span class="mdl-chip__text">
+                                                {{ i.score }}
+                                            </span>
+                                    </span>
+                                </a></td>
+                                <td><a href="/record/level={{ i.to.id }}&user={{ i.by.id }}">
+                                    <span class="mdl-chip">
+                                            <span class="mdl-chip__text">
+                                                {{ i.attempts }}
+                                            </span>
+                                    </span>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                </tbody>
+                </table>
+                </div>
+            </div>
+        <div class="mdl-card mdl-cell mdl-cell--5-col">
                 <div class="mdl-card__supporting-text">
                     Creations
-                    <table class="mdl-cell mdl-cell--6-col mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                    <table class="mdl-cell mdl-cell--5-col mdl-data-table mdl-js-data-table mdl-shadow--2dp">
                         <tbody>
                         {% for i in levels %}
                         <tr>
@@ -49,9 +113,9 @@
                             <td>
                                 {% if request.user.id == profile.id %}
                                 <a href="/creator/{{ i.id }}">
-                                    <button class="mdl-button mdl-js-button mdl-button--primary">
+                                    <a class="mdl-button mdl-js-button mdl-button--primary">
                                         <i class="material-icons">edit</i>
-                                    </button>
+                                    </a>
                                 </a>
                                 {% endif %}
                             </td>
@@ -59,38 +123,17 @@
                         {% endfor %}
                         <tr>
                             <td colspan="3">
-                                <a href="/creator"><button class="btn btn-block">Add</button> </a>
+                                <a href="/creator">
+                                    <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-button--primary">
+                                        Add
+                                    </a> </a>
                             </td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-            <div class="mdl-card mdl-cell mdl-cell--6-col">
-                <div class="mdl-card__supporting-text">
-                        Records
-                    <table class="mdl-cell mdl-cell--12-col mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-                        <thead>
-                            <tr>
-                                <th class="mdl-data-table__cell--non-numeric">Date</th>
-                                <th>Score</th>
-                                <th>Attempts</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        {% for i in records %}
-                        <tr>
-                            <td class="mdl-data-table__cell--non-numeric">
-                                <a href="/record/level={{ level.id }}&user={{ i.by.id }}">{{ i.date }}</a>
-                            </td>
-                            <td><a href="/record/level={{ level.id }}&user={{ i.by.id }}">{{ i.score }}</a></td>
-                            <td><a href="/record/level={{ level.id }}&user={{ i.by.id }}">{{ i.attempts }}</a></td>
-                        </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+
         </div>
     {% endif %}
 {% endblock %}

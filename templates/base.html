@@ -73,6 +73,18 @@
     {% endblock %}
     {% block body %}
         <main class="mdl-layout__content">
+        {% block message %}
+             {% if messages %}
+                 <div class="mdl-grid" hidden>
+                 {% for i in messages %}
+                    <div class="demo-card-wide mdl-card mdl-shadow--2dp mdl-cell--12-col">
+                    <div class="mdl-card__title">{{ i.tag | title }}: {{ i }}</div>
+                    </div>
+                 {% endfor %}
+                 </div>
+            {% endif %}
+        {% endblock %}
+
         {% block content %}
             <div class="mdl-grid">
             {% for i in content %}
@@ -98,14 +110,6 @@
     {% endblock %}
     {% block footer %}
 
-    {% endblock %}
-
-
-    {% block message %}
-         <div aria-live="assertive" aria-atomic="true" aria-relevant="text" class="mdl-snackbar mdl-js-snackbar">
-         <div class="mdl-snackbar__text">{{ i.tag | title }}: {{ i }}</div>
-         <button type="button" class="mdl-snackbar__action"></button>
-         </div>
     {% endblock %}
 
 
