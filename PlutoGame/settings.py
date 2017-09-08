@@ -148,7 +148,7 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 # Media
 MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
-MEDIA_URL = '/media/'
+MEDIA_URL = 'PlutoGame/media/'
 
 # HEROKU SETTING
 ALLOWED_HOSTS = ['plut0.herokuapp.com', '127.0.0.1']
