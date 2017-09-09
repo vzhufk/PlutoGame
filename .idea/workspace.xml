@@ -4,13 +4,25 @@
     <list id="9082eab1-94a5-41f0-b3c4-e561d7875270" name="Interface improvements. Levels page. (cherry picked from commit f391329)" comment="Interface improvements.&#10;&#10;Levels page.&#10;&#10;(cherry picked from commit f391329)" />
     <list id="01bd4cf5-3ced-4d80-a565-5da0a051012b" name="Material Redesign Profile, Level, Records, Login redesigned into MDL. (cherry picked from commit 0b61fe3)" comment="Material Redesign&#10;&#10;Profile, Level, Records, Login redesigned into MDL.&#10;&#10;(cherry picked from commit 0b61fe3)" />
     <list id="409c504a-afa5-4f81-bb5f-f30f668ed88e" name="Interface improvements." comment="" />
-    <list default="true" id="8467f64f-f497-4195-9163-6a0b0232c0d0" name="Default" comment="">
+    <list default="true" id="8467f64f-f497-4195-9163-6a0b0232c0d0" name="Default" comment="Interface changes. All CDNed.&#10;&#10;Game icons now material designed.&#10;Game now asks to turn the sc&#10;Phaser link now CDNEd">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PlutoGame/static/creator.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/include/jquery.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/test.html" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/PlutoGame/static/phaser.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/PlutoGame/static/phaser.min.js" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PlutoGame/static/asserts/backward.png" afterPath="$PROJECT_DIR$/PlutoGame/static/asserts/backward.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PlutoGame/static/asserts/forward.png" afterPath="$PROJECT_DIR$/PlutoGame/static/asserts/forward.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PlutoGame/static/asserts/left.png" afterPath="$PROJECT_DIR$/PlutoGame/static/asserts/left.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PlutoGame/static/asserts/lo.png" afterPath="$PROJECT_DIR$/PlutoGame/static/asserts/lo.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PlutoGame/static/asserts/op.png" afterPath="$PROJECT_DIR$/PlutoGame/static/asserts/op.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PlutoGame/static/asserts/right.png" afterPath="$PROJECT_DIR$/PlutoGame/static/asserts/right.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PlutoGame/static/style.css" afterPath="$PROJECT_DIR$/PlutoGame/static/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/base.html" afterPath="$PROJECT_DIR$/templates/base.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/profile.html" afterPath="$PROJECT_DIR$/templates/profile.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/results.html" afterPath="$PROJECT_DIR$/templates/results.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PlutoGame/static/game.js" afterPath="$PROJECT_DIR$/PlutoGame/static/game.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pluto/views.py" afterPath="$PROJECT_DIR$/pluto/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/creator.html" afterPath="$PROJECT_DIR$/templates/creator.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/include/phaser.html" afterPath="$PROJECT_DIR$/templates/include/phaser.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/play.html" afterPath="$PROJECT_DIR$/templates/play.html" />
     </list>
     <ignored path="PlutoGame/static/bootstrap/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -25,73 +37,62 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="profile.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/templates/profile.html">
+      <file leaf-file-name="creator.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/PlutoGame/static/creator.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="59" lean-forward="false" selection-start-line="5" selection-start-column="59" selection-end-line="5" selection-end-column="59" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="result.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/result.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="6">
-              <caret line="2" column="26" lean-forward="true" selection-start-line="2" selection-start-column="26" selection-end-line="3" selection-end-column="45" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pluto/urls.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="login.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/login.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="20" column="109" lean-forward="false" selection-start-line="20" selection-start-column="44" selection-end-line="20" selection-end-column="109" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="results.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/results.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="58" column="16" lean-forward="true" selection-start-line="13" selection-start-column="8" selection-end-line="58" selection-end-column="16" />
+            <state relative-caret-position="186">
+              <caret line="194" column="46" lean-forward="true" selection-start-line="194" selection-start-column="46" selection-end-line="194" selection-end-column="46" />
               <folding>
-                <element signature="e#261#2472#0#HTML" expanded="false" />
+                <element signature="n#!!block;n#preload#0" expanded="false" />
+                <element signature="n#!!block;n#createProgramPanel#0;n#!!block;n#create#0" expanded="false" />
+                <element signature="n#!!block;n#createScenePanel#0;n#!!block;n#create#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/PlutoGame/static/style.css">
+      <file leaf-file-name="creator.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/creator.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="85">
-              <caret line="44" column="0" lean-forward="false" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
-              <folding />
+              <caret line="24" column="14" lean-forward="true" selection-start-line="24" selection-start-column="14" selection-end-line="24" selection-end-column="14" />
+              <folding>
+                <element signature="n#block#1;n#!!top" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="material.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/include/material.html">
+      <file leaf-file-name="test.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/test.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" column="74" lean-forward="false" selection-start-line="1" selection-start-column="74" selection-end-line="1" selection-end-column="74" />
+            <state relative-caret-position="85">
+              <caret line="42" column="22" lean-forward="true" selection-start-line="42" selection-start-column="22" selection-end-line="42" selection-end-column="22" />
+              <folding>
+                <element signature="e#427#538#0#HTML" expanded="false" />
+                <element signature="n#form#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="play.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/templates/play.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="102">
+              <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+              <folding>
+                <element signature="n#form#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="phaser.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/include/phaser.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="272">
+              <caret line="16" column="5" lean-forward="false" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -155,33 +156,36 @@
         <option value="$PROJECT_DIR$/Procfile" />
         <option value="$PROJECT_DIR$/PlutoGame/static/game/create.js" />
         <option value="$PROJECT_DIR$/PlutoGame/static/game/events.js" />
-        <option value="$PROJECT_DIR$/templates/creator.html" />
         <option value="$PROJECT_DIR$/PlutoGame/static/request.js" />
         <option value="$PROJECT_DIR$/pluto/admin.py" />
         <option value="$PROJECT_DIR$/pluto/urls.py" />
         <option value="$PROJECT_DIR$/pluto/models.py" />
         <option value="$PROJECT_DIR$/requirements.txt" />
         <option value="$PROJECT_DIR$/PlutoGame/urls.py" />
-        <option value="$PROJECT_DIR$/templates/include/phaser.html" />
         <option value="$PROJECT_DIR$/templates/include/bootstrap.html" />
         <option value="$PROJECT_DIR$/templates/form.html" />
         <option value="$PROJECT_DIR$/templates/settings.html" />
         <option value="$PROJECT_DIR$/templates/result.html" />
         <option value="$PROJECT_DIR$/templates/level.html" />
-        <option value="$PROJECT_DIR$/PlutoGame/static/game.js" />
         <option value="$PROJECT_DIR$/templates/include/custom.html" />
-        <option value="$PROJECT_DIR$/templates/play.html" />
         <option value="$PROJECT_DIR$/.idea/workspace.xml" />
         <option value="$PROJECT_DIR$/templates/login.html" />
         <option value="$PROJECT_DIR$/pluto/forms.py" />
-        <option value="$PROJECT_DIR$/pluto/views.py" />
         <option value="$PROJECT_DIR$/PlutoGame/settings.py" />
         <option value="$PROJECT_DIR$/templates/levels.html" />
-        <option value="$PROJECT_DIR$/templates/include/material.html" />
         <option value="$PROJECT_DIR$/PlutoGame/static/style.css" />
         <option value="$PROJECT_DIR$/templates/base.html" />
         <option value="$PROJECT_DIR$/templates/results.html" />
         <option value="$PROJECT_DIR$/templates/profile.html" />
+        <option value="$PROJECT_DIR$/templates/creator.html" />
+        <option value="$PROJECT_DIR$/templates/include/material.html" />
+        <option value="$PROJECT_DIR$/templates/include/jquery.html" />
+        <option value="$PROJECT_DIR$/PlutoGame/static/game.js" />
+        <option value="$PROJECT_DIR$/templates/test.html" />
+        <option value="$PROJECT_DIR$/pluto/views.py" />
+        <option value="$PROJECT_DIR$/PlutoGame/static/creator.js" />
+        <option value="$PROJECT_DIR$/templates/include/phaser.html" />
+        <option value="$PROJECT_DIR$/templates/play.html" />
       </list>
     </option>
   </component>
@@ -219,13 +223,17 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="PlutoGame" type="b2602c69:ProjectViewProjectNode" />
               <item name="PlutoGame" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="PlutoGame" type="b2602c69:ProjectViewProjectNode" />
+              <item name="PlutoGame" type="462c0819:PsiDirectoryNode" />
+              <item name="pluto" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="PlutoGame" type="b2602c69:ProjectViewProjectNode" />
@@ -248,6 +256,7 @@
         </subPane>
       </pane>
       <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -258,18 +267,19 @@
     <property name="list.type.of.created.stylesheet" value="CSS" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\zhufy\Desktop\PlutoGame\PlutoGame\static\asserts" />
+      <recent name="C:\Users\zhufy\Desktop\PlutoGame\PlutoGame\static\asserts\hero" />
+      <recent name="C:\Users\zhufy\Desktop\PlutoGame\PlutoGame\static" />
+      <recent name="C:\Users\zhufy\Desktop\PlutoGame\static" />
+      <recent name="C:\Users\zhufy\Desktop\PlutoGame\static\asserts" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\zhufy\Desktop\PlutoGame\PlutoGame\static" />
       <recent name="C:\Users\zhufy\Desktop\PlutoGame\PlutoGame\static\bootstrap\css" />
       <recent name="C:\Users\zhufy\Desktop\PlutoGame\PlutoGame\static\bootstrap" />
       <recent name="C:\Users\zhufy\Desktop\PlutoGame\templates\include" />
       <recent name="C:\Users\zhufy\Desktop\PlutoGame\PlutoGame\static\asserts\hero" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\zhufy\Desktop\PlutoGame\PlutoGame\static\asserts\hero" />
-      <recent name="C:\Users\zhufy\Desktop\PlutoGame\PlutoGame\static" />
-      <recent name="C:\Users\zhufy\Desktop\PlutoGame\static" />
-      <recent name="C:\Users\zhufy\Desktop\PlutoGame\static\asserts" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -493,13 +503,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1498937776946</updated>
-    </task>
-    <task id="LOCAL-00001" summary="CollectStatic">
-      <created>1501863838772</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1501863838772</updated>
     </task>
     <task id="LOCAL-00002" summary="CollectStatic">
       <created>1501864056180</created>
@@ -837,7 +840,14 @@
       <option name="project" value="LOCAL" />
       <updated>1504850602143</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="Interface improvements.&#10;&#10;Profile page.">
+      <created>1504891963768</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1504891963768</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TodoView" selected-index="1">
@@ -853,17 +863,17 @@
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22390318" sideWeight="0.70387244" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22692889" sideWeight="0.70387244" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287037" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287037" sideWeight="0.5060514" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32253087" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287037" sideWeight="0.49394855" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287037" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32253087" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31089258" sideWeight="0.29612756" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287037" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39660493" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -930,7 +940,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Try To fullscreen" />
     <MESSAGE value="Working demo level" />
     <MESSAGE value="Move animation now using Tween. Code refactored." />
     <MESSAGE value="Panels now fixed to camera.&#10;Fixed Reset Bug." />
@@ -955,43 +964,23 @@
     <MESSAGE value="Interface improvements.&#10;&#10;Levels page." />
     <MESSAGE value="Interface improvements.&#10;&#10;Levels page.&#10;Game loading. Bug fixes." />
     <MESSAGE value="Interface improvements.&#10;&#10;Image fix." />
-    <option name="LAST_COMMIT_MESSAGE" value="Interface improvements.&#10;&#10;Image fix." />
+    <MESSAGE value="Interface improvements.&#10;&#10;Profile page." />
+    <option name="LAST_COMMIT_MESSAGE" value="Interface improvements.&#10;&#10;Profile page." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/pluto/views.py</url>
-          <line>198</line>
+          <line>213</line>
           <option name="timeStamp" value="83" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="91" />
+      <option name="time" value="93" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$USER_HOME$/Py3.5andDjango/Lib/site-packages/django/core/handlers/wsgi.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="121">
-          <caret line="126" column="0" lean-forward="false" selection-start-line="126" selection-start-column="0" selection-end-line="126" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Py3.5andDjango/Lib/site-packages/django/utils/datastructures.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="122">
-          <caret line="81" column="0" lean-forward="false" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://E:/IDE/pythonIterpreter3.5/Lib/json/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="122">
-          <caret line="309" column="0" lean-forward="false" selection-start-line="309" selection-start-column="0" selection-end-line="309" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Py3.5andDjango/Lib/site-packages/django/db/models/base.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="114">
@@ -1131,20 +1120,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/PlutoGame/static/bootstrap/css/bootstrap.css" />
-    <entry file="file://$PROJECT_DIR$/templates/include/phaser.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="41" lean-forward="false" selection-start-line="15" selection-start-column="40" selection-end-line="15" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/creator.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="22" lean-forward="true" selection-start-line="13" selection-start-column="22" selection-end-line="13" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/form.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -1166,6 +1141,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
           <caret line="3" column="301" lean-forward="true" selection-start-line="3" selection-start-column="301" selection-end-line="3" selection-end-column="301" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1173,13 +1149,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
           <caret line="2" column="13" lean-forward="true" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/play.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="11" column="9" lean-forward="false" selection-start-line="11" selection-start-column="9" selection-end-line="11" selection-end-column="9" />
         </state>
       </provider>
     </entry>
@@ -1222,75 +1191,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/levels.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="952">
-          <caret line="107" column="45" lean-forward="false" selection-start-line="106" selection-start-column="0" selection-end-line="107" selection-end-column="45" />
-          <folding>
-            <element signature="n#block#0;n#!!top" expanded="false" />
-            <element signature="n#block#1;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pluto/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="40" column="37" lean-forward="false" selection-start-line="40" selection-start-column="37" selection-end-line="40" selection-end-column="89" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-            <element signature="e#613#854#0" expanded="false" />
-            <element signature="e#881#1128#0" expanded="false" />
-            <element signature="e#1817#2546#0" expanded="false" />
-            <element signature="e#1909#2496#0" expanded="false" />
-            <element signature="e#2574#2682#0" expanded="false" />
-            <element signature="e#2728#3774#0" expanded="false" />
-            <element signature="e#3934#4288#0" expanded="false" />
-            <element signature="e#4351#5534#0" expanded="false" />
-            <element signature="e#8096#8213#0" expanded="false" />
-            <element signature="e#8255#8432#0" expanded="false" />
-            <element signature="e#8473#9542#0" expanded="false" />
-            <element signature="e#9622#12319#0" expanded="false" />
-            <element signature="e#12410#16007#0" expanded="false" />
-            <element signature="e#12649#12725#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/PlutoGame/static/game.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="38" column="47" lean-forward="false" selection-start-line="38" selection-start-column="47" selection-end-line="38" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/include/material.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="74" lean-forward="false" selection-start-line="1" selection-start-column="74" selection-end-line="1" selection-end-column="74" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pluto/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/PlutoGame/static/navigation.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/PlutoGame/static/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
+        <state relative-caret-position="748">
           <caret line="44" column="0" lean-forward="false" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
           <folding />
         </state>
@@ -1298,11 +1208,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/results.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="58" column="16" lean-forward="true" selection-start-line="13" selection-start-column="8" selection-end-line="58" selection-end-column="16" />
-          <folding>
-            <element signature="e#261#2472#0#HTML" expanded="false" />
-          </folding>
+        <state relative-caret-position="986">
+          <caret line="58" column="16" lean-forward="false" selection-start-line="13" selection-start-column="8" selection-end-line="58" selection-end-column="16" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1316,27 +1224,145 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/login.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="20" column="109" lean-forward="false" selection-start-line="20" selection-start-column="44" selection-end-line="20" selection-end-column="109" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/result.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6">
-          <caret line="2" column="26" lean-forward="true" selection-start-line="2" selection-start-column="26" selection-end-line="3" selection-end-column="45" />
+        <state relative-caret-position="34">
+          <caret line="2" column="26" lean-forward="false" selection-start-line="2" selection-start-column="26" selection-end-line="3" selection-end-column="45" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/profile.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="59" lean-forward="false" selection-start-line="5" selection-start-column="59" selection-end-line="5" selection-end-column="59" />
+        <state relative-caret-position="187">
+          <caret line="11" column="39" lean-forward="false" selection-start-line="11" selection-start-column="39" selection-end-line="11" selection-end-column="39" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/include/jquery.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="35" lean-forward="false" selection-start-line="3" selection-start-column="35" selection-end-line="3" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/include/material.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="45" lean-forward="false" selection-start-line="3" selection-start-column="45" selection-end-line="3" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PlutoGame/static/game.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="25" column="46" lean-forward="false" selection-start-line="25" selection-start-column="46" selection-end-line="25" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pluto/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pluto/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-136">
+          <caret line="38" column="47" lean-forward="false" selection-start-line="38" selection-start-column="47" selection-end-line="38" selection-end-column="47" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+            <element signature="e#1730#1977#0" expanded="false" />
+            <element signature="e#2005#2639#0" expanded="false" />
+            <element signature="e#2666#3395#0" expanded="false" />
+            <element signature="e#2758#3345#0" expanded="false" />
+            <element signature="e#3423#3531#0" expanded="false" />
+            <element signature="e#3577#4623#0" expanded="false" />
+            <element signature="e#4783#5137#0" expanded="false" />
+            <element signature="e#5200#6383#0" expanded="false" />
+            <element signature="e#6449#8917#0" expanded="false" />
+            <element signature="e#8945#9062#0" expanded="false" />
+            <element signature="e#9104#9281#0" expanded="false" />
+            <element signature="e#10471#13168#0" expanded="false" />
+            <element signature="e#13259#16856#0" expanded="false" />
+            <element signature="e#13498#13574#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PlutoGame/static/creator.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="194" column="46" lean-forward="true" selection-start-line="194" selection-start-column="46" selection-end-line="194" selection-end-column="46" />
+          <folding>
+            <element signature="n#!!block;n#preload#0" expanded="false" />
+            <element signature="n#!!block;n#createProgramPanel#0;n#!!block;n#create#0" expanded="false" />
+            <element signature="n#!!block;n#createScenePanel#0;n#!!block;n#create#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/creator.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="24" column="14" lean-forward="true" selection-start-line="24" selection-start-column="14" selection-end-line="24" selection-end-column="14" />
+          <folding>
+            <element signature="n#block#1;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-34">
+          <caret line="7" column="55" lean-forward="true" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/levels.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="24" column="26" lean-forward="true" selection-start-line="24" selection-start-column="26" selection-end-line="25" selection-end-column="45" />
+          <folding>
+            <element signature="n#block#0;n#!!top" expanded="false" />
+            <element signature="n#block#1;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/include/phaser.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="5" lean-forward="false" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/test.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="42" column="22" lean-forward="true" selection-start-line="42" selection-start-column="22" selection-end-line="42" selection-end-column="22" />
+          <folding>
+            <element signature="e#427#538#0#HTML" expanded="false" />
+            <element signature="n#form#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/play.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding>
+            <element signature="n#form#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -1,4 +1,3 @@
- //TODO some debug animation maybe?
     var WIDTH = document.body.offsetWidth;
     var HEIGHT = document.body.offsetHeight;
     var DIV = {
@@ -8,15 +7,22 @@
     var SPEED = 1000;
     var ANIMATION_DEFAULT = "Quart.easeOut";
 
+    if (HEIGHT > WIDTH){
+        alert("For better experience - turn device!");
+
+    }
+
     var game = new Phaser.Game(WIDTH, HEIGHT, Phaser.AUTO, 'Pluto', {preload: preload, create: create, update: update});
     var command;
     var program;
     var scene;
+    var creation;
 
     var commands = {};
     var programs = [];
     var tiles = [];
     var hero = {};
+    var creations = {};
 
     var program_scroll;
     var background;
@@ -34,8 +40,6 @@
         document.body.lastChild.display = 'none';
 
         game.stage.backgroundColor = '#000000';
-
-        game.load.image("turn_device", turn_device_path)
 
         game.load.image("forward", forward_command_path);
         game.load.image("backward", backward_command_path);
@@ -179,6 +183,25 @@
             hero.input.priorityID = 1;
         }
 
+        function createCreationPanel() {
+            creation = game.add.group();
+            creation.fixedToCamera = true;
+            creation.inputEnableChildren = true;
+            creation.x = (WIDTH - 1.5 * DIV.width);
+            creation.y = HEIGHT / 2 - DIV.height * 1.375;
+            creation.w = 1.5 * DIV.width;
+            creation.h = 2.75 * DIV.height;
+            creation.cameraOffset = creation.position.clone();
+            var creation_holder = game.add.graphics(0, 0);
+            creation_holder.beginFill(0xc1c1c1, 0.75);
+            creation_holder.drawRect(0, 0, creation.w, creation.h);
+            creation_holder.endFill();
+            creation.addChild(creation_holder);
+
+            creations['tile_default'] = creation.create(0.25*DIV.width, DIV.height/4, 'tile_default')
+            creations['tile_finish'] = creation.create(0.25*DIV.width, 1.5 * DIV.height , 'tile_finish')
+        }
+
         game.world.setBounds(0, 0, 1920, 1920);
         game.camera.setBoundsToWorld();
         //game.world.resize(MAX_WIDTH, MAX_HEIGHT);
@@ -186,6 +209,9 @@
         createScenePanel();
         createProgramPanel();
         createCommandPanel();
+
+        createCreationPanel();
+
         commandPanelCommandsTurn();
 
         loaded();

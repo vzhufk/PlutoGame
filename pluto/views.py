@@ -17,11 +17,26 @@ from pluto.models import mate_change
 
 
 def test(request):
+    '''
     messages.info(request, "Some brand new info.")
     messages.success(request, "It's already a success.")
     messages.warning(request, "But be warned.")
     messages.error(request, "Errors everywhere.")
-    return render(request, 'base.html')
+    '''
+
+    level_id = 1
+    current_level = models.Level.objects.get(id=level_id)
+    context = {'tiles': json.loads(current_level.tilemap),
+               'hero': {'direction': current_level.hero_dir, 'x': current_level.hero_x, 'y': current_level.hero_y,
+                        'type': request.user.skin if request.user.is_authenticated() else 'polo'},
+               'count': {'forward': current_level.command_forward,
+                         'backward': current_level.command_backward,
+                         'left': current_level.command_left,
+                         'right': current_level.command_right,
+                         'lo': current_level.command_lo,
+                         'op': current_level.command_op}, 'id': current_level.id,
+               'name': current_level.name, 'by': current_level.by.username}
+    return render(request, 'test.html', context)
 
 
 def index(request):
