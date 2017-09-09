@@ -1,4 +1,4 @@
-# Plut0 Game     
+# :8ball: Plut0 Game     
 
 Web Programming Game. Extends Polo project.     
 [:video_game: Play :video_game:](http://plut0.herokuapp.com)    
