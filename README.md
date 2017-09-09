@@ -22,7 +22,7 @@ After great success on university conference, I decided to develop Polo. So it's
 Plut0 is Web Application. So it's as cross platform as the internet :wink:
 The main idea of extension is to let users create levels. And challenge their friends. 
 
-##Implementasion     
+## Implementasion     
 Backend: Django Framework (Python 3)
 Frontend style: Material Desing Lite
 Game Engine: Phaser
