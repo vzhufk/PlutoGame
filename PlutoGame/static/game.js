@@ -1,4 +1,3 @@
- //TODO some debug animation maybe?
     var WIDTH = document.body.offsetWidth;
     var HEIGHT = document.body.offsetHeight;
     var DIV = {
@@ -8,15 +7,22 @@
     var SPEED = 1000;
     var ANIMATION_DEFAULT = "Quart.easeOut";
 
+    if (HEIGHT > WIDTH){
+        alert("For better experience - turn device!");
+
+    }
+
     var game = new Phaser.Game(WIDTH, HEIGHT, Phaser.AUTO, 'Pluto', {preload: preload, create: create, update: update});
     var command;
     var program;
     var scene;
+    var creation;
 
     var commands = {};
     var programs = [];
     var tiles = [];
     var hero = {};
+    var creations = {};
 
     var program_scroll;
     var background;
@@ -31,11 +37,6 @@
      * Preload images
      */
     function preload() {
-        document.body.lastChild.display = 'none';
-
-        game.stage.backgroundColor = '#000000';
-
-        game.load.image("turn_device", turn_device_path)
 
         game.load.image("forward", forward_command_path);
         game.load.image("backward", backward_command_path);
@@ -48,6 +49,9 @@
 
         game.load.image("tile_default", tile_default_path);
         game.load.image("tile_finish", tile_finish_path);
+
+
+        game.stage.backgroundColor = '#000000';
     }
 
     /**
@@ -160,6 +164,19 @@
             background.input.priorityID = 0;
             background.originalPosition = background.cameraOffset.clone();
 
+            if (creative_mode){
+                var grid = game.add.graphics(0, 0);
+                grid.lineStyle(1, 0x33FF00, 1);
+                for (var i = 0; i < 2*WIDTH; i+=50){
+                    grid.moveTo(i, 0);
+                    grid.lineTo(i, 2*WIDTH);
+                    grid.moveTo(0, i);
+                    grid.lineTo(2*WIDTH, i);
+                }
+                scene.addChild(grid);
+            }
+
+
             var x, y, current;
             for (var i in tiles_data){
                 x = tiles_data[i].x * DIV.width;
@@ -168,7 +185,10 @@
                 tiles.push(current);
             }
 
-            hero = scene.create(hero_data.x * DIV.width + DIV.width/2, hero_data.y * DIV.height + DIV.height/2, "hero");
+            var hero_group = game.add.group()
+            hero_group.x = 0;
+            hero_group.y = DIV.height * 1.5;
+            hero = hero_group.create(hero_data.x * DIV.width + DIV.width/2, hero_data.y * DIV.height + DIV.height/2, "hero");
             hero.anchor.setTo(0.5, 0.5);
             hero.direction  = hero_data.direction;
             hero.angle = hero.direction * 90;
@@ -176,16 +196,71 @@
             hero.events.onInputDown.add(sceneHeroOnInputDown, this);
             hero.originalPosition = hero.position.clone();
             hero.originalDirection = hero.direction;
-            hero.input.priorityID = 1;
+            hero.input.priorityID = 2;
+        }
+
+        function createCreationPanel() {
+            creation = game.add.group();
+            creation.fixedToCamera = true;
+            creation.inputEnableChildren = true;
+            creation.x = (WIDTH - 1.5 * DIV.width);
+            creation.y = HEIGHT / 2 - DIV.height * 1.375;
+            creation.w = 1.5 * DIV.width;
+            creation.h = 2.75 * DIV.height;
+            creation.cameraOffset = creation.position.clone();
+            var creation_holder = game.add.graphics(0, 0);
+            creation_holder.beginFill(0xc1c1c1, 0.75);
+            creation_holder.drawRect(0, 0, creation.w, creation.h);
+            creation_holder.endFill();
+            creation.addChild(creation_holder);
+
+            creations['tile_default'] = creation.create(0.75*DIV.width, 0.75 * DIV.height, 'tile_default')
+            creations['tile_finish'] = creation.create(0.75*DIV.width, 2 * DIV.height , 'tile_finish')
+
+            for (var key in creations){
+                var object = creations[key];
+                object.anchor.setTo(0.5, 0.5);
+                //Draggable
+                object.inputEnabled = true;
+                object.input.enableDrag();
+                object.events.onDragStart.add(creationPanelTileOnDragStart, this);
+                object.events.onDragStop.add(creationPanelTileOnDragStop, this);
+                object.count = {};
+                // Counters
+                var text = "~";
+                object.count.text = game.add.text(object.x + 25, object.y, text, defaultFont, creation);
+                object.count.text.anchor.setTo(0.5, 0.5);
+
+            }
+
+            for (var i = 0; i < tiles.length; ++i){
+            	tiles[i].inputEnabled = true;
+                tiles[i].events.onInputDown.add(sceneTileOnInputDown, this);
+            	tiles[i].input.priorityID = 1;
+            }
+
+            hero.events.onInputDown.removeAll();
+            hero.input.enableDrag();
+            hero.events.onDragStart.add(sceneHeroOnDragStart, this);
+            hero.events.onDragStop.add(sceneHeroOnDragStop, this);
+            hero.dragging = false;
+
+            //TODO Add hero turn button
         }
 
         game.world.setBounds(0, 0, 1920, 1920);
         game.camera.setBoundsToWorld();
         //game.world.resize(MAX_WIDTH, MAX_HEIGHT);
 
+
         createScenePanel();
         createProgramPanel();
         createCommandPanel();
+
+        if (creative_mode) {
+            createCreationPanel();
+        }
+
         commandPanelCommandsTurn();
 
         loaded();
@@ -403,7 +478,7 @@
      * Updates game frames
      */
     function update() {
-        if (sceneCheckHeroAndTilesIntersection().length < 1){
+        if (sceneCheckHeroAndTilesIntersection().length < 1 && !hero.dragging){
             game.camera.shake(0.01,  500);
             gameSuccess(false);
         }
@@ -448,13 +523,42 @@
      */
     function gameSuccess(success) {
         if (success){
-            var pure = [];
-            for (var i = 0; i < programs.length; ++i){
-                pure.push(programs[i].key);
+            if (creative_mode) {
+                hero.position = hero.originalPosition.clone();
+                var level = {'hero':
+                                    {'x': Math.floor(hero.x/DIV.width),
+                                     'y': Math.floor(hero.y/DIV.height),
+                                     'direction':   hero.direction
+                                    },
+                            'tilemap': [],
+                            'commands': {
+                                    'forward': 0,
+                                    'backward': 0,
+                                    'left': 0,
+                                    'right': 0,
+                                    'lo': 0,
+                                    'op': 0
+                                    }
+                };
+                for (var i = 0; i < tiles.length; ++i){
+                    level.tilemap.push({"type": tiles[i].key, "x": Math.floor(tiles[i].x/DIV.width), "y": Math.floor(tiles[i].y/DIV.height)});
+                }
+                level.tilemap = JSON.stringify(level.tilemap);
+                for (var i = 0; i < programs.length; ++i){
+                    level.commands[programs[i].key] += 1;
+                }
+                document.getElementsByName('level')[0].value = JSON.stringify(level);
+                document.getElementsByName('name')[0].value = prompt("Set level name:", level_name);
+                document.forms['creator'].submit();
+            }else{
+                var pure = [];
+                for (var i = 0; i < programs.length; ++i) {
+                    pure.push(programs[i].key);
+                }
+                document.getElementsByName("attempts")[0].value = attempts;
+                document.getElementsByName("program")[0].value = JSON.stringify(pure);
+                document.forms['record'].submit();
             }
-            document.getElementsByName("attempts")[0].value = attempts;
-            document.getElementsByName("program")[0].value = JSON.stringify(pure);
-            document.forms['record'].submit();
         }else{
             game.tweens.removeAll();
             sceneHeroReset();
@@ -592,6 +696,32 @@
     }
 
     /**
+     * Add tiles on scene in creative mode
+     * @param sprite tile sprite
+     * @param position pointer position
+     */
+    function sceneAddTile(sprite, position){
+    	var x = Math.floor((sprite.x + creation.cameraOffset.x - scene.x + game.camera.x)/DIV.width)*DIV.width;
+    	var y = Math.floor((sprite.y + creation.cameraOffset.y - scene.y + game.camera.y)/DIV.height)*DIV.height;
+
+    	for (var i = 0; i < tiles.length; ++i){
+    		if (tiles[i].x === x && tiles[i].y === y){
+    			if (tiles[i].key === sprite.key){
+    				return;
+    			}else{
+    				tiles[i].destroy();
+    			}
+    			tiles.splice(i, 1)
+    		}
+    	}
+    	var tile = scene.create(x, y, sprite.key);
+    	tile.inputEnabled = true;
+    	tile.events.onInputDown.add(sceneTileOnInputDown, this);
+        tile.input.priorityID = 1;
+    	tiles.push(tile)
+    }
+
+    /**
      * Resets hero state.
      */
     function sceneHeroReset() {
@@ -610,7 +740,7 @@
     }
 
     function commandPanelCommandOnDragStop(sprite, pointer) {
-        if (sprite.count.value > 0){
+        if (sprite.count.value > 0 || creative_mode){
             // Camera offset correction
             var ptr = pointer;
             ptr.y += command.y;
@@ -618,6 +748,15 @@
             commandPanelDeltaCommandCount(sprite.key, -1);
         }
         sprite.position = sprite.originalPosition;
+    }
+
+    function creationPanelTileOnDragStart(sprite, pointer) {
+        sprite.originalPosition = sprite.position.clone()
+    }
+
+    function creationPanelTileOnDragStop(sprite, pointer) {
+        sceneAddTile(sprite, pointer);
+        sprite.position = sprite.originalPosition.clone();
     }
 
     function programPanelCommandOnDragStart(sprite, pointer) {
@@ -644,6 +783,12 @@
         programPanelScrollMove(sprite);
     }
 
+    function sceneTileOnInputDown(sprite, pointer){
+    	var index = tiles.indexOf(sprite);
+    	tiles[index].destroy();
+    	tiles.splice(index, 1);
+    }
+
     function sceneBackgroundOnDragStart(sprite, pointer){
         sprite.originalPosition = sprite.cameraOffset.clone();
     }
@@ -663,6 +808,25 @@
         sprite.cameraOffset.y = scene.y;
     }
 
+
+    function sceneHeroOnDragStart(sprite, pointer){
+        sprite.originalPosition = sprite.position.clone()
+        sprite.dragging = true;
+    }
+
+    function sceneHeroOnDragStop(sprite, pointer) {
+        var distance = Phaser.Point.distance(sprite.originalPosition, sprite.position);
+        sprite.dragging = false;
+        if (distance > (DIV.height + DIV.width)/4) {
+            var x = Math.floor(sprite.x / DIV.width) * DIV.width;
+            var y = Math.floor(sprite.y / DIV.height) * DIV.height;
+            sprite.x = x + sprite.width/2;
+            sprite.y = y + sprite.height/2;
+        }else{
+            sprite.position = sprite.originalPosition.clone();
+            sceneHeroOnInputDown(sprite, pointer);
+        }
+    }
 
     function sceneHeroOnInputDown(sprite, pointer) {
         gameStart();

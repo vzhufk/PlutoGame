@@ -11,8 +11,7 @@ from django.utils import timezone
 
 # Create your views here.
 from pluto import models
-from pluto.forms import SignUpForm, LogInForm, PasswordForm, PersonalInfoForm, PersonalImageForm, LevelCreationForm, \
-    HeroSkinForm
+from pluto.forms import SignUpForm, LogInForm, PasswordForm, PersonalInfoForm, PersonalImageForm, HeroSkinForm
 from pluto.models import mate_change
 
 
@@ -261,59 +260,68 @@ def play(request, level_id=None):
 
 @login_required(login_url='/login')
 def creator(request, level_id=None):
-    creation = LevelCreationForm()
-
-    if level_id:
-        try:
-            current = models.Level.objects.get(id=level_id)
-        except ObjectDoesNotExist:
-            messages.error(request, "No such level in database.")
-            return levels(request)
-
-        if current.by.id != request.user.id:
-            messages.error(request, "You have no permission to edit this.")
-            return levels(request)
-
-        creation.fields['name'].initial = current.name
-        creation.fields['tilemap'].initial = current.tilemap
-        creation.fields['command_forward'].initial = current.command_forward
-        creation.fields['command_backward'].initial = current.command_backward
-        creation.fields['command_left'].initial = current.command_left
-        creation.fields['command_right'].initial = current.command_right
-        creation.fields['command_lo'].initial = current.command_lo
-        creation.fields['command_op'].initial = current.command_op
-        creation.fields['hero_x'].initial = current.hero_x
-        creation.fields['hero_y'].initial = current.hero_y
-        creation.fields['hero_dir'].initial = current.hero_dir
-
     if request.method == 'POST':
-        creation = LevelCreationForm(request.POST)
-        if not creation.is_valid():
-            [messages.error(request, str(x)) for y in list(creation.errors.values()) for x in y]
+        creation = json.loads(request.POST['level'])
+        created_level = models.Level()
+        if level_id:
+            created_level = models.Level.objects.get(id=level_id)
+        created_level.name = request.POST['name']
+        created_level.tilemap = creation['tilemap']
+        created_level.command_forward = creation['commands']['forward']
+        created_level.command_backward = creation['commands']['backward']
+        created_level.command_left = creation['commands']['left']
+        created_level.command_right = creation['commands']['right']
+        created_level.command_lo = creation['commands']['lo']
+        created_level.command_op = creation['commands']['op']
+        created_level.hero_x = creation['hero']['x']
+        created_level.hero_y = creation['hero']['y']
+        created_level.hero_dir = creation['hero']['direction']
+        created_level.by = request.user
+        created_level.save()
+        if level_id:
+            messages.success(request, 'Success. Level has been edited.')
         else:
-            created_level = models.Level()
-            if level_id:
-                created_level = models.Level.objects.get(id=level_id)
+            messages.success(request, 'Success. Level has been created.')
+        return level(request, created_level.id)
+    else:
+        if level_id:
+            try:
+                current_level = models.Level.objects.get(id=level_id)
+            except ObjectDoesNotExist:
+                messages.error(request, "No such level in database.")
+                return levels(request)
 
-            created_level.name = creation.cleaned_data['name']
-            created_level.tilemap = creation.cleaned_data['tilemap']
-            created_level.command_forward = creation.cleaned_data['command_forward']
-            created_level.command_backward = creation.cleaned_data['command_backward']
-            created_level.command_left = creation.cleaned_data['command_left']
-            created_level.command_right = creation.cleaned_data['command_right']
-            created_level.command_lo = creation.cleaned_data['command_lo']
-            created_level.command_op = creation.cleaned_data['command_op']
-            created_level.hero_x = creation.cleaned_data['hero_x']
-            created_level.hero_y = creation.cleaned_data['hero_y']
-            created_level.hero_dir = creation.cleaned_data['hero_dir']
-            created_level.by = request.user
-            created_level.save()
-            if level_id:
-                messages.success(request, 'Success. Level has been edited.')
-            else:
-                messages.success(request, 'Success. Level has been created.')
+            if current_level.by.id != request.user.id:
+                messages.error(request, "You have no permission to edit this.")
+                return levels(request)
 
-    context = {'form': creation}
+            context = {'tiles': json.loads(current_level.tilemap),
+                       'hero': {'direction': current_level.hero_dir, 'x': current_level.hero_x,
+                                'y': current_level.hero_y,
+                                'type': request.user.skin if request.user.is_authenticated() else 'polo'},
+                       'count': {'forward': current_level.command_forward,
+                                 'backward': current_level.command_backward,
+                                 'left': current_level.command_left,
+                                 'right': current_level.command_right,
+                                 'lo': current_level.command_lo,
+                                 'op': current_level.command_op}, 'id': current_level.id,
+                       'name': current_level.name, 'by': current_level.by.username}
+        else:
+            context = {'tiles': [
+                {"type": "tile_default", "x": 1, "y": 1},
+                {"type": "tile_finish", "x": 2, "y": 1}
+                ],
+                'hero': {'direction': 1, 'x': 1,
+                         'y': 1,
+                         'type': request.user.skin if request.user.is_authenticated() else 'polo'},
+                'count': {'forward': 0,
+                          'backward': 0,
+                          'left': 0,
+                          'right': 0,
+                          'lo': 0,
+                          'op': 0}, 'id': '-1',
+                'name': 'new level', 'by': request.user.username}
+
     return render(request, 'creator.html', context)
 
 
