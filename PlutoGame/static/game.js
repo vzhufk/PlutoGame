@@ -7,11 +7,6 @@
     var SPEED = 1000;
     var ANIMATION_DEFAULT = "Quart.easeOut";
 
-    if (HEIGHT > WIDTH){
-        alert("For better experience - turn device!");
-
-    }
-
     var game = new Phaser.Game(WIDTH, HEIGHT, Phaser.AUTO, 'Pluto', {preload: preload, create: create, update: update});
     var command;
     var program;
