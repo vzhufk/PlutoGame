@@ -109,7 +109,7 @@
                             <td class="mdl-data-table__cell--non-numeric">
                                 <a href="/level/{{ i.id }}"> {{ i.name }}</a>
                             </td>
-                            <td> {{ i.date }}</td>
+                            <td class="mdl-layout--large-screen-only"> {{ i.date }}</td>
                             <td>
                                 {% if request.user.id == profile.id %}
                                 <a href="/creator/{{ i.id }}">

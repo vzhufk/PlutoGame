@@ -234,8 +234,10 @@
             }
 
             for (var i = 0; i < tiles.length; ++i){
-            	tiles[i].inputEnabled = true;
-                tiles[i].events.onInputDown.add(sceneTileOnInputDown, this);
+                tiles[i].inputEnabled = true;
+                tiles[i].input.enableDrag();
+                tiles[i].events.onDragStart.add(sceneTileOnDragStart, this);
+                tiles[i].events.onDragStop.add(sceneTileOnDragStop, this);
             	tiles[i].input.priorityID = 1;
             }
 
@@ -695,16 +697,11 @@
         return result;
     }
 
-    /**
-     * Add tiles on scene in creative mode
-     * @param sprite tile sprite
-     * @param position pointer position
-     */
-    function sceneAddTile(sprite, position){
-    	var x = Math.floor((sprite.x + creation.cameraOffset.x - scene.x + game.camera.x)/DIV.width)*DIV.width;
-    	var y = Math.floor((sprite.y + creation.cameraOffset.y - scene.y + game.camera.y)/DIV.height)*DIV.height;
 
-    	for (var i = 0; i < tiles.length; ++i){
+    function sceneClearTilePlace(sprite, position){
+        var x = Math.floor((sprite.x + creation.cameraOffset.x - scene.x + game.camera.x)/DIV.width)*DIV.width;
+    	var y = Math.floor((sprite.y + creation.cameraOffset.y - scene.y + game.camera.y)/DIV.height)*DIV.height;
+        for (var i = 0; i < tiles.length; ++i){
     		if (tiles[i].x === x && tiles[i].y === y){
     			if (tiles[i].key === sprite.key){
     				return;
@@ -714,9 +711,25 @@
     			tiles.splice(i, 1)
     		}
     	}
+    }
+    /**
+     * Add tiles on scene in creative mode
+     * @param sprite tile sprite
+     * @param position pointer position
+     */
+    function sceneAddTile(sprite, position){
+    	var x = Math.floor((sprite.x + creation.cameraOffset.x - scene.x + game.camera.x)/DIV.width)*DIV.width;
+    	var y = Math.floor((sprite.y + creation.cameraOffset.y - scene.y + game.camera.y)/DIV.height)*DIV.height;
+
+    	sceneClearTilePlace(sprite, position);
+
     	var tile = scene.create(x, y, sprite.key);
     	tile.inputEnabled = true;
-    	tile.events.onInputDown.add(sceneTileOnInputDown, this);
+        tile.input.enableDrag();
+
+    	//tile.events.onInputDown.add(sceneTileOnInputDown, this);
+    	tile.events.onDragStart.add(sceneTileOnDragStart, this);
+    	tile.events.onDragStop.add(sceneTileOnDragStop, this);
         tile.input.priorityID = 1;
     	tiles.push(tile)
     }
@@ -783,12 +796,6 @@
         programPanelScrollMove(sprite);
     }
 
-    function sceneTileOnInputDown(sprite, pointer){
-    	var index = tiles.indexOf(sprite);
-    	tiles[index].destroy();
-    	tiles.splice(index, 1);
-    }
-
     function sceneBackgroundOnDragStart(sprite, pointer){
         sprite.originalPosition = sprite.cameraOffset.clone();
     }
@@ -825,6 +832,24 @@
         }else{
             sprite.position = sprite.originalPosition.clone();
             sceneHeroOnInputDown(sprite, pointer);
+        }
+    }
+
+    function sceneTileOnDragStart(sprite, pointer){
+    	sprite.originalPosition = sprite.position.clone();
+    }
+
+    function sceneTileOnDragStop(sprite, pointer){
+        if (Phaser.Point.distance(sprite.originalPosition, sprite.position) < (DIV.width + DIV.height)/4){
+    	    var index = tiles.indexOf(sprite);
+            tiles[index].destroy();
+            tiles.splice(index, 1);
+        }else{
+            var x = Math.floor((sprite.x)/DIV.width)*DIV.width;
+    	    var y = Math.floor((sprite.y)/DIV.height)*DIV.height;
+            sprite.x = x;
+            sprite.y = y;
+            sceneClearTilePlace(sprite, pointer);
         }
     }
 
