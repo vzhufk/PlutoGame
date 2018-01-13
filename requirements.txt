@@ -1,7 +1,9 @@
-django
-Pillow
-dj-database-url
-gunicorn
-whitenoise
-psycopg2
-django-allauth
+django==1.11.5
+Pillow==4.2.1
+dj-database-url==0.4.2
+gunicorn==19.7.1
+whitenoise==3.3.0
+psycopg2==2.7.3.1
+django-allauth==0.33.0
+imgurpython==1.1.7
+django-material==1.0.0
